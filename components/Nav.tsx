@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function Nav() {
   const [active, setActive] = useState<string>("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hideQuote, setHideQuote] = useState(false);
   useEffect(() => {
     const handler = () => {
       const ids = ["home","about","products","benefits","contact"];
@@ -21,6 +22,20 @@ export default function Nav() {
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
+  // hide the Quote button when the contact section is active or when on /contact route
+  useEffect(() => {
+    const updateHide = () => {
+      const pathIsContact = typeof window !== 'undefined' && window.location && window.location.pathname === '/contact';
+      setHideQuote(active === 'contact' || pathIsContact);
+    };
+    updateHide();
+    window.addEventListener('popstate', updateHide);
+    window.addEventListener('hashchange', updateHide);
+    return () => {
+      window.removeEventListener('popstate', updateHide);
+      window.removeEventListener('hashchange', updateHide);
+    };
+  }, [active]);
   const link = (id: string, label: string, onClick?: () => void) => (
     <Link
       href={`#${id}`}
@@ -34,10 +49,10 @@ export default function Nav() {
     </Link>
   );
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[94%] md:w-[86%] lg:w-[72%]">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[94%] md:w-[92%] lg:w-[84%]">
       <div className="nav-glass">
-        <div className="container flex items-center justify-between h-12 md:h-14 px-3 md:px-4">
-          <Link href="/" className="font-semibold text-blue-700 text-sm md:text-base">Oojed <span className="text-slate-700">Solutions</span></Link>
+        <div className="container flex items-center justify-between h-12 md:h-16 px-3 md:px-6">
+          <Link href="/" className="font-semibold text-blue-900 text-3xl md:text-4xl tracking-tight">OOJED <span className="text-slate-700">Solutions</span></Link>
 
           {/* mobile hamburger */}
           <div className="flex items-center gap-2">
@@ -62,7 +77,7 @@ export default function Nav() {
               {link("products","Products")}
               {link("benefits","Why Us")}
               {link("contact","Contact")}
-              <Link href="#contact" className="btn-primary hidden md:inline-flex">Get a Quote</Link>
+              {!hideQuote && <Link href="#contact" className="btn-primary hidden md:inline-flex">Get a Quote</Link>}
             </div>
           </div>
         </div>
@@ -77,7 +92,9 @@ export default function Nav() {
                   {link("products","Products", () => setMobileOpen(false))}
                   {link("benefits","Why Us", () => setMobileOpen(false))}
                   {link("contact","Contact", () => setMobileOpen(false))}
-                  <Link href="#contact" className="btn-primary w-full justify-center mt-2" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
+                  {!hideQuote && (
+                    <Link href="#contact" className="btn-primary w-full justify-center mt-2" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
+                  )}
                 </div>
               </div>
             </div>

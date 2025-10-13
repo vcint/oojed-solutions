@@ -89,14 +89,21 @@ export default function Contact() {
             <div className="text-blue-700"><Email className="w-6 h-6" /></div>
             <div>
               <div className="font-semibold">Email</div>
-              <a href={`mailto:${data.contacts.email}`} className="text-slate-700 underline">{data.contacts.email}</a>
+              <a href={`mailto:${data.contacts.email}`} className="text-slate-700">{data.contacts.email}</a>
             </div>
           </div>
           <div className="card p-6 flex items-start gap-4">
             <div className="text-blue-700"><Phone className="w-6 h-6" /></div>
             <div>
               <div className="font-semibold">Phone</div>
-              <div className="text-slate-700">{data.contacts.phones.join(" | ")}</div>
+              <div className="text-slate-700">
+                {data.contacts.phones.map((p: string, i: number) => (
+                  <span key={p}>
+                    <a href={`tel:${p.replace(/[^+0-9]/g, '')}`} className="text-slate-700" aria-label={`Call ${p}`}>{p}</a>
+                    {i < data.contacts.phones.length - 1 ? ' | ' : ''}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
           <div className="card p-6 flex items-start gap-4">
@@ -106,13 +113,13 @@ export default function Contact() {
               <div className="text-slate-700">{data.contacts.puneOffice}</div>
             </div>
           </div>
-          <div className="card p-6 flex items-start gap-4">
+          {/* <div className="card p-6 flex items-start gap-4">
             <div className="text-blue-700"><Location className="w-6 h-6" /></div>
             <div>
               <div className="font-semibold">Factory</div>
               <div className="text-slate-700">{data.contacts.factory}</div>
             </div>
-          </div>
+          </div> */}
         </aside>
       </div>
       <Toast message={toast.message} open={toast.open} onClose={() => setToast({ open: false, message: '' })} />

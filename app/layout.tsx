@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from 'next/script';
 import "./globals.css";
+import WhatsAppButton from "../components/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "Oojed Solutions | Solar & LED Specialists",
@@ -38,10 +39,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="twitter:image" content="/oojed-logo.png" />
       </head>
       <body className="bg-gradient-to-b from-white to-slate-50 text-slate-800 selection:bg-brand-300/40">
-        {children}
+  {children}
 
-        {/* contact badge web component (deferred) */}
-        <Script src="/contact-badge.js" strategy="lazyOnload" />
+  {/* floating WhatsApp connect button (site-wide) */}
+  <WhatsAppButton />
+
+  {/* contact badge web component (deferred) */}
+  <Script src="/contact-badge.js" strategy="lazyOnload" />
 
       </body>
     </html>

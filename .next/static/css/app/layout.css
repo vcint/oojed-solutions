@@ -557,8 +557,14 @@ h1,h2,h3,h4 { color: #0f172a; }
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.inline{
+  display: inline;
+}
 .flex{
   display: flex;
+}
+.inline-flex{
+  display: inline-flex;
 }
 .grid{
   display: grid;
@@ -699,6 +705,9 @@ h1,h2,h3,h4 { color: #0f172a; }
 .rounded-md{
   border-radius: 0.375rem;
 }
+.rounded-full{
+  border-radius: 9999px;
+}
 .border{
   border-width: 1px;
 }
@@ -733,6 +742,10 @@ h1,h2,h3,h4 { color: #0f172a; }
 }
 .bg-white\/10{
   background-color: rgb(255 255 255 / 0.1);
+}
+.bg-emerald-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(16 185 129 / var(--tw-bg-opacity, 1));
 }
 .bg-gradient-to-b{
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
@@ -797,6 +810,10 @@ h1,h2,h3,h4 { color: #0f172a; }
 .py-24{
   padding-top: 6rem;
   padding-bottom: 6rem;
+}
+.py-3{
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .pt-28{
   padding-top: 7rem;
@@ -1107,6 +1124,10 @@ nav a.active{
 .selection\:bg-brand-300\/40::selection{
   background-color: rgb(188 223 255 / 0.4);
 }
+.hover\:bg-emerald-600:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 150 105 / var(--tw-bg-opacity, 1));
+}
 .hover\:text-blue-700:hover{
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity, 1));
@@ -1128,7 +1149,14 @@ nav a.active{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(203 213 225 / var(--tw-ring-opacity, 1));
 }
+.focus\:ring-emerald-300:focus{
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(110 231 183 / var(--tw-ring-opacity, 1));
+}
 @media (min-width: 640px){
+  .sm\:inline-block{
+    display: inline-block;
+  }
   .sm\:w-\[94\%\]{
     width: 94%;
   }
@@ -1146,8 +1174,14 @@ nav a.active{
   .md\:h-14{
     height: 3.5rem;
   }
+  .md\:h-16{
+    height: 4rem;
+  }
   .md\:w-\[86\%\]{
     width: 86%;
+  }
+  .md\:w-\[92\%\]{
+    width: 92%;
   }
   .md\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1161,6 +1195,10 @@ nav a.active{
   .md\:px-4{
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .md\:px-6{
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
   .md\:text-4xl{
     font-size: 2.25rem;
@@ -1182,6 +1220,9 @@ nav a.active{
 @media (min-width: 1024px){
   .lg\:w-\[72\%\]{
     width: 72%;
+  }
+  .lg\:w-\[84\%\]{
+    width: 84%;
   }
   .lg\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));

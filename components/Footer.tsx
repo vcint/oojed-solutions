@@ -17,7 +17,7 @@ export default function Footer() {
             <li><a href="#about" className="hover:text-blue-700">About</a></li>
             <li><a href="#products" className="hover:text-blue-700">Products</a></li>
             <li><a href="#benefits" className="hover:text-blue-700">Why Us</a></li>
-            <li><a href="#contact" className="hover:text-blue-700">Contact</a></li>
+            {/* <li><a href="#contact" className="hover:text-blue-700">Contact</a></li> */}
           </ul>
         </div>
 
@@ -30,18 +30,25 @@ export default function Footer() {
             </div>
             <div className="flex items-start gap-3">
               <FiPhone className="w-5 h-5 text-blue-700 mt-1" />
-              <div>{data.contacts.phones.join(' | ')}</div>
+              <div>
+                {data.contacts.phones.map((p: string, i: number) => (
+                  <span key={p}>
+                    <a href={`tel:${p.replace(/[^+0-9]/g, '')}`} className="text-slate-700" aria-label={`Call ${p}`}>{p}</a>
+                    {i < data.contacts.phones.length - 1 ? ' | ' : ''}
+                  </span>
+                ))}
+              </div>
             </div>
             <div className="flex items-start gap-3">
               <FiMail className="w-5 h-5 text-blue-700 mt-1" />
-              <a href={`mailto:${data.contacts.email}`} className="underline text-slate-700">{data.contacts.email}</a>
+              <a href={`mailto:${data.contacts.email}`} className="text-slate-700">{data.contacts.email}</a>
             </div>
           </div>
 
           <div className="mt-4 flex items-center gap-3">
-            <a href="#" className="text-slate-500 hover:text-blue-700"><FiFacebook className="w-5 h-5" /></a>
-            <a href="#" className="text-slate-500 hover:text-blue-700"><FiInstagram className="w-5 h-5" /></a>
-            <a href="#" className="text-slate-500 hover:text-blue-700"><FiLinkedin className="w-5 h-5" /></a>
+            <a href="#" className="text-slate-500 hover:text-blue-700" target="_blank"><FiFacebook className="w-5 h-5" /></a>
+            <a href="https://www.instagram.com/oojed_solutions" className="text-slate-500 hover:text-blue-700" target="_blank"><FiInstagram className="w-5 h-5" /></a>
+            <a href="#" className="text-slate-500 hover:text-blue-700" target="_blank"><FiLinkedin className="w-5 h-5" /></a>
           </div>
         </div>
       </div>
