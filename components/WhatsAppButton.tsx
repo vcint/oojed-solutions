@@ -13,12 +13,20 @@ export default function WhatsAppButton() {
   const href = phone ? `https://wa.me/${phone.replace(/^\+/, '')}?text=${text}` : `https://wa.me/?text=${text}`;
 
   return (
-    <div className="fixed right-4 bottom-6 z-50">
+    <div
+      className="whatsapp-pulse"
+      style={{
+        position: 'fixed',
+        right: '1rem',
+        bottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)',
+        zIndex: 9999,
+      }}
+    >
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="group inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-4 py-3 shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-300"
+        className="group inline-flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full px-4 py-3 shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-300 hover-raise"
         aria-label="Chat with us on WhatsApp"
       >
         {/* Prefer a public asset if available for branding; fallback to inline filled glyph */}

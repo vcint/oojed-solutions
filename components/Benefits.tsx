@@ -7,7 +7,7 @@ export default function Benefits() {
   return (
     <section id="benefits" className="section bg-white">
       <div className="container">
-        <h2 className="text-3xl md:text-4xl font-bold">Why choose Oojed?</h2>
+        <h2 className="text-3xl md:text-4xl font-bold">Why choose OOJED?</h2>
         <p className="text-slate-600 mt-2">Transparent, quality-first manufacturing & services.</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {data.values.map((v, i) => {

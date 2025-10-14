@@ -42,7 +42,7 @@ export default function Products() {
               </div>
               <div className="p-4">
                 {/* quick look: one-line summary */}
-                {cat.desc && <p className="text-slate-600 line-clamp-2">{cat.desc}</p>}
+                {cat.desc && <p className="text-slate-600 line-clamp-2 font-semibold">{cat.desc}</p>}
                 {/* small tags: show up to 2 representative items */}
                 {cat.items && (
                   <div className="mt-3 flex flex-wrap gap-2">

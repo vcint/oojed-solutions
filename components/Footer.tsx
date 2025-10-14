@@ -6,9 +6,9 @@ export default function Footer() {
     <footer className="bg-slate-50 border-t border-slate-100">
       <div className="container py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <div className="text-xl font-semibold text-slate-900">Oojed Solutions</div>
+          <div className="text-xl font-semibold text-slate-900">OOJED Solutions</div>
           <p className="mt-3 text-slate-600">Manufacturer and supplier of solar water heaters, LED lighting and solar pumps — quality products and end-to-end support.</p>
-          <div className="mt-4 text-sm text-slate-500">© {new Date().getFullYear()} Oojed Solutions</div>
+          <div className="mt-4 text-sm text-slate-500">© {new Date().getFullYear()} OOJED Solutions</div>
         </div>
 
         <div>

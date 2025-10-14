@@ -49,12 +49,12 @@ export default function HomePage() {
          <section id="about" className="section">
           <div className="container">
             <div className="prose max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold">About Oojed Solutions</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">About OOJED Solutions</h2>
               <p className="text-slate-700 mt-2">{data.about}</p>
               <p className="text-slate-600 mt-4">Our core strengths include:</p>
               <ul className="list-disc ml-6 text-slate-700 mt-2">
                 {data.values.map((v) => (
-                  <li key={v}>{v}</li>
+                  <li key={v} className="font-semibold">{v}</li>
                 ))}
               </ul>
               <p className="text-slate-600 mt-4">We design and manufacture to meet BIS standards where applicable, and provide end-to-end project support from site survey through commissioning and after-sales service.</p>

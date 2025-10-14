@@ -4,26 +4,40 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import data from "@/data/site.json";
 import HeroCarousel from "./HeroCarousel";
+// headline is rendered statically; typewriter component removed
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".hero-head", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: "power2.out" });
-      gsap.fromTo(".hero-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, delay: .12, ease: "power2.out" });
-      gsap.fromTo(".hero-cta", { y: 6, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, delay: .22, ease: "power2.out" });
+      // subtle lift + fade for the heading container
+      gsap.fromTo(
+        ".hero-head",
+        { y: 8, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, delay: 0.12, ease: "power2.out" }
+      );
+      // left-to-right reveal for the text using clip-path
+      gsap.fromTo(
+        ".hero-head .reveal",
+        { clipPath: "inset(0 100% 0 0)" },
+        { clipPath: "inset(0 0% 0 0)", duration: 1.0, delay: 0.18, ease: "power2.out" }
+      );
+      gsap.fromTo(".hero-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .36, ease: "power2.out" });
+      gsap.fromTo(".hero-cta", { y: 6, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .56, ease: "power2.out" });
     }, ref);
     return () => ctx.revert();
   }, []);
+  
+
   return (
     <section ref={ref} id="home" className="section pt-28 relative overflow-hidden">
       <HeroCarousel />
       <div className="container grid md:grid-cols-2 items-center gap-10 relative">
         <div>
           {/* <span className="badge">Since 2014</span> */}
-          <h1 className="hero-head text-4xl md:text-6xl font-black tracking-tight mt-4">
-            {data.hero.headline}
+          <h1 className="hero-head text-4xl md:text-6xl font-black tracking-tight mt-4 overflow-hidden">
+            <span className="reveal inline-block">{data.hero.headline}</span>
           </h1>
           <p className="hero-sub text-lg md:text-xl text-slate-600 mt-4">{data.hero.sub}</p>
           <div className="hero-cta mt-8 flex gap-4">
