@@ -49,6 +49,7 @@ export default function Hero() {
             <li className="card p-4">LED Street Lights</li>
             <li className="card p-4">Solar Pumps</li>
             <li className="card p-4">Poles & Masts</li>
+            <li className="card p-4">Solar Spare Parts</li>
           </ul>
         </div>
         <div className="card p-6 md:p-8">

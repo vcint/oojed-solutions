@@ -34,9 +34,9 @@
       "name": "Solar Water Heaters",
       "desc": "ETC & FPC, pressurized and non-pressurized types, with winter angle optimization.",
       "items": [
-        "ETC Solar Water Heater",
-        "FPC Solar Water Heater",
-        "ETC Manifold Type SWH"
+        "ETC Solar Water Heater Systems",
+        "FPC Solar Water Heater Systems",
+        "ETC Manifold Type Solar Water Heater Systems"
       ],
       "highlights": [
         "Special non-stick polymer coating for hard water (inner MS tank)",
@@ -83,6 +83,23 @@
     {
       "name": "Poles & Masts",
       "desc": "Hexagonal and round; sizes 4m, 5m, 9m, 12m, 15m with 1/2/4/6 luminaire options."
+    }
+    ,
+    {
+      "name": "Solar Spare Parts",
+      "desc": "Replacement components and consumables for solar systems and water heaters.",
+      "items": [
+        "Vacuum Tubes",
+        "Gaskets & Seals",
+        "Heat Exchangers",
+        "Mounting Brackets",
+        "Controller Modules"
+      ],
+      "highlights": [
+        "OEM-compatible replacements",
+        "High-durability materials for harsh water",
+        "Fast dispatch for bulk orders"
+      ]
     }
   ]
 }

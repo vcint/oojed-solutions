@@ -8,7 +8,7 @@ import { FiBox as Product, FiSun as Solar, FiZap as Lightbulb } from "react-icon
 export default function Products() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<any | null>(null);
-  const imgs = ['/solar-water-heater.webp','/2.webp','/solar-water-pump.webp', '/solar-street-light.webp','/poles.webp'];
+  const imgs = ['/solar-water-heater.webp','/2.webp','/solar-water-pump.webp', '/solar-street-light.webp','/poles.webp','/spare-parts.jpeg'];
   const openProduct = (cat: any, i: number) => {
     setSelected({ ...cat, image: imgs[i % imgs.length] });
     setOpen(true);
