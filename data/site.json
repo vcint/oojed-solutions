@@ -1,105 +1,246 @@
 {
   "hero": {
-    "headline": "Simple, Innovative & Smart Clean Energy",
-    "sub": "Leading manufacturer of Solar Water Heater parts and LED Street Lights in Maharashtra since 2014.",
-    "ctaPrimary": {
-      "label": "Get a Quote",
-      "href": "#contact"
-    },
-    "ctaSecondary": {
-      "label": "Our Products",
-      "href": "#products"
-    }
+    "headline": "Simple, Smart, Reliable Clean Energy",
+    "sub": "Manufacturer of Solar Water Heaters, Solar Power Systems, and LED Street/Flood Lights in Maharashtra since 2014.",
+    "ctaPrimary": { "label": "Get a Quote", "href": "#contact" },
+    "ctaSecondary": { "label": "Our Products", "href": "#products" }
   },
   "contacts": {
     "email": "sales.oojed@gmail.com",
-    "phones": [
-      "+91 9511229430"
-    ],
-    "puneOffice": "Walhekar Wadi Road,Near Munjoba Mandir,Chinchwad, Pune, Maharashtra 411033"
+    "phones": ["+91 9511229430"],
+    "puneOffice": "Walhekar Wadi Road, Near Munjoba Mandir, Chinchwad, Pune, Maharashtra 411033"
   },
   "values": [
-    "Quality assured range of products",
-    "Ethical business practices",
-    "Transparent deals",
-    "Ability to fulfill bulk demands",
-    "Competitive pricing structure",
-    "On-site attention & support",
+    "Quality-assured products (BIS/ISO compliant components)",
+    "Ethical, transparent dealings",
+    "Ability to fulfill bulk & custom orders",
+    "Competitive pricing and clear SLAs",
+    "On-site attention & local support",
     "Faster resolution of after-sales queries"
   ],
-  "mission": "To save power with simple, innovative smart ways so everyone is empowered to create a zero energy footprint for themselves, their home and their business.",
-  "about": "OOJED Solutions designs, manufactures and installs dependable clean-energy systems across Maharashtra. We specialise in solar water heating, solar pumping systems, LED street & flood lighting, and turnkey rooftop/ground-mounted solar plants. Unlike marketplace listings, this site represents our direct manufacturing and project delivery capabilities: in-house engineering, factory testing, and a local field service team for rapid commissioning and reliable after-sales support.\n\nWe focus on real-world performance: corrosion-resistant components for hard-water regions, surge-protected LED products, and solar pump systems sized to deliver the correct flow and head for each site. For developers and municipalities we provide technical documentation, installation support, and 1:1 project planning. Contact us to request a site survey or an itemised quotation.",
+  "mission": "To help homes and businesses cut energy costs with simple, smart, and reliable clean-energy solutions—enabling near-zero energy footprint through practical engineering and dependable service.",
+  "about": "OOJED Solutions designs, manufactures, and installs dependable clean-energy systems across Maharashtra. We specialise in solar water heating, rooftop/hybrid solar power, solar pumping, and LED street/flood lighting. This is our direct engineering & delivery arm—no marketplace middle layers. You get in-house design, factory-tested assemblies, and a local field service team for rapid commissioning and responsive after-sales.\n\nWe prioritise real-world performance: polymer-coated tanks for hard-water regions, surge-protected LED drivers for grid fluctuations, accurate pump sizing for required head/flow, and solar PV designed for your roof and policy (net-metering, subsidy). Developers and municipalities get documentation, layout assistance, and on-site support. Request a site survey or an itemised quotation to get started.",
   "categories": [
     {
       "name": "Solar Water Heaters",
-      "desc": "ETC & FPC, pressurized and non-pressurized types, with winter angle optimization.",
+      "desc": "High-efficiency ETC & FPC systems for Indian conditions. Pressurized/non-pressurized variants with winter-angle optimisation. Save 70–90% on water-heating with quick, warranty-backed installation.",
       "items": [
-        "ETC Solar Water Heater Systems",
-        "FPC Solar Water Heater Systems",
-        "ETC Manifold Type Solar Water Heater Systems"
+        "ETC Solar Water Heater Systems (100–500 LPD)",
+        "FPC Solar Water Heater Systems (100–500 LPD)",
+        "Manifold / Pressurized Systems for multi-storey buildings & booster pumps"
       ],
       "highlights": [
-        "Special non-stick polymer coating for hard water (inner MS tank)",
-        "Copper-coated triple layer vacuum tubes (1800mm)",
-        "Latest welding technology \u2014 enhanced life up to ~20 years"
-      ]
+        "Hard-water ready: polymer-coated inner MS tank resists scaling",
+        "Triple-layer 1800 mm copper-coated vacuum tubes for superior heat retention",
+        "Rugged anti-corrosion build; typical service life ~20 years",
+        "Pressurized variants support up to ~6 bar",
+        "Payback in ~1.5–3 years; subsidy assistance available"
+      ],
+      "__optional": {
+        "quickSpecs": {
+          "Capacities": "100, 150, 200, 250, 300, 500 LPD",
+          "OperatingPressure": "Up to ~6 bar (pressurized models)",
+          "Tank": "MS with polymer coat; PUF insulation; SS options available",
+          "Mounting": "RCC/metal roof stand with winter-angle optimisation",
+          "HotWaterAvailability": "Early morning to late evening with insulated storage"
+        },
+        "useCases": [
+          "Independent homes, villas, farmhouses",
+          "Apartments with pressure pumps / high-rise plumbing",
+          "Small hostels/PGs, salons, clinics, restaurants"
+        ],
+        "selectionGuide": {
+          "ETC": "Best value, fast heating, ideal for most homes",
+          "FPC": "Metal flat-plate collectors; robust under high pressure/coastal heat",
+          "ManifoldPressurized": "For multi-storey/booster-pump systems; stable pressure"
+        },
+        "warranty": {
+          "Tubes": "5–7 years (model-dependent)",
+          "Tank/Structure": "5–10 years (model-dependent)",
+          "Service": "1st-year preventive maintenance included"
+        },
+        "installationIncludes": [
+          "Free site survey & optimal tilt setting",
+          "Stand, insulated piping (up to 6 m), valves & fittings",
+          "Same-day/one-day professional installation by trained technicians"
+        ],
+        "maintenance": [
+          "Annual flush/descale in hard-water areas to sustain efficiency",
+          "Visual tube check before monsoon; clean debris from collectors",
+          "Call support if output drops suddenly (air-lock/valve issue likely)"
+        ],
+        "performanceNotes": [
+          "Works in winter/monsoon—sized for local climate; cloudy days still produce usable heat",
+          "No electricity for heating; power only for pumps if present",
+          "Storage insulation maintains temperature across the day"
+        ],
+        "compliance": [
+          "BIS/ISO-compliant components",
+          "Local/state subsidy guidance & paperwork assistance"
+        ],
+        "financing": {
+          "EMI": "Available with partnered providers",
+          "Subsidy": "State-specific; eligibility checked during survey"
+        },
+        "cta": {
+          "primary": "Get Pricing & Sizing",
+          "secondary": "Download Spec Sheet (PDF)",
+          "helper": "Share your City and Family Size (e.g., 4 people, 2 bathrooms) for an exact LPD recommendation."
+        },
+        "faq": [
+          { "q": "Will it work in winter/monsoon?", "a": "Yes. Systems are sized for local climate; even on cloudy days, insulated storage ensures usable hot water." },
+          { "q": "Is hard water a problem?", "a": "Polymer-coated tanks resist scale. An annual flush keeps efficiency high." },
+          { "q": "How long is installation?", "a": "Typically completed in 4–6 hours after survey confirmation." },
+          { "q": "What roof types are supported?", "a": "RCC and metal roofs; structure is assessed during the free site survey." }
+        ],
+        "contact": { "phone": "+91-9511229430", "note": "Call for a free site survey and subsidy eligibility check." }
+      }
     },
     {
       "name": "Solar Power Plants",
-      "desc": "On-Grid / Off-Grid with 20-year PPA guidance and protections.",
+      "desc": "On-Grid / Hybrid rooftop systems for homes, SMBs, and industry—design, permits, and net-metering included. Cut monthly bills by 70–90% with Tier-1 panels and BIS-certified balance-of-system.",
       "items": [
-        "Residential Rooftop",
-        "Commercial & Industrial",
-        "Institutions"
+        "Residential Rooftop (3–15 kW)",
+        "Commercial & Industrial (10–500 kW)",
+        "Institutions & Housing Societies"
       ],
       "highlights": [
-        "Fault current & lightning protection",
-        "Almost zero maintenance",
-        "Accelerated depreciation benefits"
-      ]
+        "Tier-1 Mono PERC/TopCon panels (21%+ efficiency)",
+        "MNRE/BIS-compliant inverters with surge & earthing protection",
+        "Smart monitoring (generation, savings, alarms)",
+        "Net-metering & subsidy assistance handled end-to-end",
+        "25-year panel performance warranty; 5–10 year inverter warranty"
+      ],
+      "__optional": {
+        "quickSpecs": {
+          "Sizes": "3, 5, 7.5, 10, 15, 20, 30 kW+",
+          "Generation": "1200–1600 kWh/kW/year (site-dependent)",
+          "Payback": "3–5 years with net-metering"
+        },
+        "installationIncludes": [
+          "Site survey, shadow analysis & yield estimate",
+          "Structure, AC/DC wiring, SPD/earthing, safety labels",
+          "Net-metering docs, DISCOM coordination, and commissioning"
+        ],
+        "faq": [
+          { "q": "Will bills go to zero?", "a": "Depends on sizing and local policy. Most users see 70–90% reduction with net-metering." },
+          { "q": "Battery needed?", "a": "Not for bill savings. Choose hybrid if you also want backup during outages." },
+          { "q": "Roof penetration?", "a": "We use non-penetrative or sealed mounts per roof type and wind zone." }
+        ],
+        "cta": {
+          "primary": "Get a Free Solar Assessment",
+          "secondary": "See Sample Savings Report (PDF)",
+          "helper": "Upload last 6 months’ bills for accurate sizing."
+        }
+      }
     },
     {
       "name": "Solar Pumps",
-      "desc": "DC (1\u201321 HP) and AC (1\u2013100 HP) solar pumping solutions for agriculture & industry.",
+      "desc": "DC (1–21 HP) and AC (1–100 HP) solar pumping solutions for agriculture and industry—sized for your required head and flow, with MNRE-compliant protection.",
       "items": [
-        "DC Pumps 1\u201321 HP",
-        "AC Pumps 1\u2013100 HP"
-      ]
+        "DC Pumps 1–21 HP (surface/submersible)",
+        "AC Pumps 1–100 HP with VFD",
+        "Controllers, structures, and protection kits"
+      ],
+      "highlights": [
+        "Accurate sizing for target head/flow; lower lifecycle cost",
+        "MPPT/VFD controllers for efficient operation",
+        "Dry-run, over-voltage, and surge protections",
+        "Galvanised structures with foundation drawings",
+        "Remote monitoring options on request"
+      ],
+      "__optional": {
+        "quickSpecs": {
+          "Head": "Up to site requirement (validated during survey)",
+          "Flow": "Designed to agronomic/industrial demand",
+          "Autonomy": "Optimised for seasonal solar profile"
+        },
+        "faq": [
+          { "q": "Can it run in low light?", "a": "Controllers maximise available sun; storage/over-sizing is recommended for monsoon." },
+          { "q": "Existing bore compatibility?", "a": "Yes—subject to bore size/depth and pump curve matching." }
+        ],
+        "cta": {
+          "primary": "Request Pump Sizing",
+          "secondary": "Download Controller Datasheet (PDF)",
+          "helper": "Share required head, flow, and bore details."
+        }
+      }
     },
     {
       "name": "LED Lighting",
-      "desc": "Street, Flood; BIS-approved control gear.",
+      "desc": "High-efficiency street and flood lighting with BIS-approved control gear. Designed for Indian grid conditions with surge protection and IP65 enclosures.",
       "items": [
-        "12W\u2013150W Street Lights",
-        "Flood Lights 30W\u2013150W"
+        "12W–150W Street Lights",
+        "30W–150W Flood Lights",
+        "Brackets, poles, and accessories"
       ],
       "specs": [
-        "Input 185\u2013260V AC, 50Hz",
-        "Surge protection up to 4 KVA",
-        "IP65, Aluminum casting + glass",
-        "Beam angle 120\u00b0"
-      ]
+        "Input 185–260 V AC, 50 Hz",
+        "Surge immunity up to 4 kV (driver level)",
+        "IP65, aluminium housing with tempered glass",
+        "Typical beam angle ~120°"
+      ],
+      "highlights": [
+        "High-efficiency LEDs (120–150 lm/W class, model-dependent)",
+        "BIS-approved drivers with protection features",
+        "Thermal design for long service life",
+        "Optional motion dimming and smart controls"
+      ],
+      "__optional": {
+        "faq": [
+          { "q": "Does it handle voltage spikes?", "a": "Yes—drivers are surge-hardened and properly earthed in installation." },
+          { "q": "Mounting options?", "a": "Wall/arm mounts, poles, and high-mast brackets available." }
+        ],
+        "cta": {
+          "primary": "Get a Lighting Layout",
+          "secondary": "Download Spec Sheet (PDF)",
+          "helper": "Share road/area dimensions for a photometric plan."
+        }
+      }
     },
     {
       "name": "Poles & Masts",
-      "desc": "Hexagonal and round; sizes 4m, 5m, 9m, 12m, 15m with 1/2/4/6 luminaire options."
-    }
-    ,
+      "desc": "Hot-dip galvanised (HDG) hexagonal/round poles and high masts—4 m, 5 m, 9 m, 12 m, 15 m—with 1/2/4/6 luminaire options.",
+      "highlights": [
+        "HDG finish for corrosion resistance",
+        "Wind-zone rated designs",
+        "Base plates, foundation bolts, and drawings provided",
+        "Custom arm lengths and bracket options"
+      ],
+      "__optional": {
+        "quickSpecs": {
+          "Heights": "4 m, 5 m, 9 m, 12 m, 15 m",
+          "Arms": "1/2/4/6 luminaires",
+          "Finish": "Hot-dip galvanised"
+        },
+        "cta": {
+          "primary": "Request Foundation Drawing",
+          "secondary": "Download Product Matrix (PDF)",
+          "helper": "Share site wind zone and luminaire count."
+        }
+      }
+    },
     {
       "name": "Solar Spare Parts",
-      "desc": "Replacement components and consumables for solar systems and water heaters.",
+      "desc": "OEM-compatible replacement components and consumables for solar water heaters, PV systems, and lighting.",
       "items": [
-        "Vacuum Tubes",
-        "Gaskets & Seals",
-        "Heat Exchangers",
-        "Mounting Brackets",
-        "Controller Modules"
+        "Vacuum tubes, gaskets & seals",
+        "Heat exchangers, mounting brackets",
+        "Controllers, sensors, and valves",
+        "Drivers, optics, surge-protective devices (SPD)"
       ],
       "highlights": [
-        "OEM-compatible replacements",
-        "High-durability materials for harsh water",
-        "Fast dispatch for bulk orders"
-      ]
+        "OEM compatibility and fitment guidance",
+        "High-durability materials for hard-water and outdoor use",
+        "Fast dispatch for maintenance & bulk orders"
+      ],
+      "__optional": {
+        "cta": {
+          "primary": "Check Part Availability",
+          "secondary": "Download Spare Parts Catalog (PDF)",
+          "helper": "Share part name, rating, and photos for faster matching."
+        }
+      }
     }
   ]
 }
