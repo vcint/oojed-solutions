@@ -7,7 +7,7 @@
   },
   "contacts": {
     "email": "sales.oojed@gmail.com",
-    "phones": ["+91 9511229430"],
+    "phones": ["+91 95112 29430"],
     "puneOffice": "Walhekar Wadi Road, Near Munjoba Mandir, Chinchwad, Pune, Maharashtra 411033"
   },
   "values": [
@@ -23,6 +23,7 @@
   "categories": [
     {
       "name": "Solar Water Heaters",
+      "slug": "solar water heaters",
       "desc": "High-efficiency ETC & FPC systems for Indian conditions. Pressurized/non-pressurized variants with winter-angle optimisation. Save 70–90% on water-heating with quick, warranty-backed installation.",
       "items": [
         "ETC Solar Water Heater Systems (100–500 LPD)",
@@ -98,6 +99,7 @@
     },
     {
       "name": "Solar Power Plants",
+      "slug": "solar-power-plants",
       "desc": "On-Grid / Hybrid rooftop systems for homes, SMBs, and industry—design, permits, and net-metering included. Cut monthly bills by 70–90% with Tier-1 panels and BIS-certified balance-of-system.",
       "items": [
         "Residential Rooftop (3–15 kW)",
@@ -136,6 +138,7 @@
     },
     {
       "name": "Solar Pumps",
+      "slug": "solar-pumps",
       "desc": "DC (1–21 HP) and AC (1–100 HP) solar pumping solutions for agriculture and industry—sized for your required head and flow, with MNRE-compliant protection.",
       "items": [
         "DC Pumps 1–21 HP (surface/submersible)",
@@ -168,6 +171,7 @@
     },
     {
       "name": "LED Lighting",
+      "slug": "led-lighting",
       "desc": "High-efficiency street and flood lighting with BIS-approved control gear. Designed for Indian grid conditions with surge protection and IP65 enclosures.",
       "items": [
         "12W–150W Street Lights",
@@ -200,6 +204,7 @@
     },
     {
       "name": "Poles & Masts",
+      "slug": "poles-masts",
       "desc": "Hot-dip galvanised (HDG) hexagonal/round poles and high masts—4 m, 5 m, 9 m, 12 m, 15 m—with 1/2/4/6 luminaire options.",
       "highlights": [
         "HDG finish for corrosion resistance",
@@ -222,6 +227,7 @@
     },
     {
       "name": "Solar Spare Parts",
+      "slug": "solar-spare-parts",
       "desc": "OEM-compatible replacement components and consumables for solar water heaters, PV systems, and lighting.",
       "items": [
         "Vacuum tubes, gaskets & seals",
