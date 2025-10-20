@@ -1323,6 +1323,11 @@ html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
 :where(.dark, [data-theme="dark"]) .nav a.active { color: #fff !important; }
 :where(.dark, [data-theme="dark"]) .hero .card { background-color: rgba(255,255,255,0.02) !important; }
 
+/* Ensure contact form renders correctly in explicit light mode as well */
+.contact-card { background-color: #ffffff; color: #0f172a; }
+.contact-card input, .contact-card textarea { background-color: #ffffff !important; color: #0f172a !important; border-color: rgba(15,23,42,0.06) !important; }
+.contact-card .btn-primary, .contact-card .btn-outline { background: transparent; }
+
 :where(.dark, [data-theme="dark"]) .btn:hover { background-color: rgba(255,255,255,0.02) !important; }
 
 :where(.dark, [data-theme="dark"]) .hero .card .text-slate-600 { color: var(--muted) !important; }
@@ -1524,12 +1529,12 @@ html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
     --tw-bg-opacity: 1;
     background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1));
   }
-  .dark\:bg-transparent{
-    background-color: transparent;
-  }
   .dark\:bg-slate-900{
     --tw-bg-opacity: 1;
     background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1));
+  }
+  .dark\:bg-transparent{
+    background-color: transparent;
   }
   .dark\:from-\[\#153e75\]{
     --tw-gradient-from: #153e75 var(--tw-gradient-from-position);

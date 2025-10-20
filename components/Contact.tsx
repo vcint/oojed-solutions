@@ -55,7 +55,7 @@ export default function Contact() {
   return (
     <section id="contact" className="section bg-white">
       <div className="container grid lg:grid-cols-2 gap-8 items-start">
-  <div className="card p-8 bg-white dark:bg-slate-900">
+  <div className="card p-8 bg-white dark:bg-slate-900 contact-card">
           <h3 className="text-2xl font-semibold">Get in touch</h3>
           <p className="text-slate-600 mt-2">Tell us about your requirement and we'll respond with a tailored solution and quote.</p>
           <form onSubmit={submit} className="mt-6 grid grid-cols-1 gap-4">
