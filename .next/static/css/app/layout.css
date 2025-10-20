@@ -1328,6 +1328,36 @@ html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
 .contact-card input, .contact-card textarea { background-color: #ffffff !important; color: #0f172a !important; border-color: rgba(15,23,42,0.06) !important; }
 .contact-card .btn-primary, .contact-card .btn-outline { background: transparent; }
 
+/* Strong explicit light-mode overrides: when the root html is NOT marked dark, force readable light styles
+   This helps cover cases where a dark rule may be leaking or a browser/theme mismatch causes the contact
+   card to remain dark on mobile after switching to light. Use !important and a root-scoped selector to
+   ensure these styles take precedence when not in dark mode. */
+:where(html:not(.dark):not([data-theme="dark"])) .contact-card,
+:where(:root:not(.dark):not([data-theme="dark"])) .contact-card {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+:where(html:not(.dark):not([data-theme="dark"])) .contact-card input,
+:where(html:not(.dark):not([data-theme="dark"])) .contact-card textarea,
+:where(:root:not(.dark):not([data-theme="dark"])) .contact-card input,
+:where(:root:not(.dark):not([data-theme="dark"])) .contact-card textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15,23,42,0.06) !important;
+}
+
+/* Ensure dark-mode still applies when the site is marked dark */
+:where(.dark, [data-theme="dark"]) .contact-card {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+}
+:where(.dark, [data-theme="dark"]) .contact-card input,
+:where(.dark, [data-theme="dark"]) .contact-card textarea {
+  background-color: #0b1220 !important;
+  color: var(--text) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
 :where(.dark, [data-theme="dark"]) .btn:hover { background-color: rgba(255,255,255,0.02) !important; }
 
 :where(.dark, [data-theme="dark"]) .hero .card .text-slate-600 { color: var(--muted) !important; }
