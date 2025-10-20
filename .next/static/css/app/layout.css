@@ -1358,6 +1358,36 @@ html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
   border-color: rgba(255,255,255,0.06) !important;
 }
 
+/* Targeted button styles inside contact card to ensure accessible contrast */
+/* Primary submit button keeps the gradient and white text */
+:where(html:not(.dark):not([data-theme="dark"])) .contact-card .btn-submit,
+:where(:root:not(.dark):not([data-theme="dark"])) .contact-card .btn-submit {
+  background-image: linear-gradient(to bottom, #102a6d 0%, #0b4bd6 100%) !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 24px rgba(11,75,214,0.18) !important;
+}
+
+/* Reset/secondary button: use solid navy background with white text for sufficient contrast */
+:where(html:not(.dark):not([data-theme="dark"])) .contact-card .btn-reset,
+:where(:root:not(.dark):not([data-theme="dark"])) .contact-card .btn-reset {
+  background-color: #102a6d !important; /* navy */
+  color: #ffffff !important;
+  border-color: #102a6d !important;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.08) !important;
+}
+
+/* Dark-mode variants keep lighter/transparent look but remain readable */
+:where(.dark, [data-theme="dark"]) .contact-card .btn-submit {
+  background-image: linear-gradient(to bottom, #153e75 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+}
+:where(.dark, [data-theme="dark"]) .contact-card .btn-reset {
+  background-color: transparent !important;
+  color: var(--text) !important;
+  border-color: rgba(255,255,255,0.14) !important;
+}
+
 /* Ensure product 'Learn more' CTA is visible in light mode on small viewports */
 .learn-more-btn {
   /* default (light mode) styles reinforced */

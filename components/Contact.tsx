@@ -105,8 +105,8 @@ export default function Contact() {
               />
             </label>
             <div className="flex items-center gap-4">
-              <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-5 py-2.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 md:px-6 md:py-3" disabled={loading}>{loading ? 'Sending...' : 'Send enquiry'}</button>
-              <button type="button" className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-4 py-2 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20" onClick={() => { setForm({ name: '', email: '', phone: '', message: '' }); setToast({ open: true, message: 'Form cleared' }); }}>Reset</button>
+              <button type="submit" className="btn-submit inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-5 py-2.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 md:px-6 md:py-3" disabled={loading}>{loading ? 'Sending...' : 'Send enquiry'}</button>
+              <button type="button" className="btn-reset inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-4 py-2 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20" onClick={() => { setForm({ name: '', email: '', phone: '', message: '' }); setToast({ open: true, message: 'Form cleared' }); }}>Reset</button>
             </div>
           </form>
         </div>
