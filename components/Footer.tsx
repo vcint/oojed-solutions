@@ -3,17 +3,17 @@ import { FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram, FiLinkedin } from "
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-50 border-t border-slate-100">
+    <footer className="bg-surface border-t border-slate-100">
       <div className="container py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <div className="text-xl font-semibold text-slate-900">OOJED Solutions</div>
-          <p className="mt-3 text-slate-600">Manufacturer and supplier of solar water heaters, LED lighting and solar pumps — quality products and end-to-end support.</p>
-          <div className="mt-4 text-sm text-slate-500">© {new Date().getFullYear()} OOJED Solutions</div>
+          <div className="text-xl font-semibold ui-text">OOJED Solutions</div>
+          <p className="mt-3 muted">Manufacturer and supplier of solar water heaters, LED lighting and solar pumps — quality products and end-to-end support.</p>
+          <div className="mt-4 text-sm muted">© {new Date().getFullYear()} OOJED Solutions</div>
         </div>
 
         <div>
-          <div className="font-medium text-slate-900">Quick links</div>
-          <ul className="mt-3 space-y-2 text-slate-600">
+          <div className="font-medium ui-text">Quick links</div>
+          <ul className="mt-3 space-y-2 muted">
             <li><a href="#about" className="hover:text-blue-700">About</a></li>
             <li><a href="#products" className="hover:text-blue-700">Products</a></li>
             <li><a href="#benefits" className="hover:text-blue-700">Why Us</a></li>

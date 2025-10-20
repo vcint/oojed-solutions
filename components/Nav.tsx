@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Nav() {
   const [active, setActive] = useState<string>("home");
@@ -44,7 +45,7 @@ export default function Nav() {
       href={`#${id}`}
       onClick={() => { if (onClick) onClick(); }}
       className={
-        (active === id ? "text-slate-900 font-semibold" : "text-slate-800 font-medium") +
+      (active === id ? "ui-text font-semibold" : "ui-text font-medium") +
         " hover:text-slate-900 transition-colors"
       }
     >
@@ -61,7 +62,7 @@ export default function Nav() {
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[94%] md:w-[92%] lg:w-[84%]">
       <div className="nav-glass">
-        <div className="container flex items-center justify-between h-12 md:h-16 px-3 md:px-6">
+          <div className="container flex items-center justify-between h-12 md:h-16 px-3 md:px-6">
           <Link href="/" className="inline-flex items-center gap-3">
             <img src="/oojed-logo.png" alt="Oojed Solutions" className="h-12 md:h-14 w-auto" />
             {/* <span className="text-blue-900 font-semibold text-lg md:text-xl tracking-tight">SOLUTIONS</span> */}
@@ -86,12 +87,18 @@ export default function Nav() {
               )}
             </button>
 
-            <div className="hidden md:flex gap-6 text-sm items-center">
-              {sections.filter(s => s.id !== active).map(s => (
-                <span key={s.id}>{link(s.id, s.label)}</span>
-              ))}
-              {!hideQuote && <Link href="#contact" className="btn-primary hidden md:inline-flex">Get a Quote</Link>}
+            {/* mobile theme toggle (visible next to hamburger) */}
+            <div className="md:hidden">
+              <ThemeToggle />
             </div>
+
+              <div className="hidden md:flex gap-4 text-sm items-center">
+                {sections.filter(s => s.id !== active).map(s => (
+                  <span key={s.id}>{link(s.id, s.label)}</span>
+                ))}
+                {!hideQuote && <Link href="#contact" className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">Get a Quote</Link>}
+                <ThemeToggle />
+              </div>
           </div>
         </div>
 
@@ -105,8 +112,8 @@ export default function Nav() {
                     <div key={s.id}>{link(s.id, s.label, () => setMobileOpen(false))}</div>
                   ))}
                   {!hideQuote && (
-                    <Link href="#contact" className="btn-primary w-full justify-center mt-2" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
-                  )}
+                      <Link href="#contact" className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
+                    )}
                 </div>
               </div>
             </div>

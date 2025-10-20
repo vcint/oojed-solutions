@@ -41,8 +41,8 @@ export default function HomePage() {
               <span>{data.hero.sub}</span>
             </p>
             <div className="mt-8 flex items-center justify-center gap-4">
-              <a href={data.hero.ctaPrimary.href} className="btn-primary">{data.hero.ctaPrimary.label}</a>
-              <a href={data.hero.ctaSecondary.href} className="btn-outline">{data.hero.ctaSecondary.label}</a>
+              <a href={data.hero.ctaPrimary.href} className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-5 py-2.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 md:px-6 md:py-3">{data.hero.ctaPrimary.label}</a>
+              <a href={data.hero.ctaSecondary.href} className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 md:px-6 md:py-3 dark:bg-transparent dark:text-white dark:border-white/20">{data.hero.ctaSecondary.label}</a>
             </div>
           </div>
         </section>

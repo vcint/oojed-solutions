@@ -39,10 +39,20 @@ export default function Hero() {
           <h1 className="hero-head text-4xl md:text-6xl font-black tracking-tight mt-4 overflow-hidden">
             <span className="reveal inline-block">{data.hero.headline}</span>
           </h1>
-          <p className="hero-sub text-lg md:text-xl text-slate-600 mt-4">{data.hero.sub}</p>
+          <p className="hero-sub text-lg md:text-xl muted mt-4">{data.hero.sub}</p>
           <div className="hero-cta mt-8 flex gap-4">
-            <a href={data.hero.ctaPrimary.href} className="btn-primary">{data.hero.ctaPrimary.label}</a>
-            <a href={data.hero.ctaSecondary.href} className="btn-outline">Our Products</a>
+            <a
+              href={data.hero.ctaPrimary.href}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-5 py-2.5 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 md:px-6 md:py-3 dark:from-[#153e75] dark:to-[#2356a6] dark:shadow-none"
+            >
+              {data.hero.ctaPrimary.label}
+            </a>
+            <a
+              href={data.hero.ctaSecondary.href}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 md:px-6 md:py-3 dark:bg-transparent dark:text-white dark:border-white/30 dark:shadow-none"
+            >
+              Our Products
+            </a>
           </div>
           <ul className="mt-8 grid grid-cols-2 gap-3 text-sm">
             <li className="card p-4">Solar Water Heaters</li>
@@ -53,11 +63,11 @@ export default function Hero() {
           </ul>
         </div>
         <div className="card p-6 md:p-8">
-          <div className="aspect-[4/3] rounded-md bg-slate-50 grid place-items-center">
+          <div className="aspect-[4/3] rounded-md bg-surface grid place-items-center">
             <div className="text-center px-4">
               <img src="/placeholder-illustration.svg" alt="solar illustration" className="mx-auto w-48 h-auto" />
-              <div className="mt-4 font-semibold text-lg">Clean energy for homes & businesses</div>
-              <div className="text-slate-600 text-sm mt-2">On-grid/Off-grid solar, heaters, pumps & LED</div>
+              <div className="mt-4 font-semibold text-lg ui-text">Clean energy for homes & businesses</div>
+              <div className="muted text-sm mt-2">On-grid/Off-grid solar, heaters, pumps & LED</div>
             </div>
           </div>
         </div>

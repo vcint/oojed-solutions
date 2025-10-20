@@ -7,56 +7,52 @@
   --radius: 0.375rem;
   /* darker royal blue accent for CTAs */
   --accent: #102a6d; /* royal navy */
+  --bg: #ffffff;
+  --muted: #94a3b8;
+  --text: #0f172a;
+  --card: #ffffff;
 }
+
+:root.dark {
+  --bg: #0b1220;
+  --muted: #94a3b8;
+  --text: #e6eef8;
+  --card: #071028;
+  --accent: #3b82f6;
+}
+
+/* semantic helpers for consistent theming */
+.ui-text { color: var(--text); }
+.muted { color: var(--muted); }
+.bg-surface { background-color: var(--card); }
+.icon-bg { background-color: rgba(255,255,255,0.06); border-radius: 0.5rem; padding: 0.35rem; display: inline-flex; align-items: center; justify-content: center; }
 
 html, body { height: 100%; scroll-behavior: smooth; }
 
 .gradient-hero {
   background: linear-gradient(120deg, #e9ecef 0%, #f8fafc 100%);
 }
+ 
 .card {
-  @apply rounded-lg shadow-sm border border-slate-200 bg-white;
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+  border: 1px solid rgba(15,23,42,0.04);
+  background-color: var(--card);
+  overflow: hidden;
 }
-.section {
-  @apply py-16 md:py-20;
-}
-.container {
-  @apply max-w-6xl mx-auto px-4 md:px-8;
-}
-.badge {
-  @apply inline-flex items-center gap-2 rounded bg-slate-100 text-slate-800 px-3 py-1 text-xs font-medium;
-}
-.btn {
-  @apply inline-flex items-center justify-center rounded-lg px-5 py-2 font-medium shadow-sm ring-1 ring-slate-200 hover:bg-slate-50;
-  transition: transform .15s ease, box-shadow .18s ease, background-color .12s ease, opacity .12s ease;
-  transform: translateZ(0);
-  will-change: transform, box-shadow;
-  cursor: pointer;
-}
-.btn-primary {
-  @apply btn bg-[#102a6d] text-white hover:bg-[#0d2458];
-}
+.section { padding-top: 4rem; padding-bottom: 4rem; }
+.container { max-width: 72rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
+.badge { display: inline-flex; align-items: center; gap: .45rem; border-radius: .375rem; background-color: rgba(241,245,249,0.98); color: #0f172a; padding: .25rem .6rem; font-size: .75rem; font-weight: 500; }
 
-.btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(2,6,23,0.12);
-}
+/* Responsive button sizing handled via Tailwind utility classes used directly in components. */
+.nav a.active { color: #102a6d; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
-.btn:active {
-  transform: translateY(0) scale(0.985);
-  box-shadow: 0 6px 18px rgba(2,6,23,0.08);
-}
+/* selection color (button highlight you shared) */
+::selection { background: #153e75; color: #fff; }
 
-.btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 6px rgba(16,42,109,0.12);
-}
-.btn-outline {
-  @apply btn bg-white text-[#102a6d] border border-[#102a6d] hover:bg-[#f3f6fb];
-}
-nav a.active {
-  @apply text-[#102a6d] font-semibold underline underline-offset-2;
-}
+/* don't apply the selection highlight to nav links (prevents the blue pill on click/selection) */
+.nav, .nav * { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
+.nav *::selection, .nav::selection, .nav a::selection { background: transparent; color: inherit; }
 
 /* Icon and interaction utilities (plain CSS to avoid @apply issues) */
 .icon {
@@ -115,8 +111,103 @@ nav a.active {
 /* Typography */
 @layer base {
   body {
-    @apply antialiased text-slate-800 bg-white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text);
+    background-color: var(--bg);
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   }
-  h1,h2,h3,h4 { color: #0f172a; }
+  .card { background-color: var(--card); }
+  h1,h2,h3,h4 { color: var(--text); }
 }
+
+/* smooth color transitions */
+html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+/* dark-mode overrides for common Tailwind utility classes used across components
+   We use variables where possible to avoid editing each component. Use !important
+   to ensure these overrides take precedence over Tailwind utilities. */
+:where(.dark, [data-theme="dark"]) .bg-white { background-color: var(--card) !important; }
+:where(.dark, [data-theme="dark"]) .bg-slate-50 { background-color: rgba(255,255,255,0.02) !important; }
+:where(.dark, [data-theme="dark"]) .text-slate-800, :where(.dark, [data-theme="dark"]) .text-slate-900 { color: var(--text) !important; }
+:where(.dark, [data-theme="dark"]) .text-slate-700 { color: var(--muted) !important; }
+:where(.dark, [data-theme="dark"]) .border-slate-200 { border-color: rgba(255,255,255,0.06) !important; }
+:where(.dark, [data-theme="dark"]) .ring-slate-200 { box-shadow: 0 0 0 6px rgba(59,130,246,0.06) !important; }
+:where(.dark, [data-theme="dark"]) .shadow-sm { box-shadow: 0 6px 24px rgba(2,6,23,0.18) !important; }
+:where(.dark, [data-theme="dark"]) .btn-primary { background-color: #153e75 !important; }
+:where(.dark, [data-theme="dark"]) .text-white { color: #f8fafc !important; }
+:where(.dark, [data-theme="dark"]) .hover\:bg-slate-100:hover { background-color: rgba(255,255,255,0.02) !important; }
+
+/* additional text shades */
+:where(.dark, [data-theme="dark"]) .text-slate-600 { color: #cbd5e1 !important; }
+:where(.dark, [data-theme="dark"]) .text-slate-500 { color: #94a3b8 !important; }
+:where(.dark, [data-theme="dark"]) .text-slate-400 { color: #7b8794 !important; }
+
+/* handle bg-white with opacity utilities (bg-white/10, bg-white/50, bg-white/80) */
+:where(.dark, [data-theme="dark"]) .bg-white\/10 { background-color: rgba(255,255,255,0.03) !important; }
+:where(.dark, [data-theme="dark"]) .bg-white\/20 { background-color: rgba(255,255,255,0.03) !important; }
+:where(.dark, [data-theme="dark"]) .bg-white\/50 { background-color: rgba(255,255,255,0.04) !important; }
+:where(.dark, [data-theme="dark"]) .bg-white\/80 { background-color: rgba(255,255,255,0.06) !important; }
+
+/* slate backgrounds */
+:where(.dark, [data-theme="dark"]) .bg-slate-100 { background-color: rgba(255,255,255,0.03) !important; }
+
+/* Outline button dark-mode handled by component-level classes */
+
+/* badges */
+:where(.dark, [data-theme="dark"]) .badge { background-color: rgba(255,255,255,0.03) !important; color: var(--text) !important; }
+
+/* modal & gallery specific adjustments */
+:where(.dark, [data-theme="dark"]) .bg-slate-50 { background-color: rgba(255,255,255,0.02) !important; }
+:where(.dark, [data-theme="dark"]) .gallery-slide img { filter: none !important; }
+
+/* ensure footer/hero contrast */
+:where(.dark, [data-theme="dark"]) .hero-sub, :where(.dark, [data-theme="dark"]) .hero-lead { color: var(--muted) !important; }
+:where(.dark, [data-theme="dark"]) footer { background-color: transparent !important; }
+
+/* targeted element fixes */
+:where(.dark, [data-theme="dark"]) .product-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.64), rgba(0,0,0,0.18)) !important; }
+:where(.dark, [data-theme="dark"]) .modal-root .bg-white { background-color: var(--card) !important; }
+:where(.dark, [data-theme="dark"]) .modal-root .text-slate-600 { color: var(--muted) !important; }
+:where(.dark, [data-theme="dark"]) .hero-sub { color: var(--muted) !important; }
+
+/* stronger component-level mapping to avoid scattered white remnants */
+:where(.dark, [data-theme="dark"]) .card {
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+  border-color: rgba(255,255,255,0.04) !important;
+}
+:where(.dark, [data-theme="dark"]) .card p, :where(.dark, [data-theme="dark"]) .card .text-slate-600 {
+  /* increase contrast for paragraph / muted text inside cards */
+  color: #a9c3dd !important;
+}
+
+/* nav active link should be clearly visible in dark mode */
+:where(.dark, [data-theme="dark"]) .nav a.active { color: #fff !important; }
+:where(.dark, [data-theme="dark"]) .hero .card { background-color: rgba(255,255,255,0.02) !important; }
+
+:where(.dark, [data-theme="dark"]) .btn:hover { background-color: rgba(255,255,255,0.02) !important; }
+
+:where(.dark, [data-theme="dark"]) .hero .card .text-slate-600 { color: var(--muted) !important; }
+
+/* modal backdrop should be darker in dark mode */
+:where(.dark, [data-theme="dark"]) .modal-root > .absolute.inset-0 { background-color: rgba(2,6,23,0.6) !important; }
+
+/* footer contrast */
+:where(.dark, [data-theme="dark"]) footer { color: var(--muted) !important; border-top-color: rgba(255,255,255,0.04) !important; }
+
+/* nav glass tweaks in dark */
+.dark .nav-glass {
+  background: linear-gradient(180deg, rgba(7,10,18,0.6), rgba(7,10,18,0.48));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+}
+.dark .nav-panel {
+  background: linear-gradient(180deg, rgba(7,10,18,0.8), rgba(7,10,18,0.6));
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* floating whatsapp/button contrast */
+.dark .whatsapp-pulse::after { box-shadow: 0 0 0 14px rgba(16,185,129,0.02); }

@@ -77,19 +77,19 @@ export default function Products() {
                   alt={cat.name}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent product-overlay" />
                 <div className="absolute left-4 bottom-4 text-white flex items-center gap-3">
-                  <div className="bg-white/10 p-2 rounded-md">
+                  <div className="icon-bg p-2 rounded-md">
                     {i % 3 === 0 ? <Solar className="w-5 h-5 text-white" /> : i % 3 === 1 ? <Lightbulb className="w-5 h-5 text-white" /> : <Product className="w-5 h-5 text-white" />}
                   </div>
                   <div>
-                    <div className="text-lg font-semibold">{cat.name}</div>
+                    <div className="text-lg font-semibold text-white">{cat.name}</div>
                   </div>
                 </div>
               </div>
-              <div className="p-4">
+                <div className="p-4">
                 {/* quick look: one-line summary */}
-                {cat.desc && <p className="text-slate-600 line-clamp-2 font-semibold">{cat.desc}</p>}
+                {cat.desc && <p className="muted line-clamp-2 font-semibold">{cat.desc}</p>}
                 {/* small tags: show up to 2 representative items */}
                 {cat.items && (
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -98,8 +98,8 @@ export default function Products() {
                     ))}
                   </div>
                 )}
-                <div className="mt-4">
-                  <button onClick={() => openProduct(cat, i)} className="btn-outline">Learn more</button>
+                <div className="mt-4 relative z-20">
+                  <button onClick={() => openProduct(cat, i)} className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-4 py-2 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20">Learn more</button>
                 </div>
               </div>
             </motion.div>

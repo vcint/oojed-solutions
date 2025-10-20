@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="twitter:description" content="Oojed Solutions — Solar water heaters, LED lighting, solar pumps, and power plants in Maharashtra." />
         <meta name="twitter:image" content="/oojed-logo.png" />
       </head>
-      <body className="bg-gradient-to-b from-white to-slate-50 text-slate-800 selection:bg-brand-300/40">
+    <body className="selection:bg-brand-300/40">
   {children}
 
   {/* floating WhatsApp connect button (site-wide) */}
