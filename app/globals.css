@@ -223,6 +223,27 @@ html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge {
   border-color: rgba(255,255,255,0.06) !important;
 }
 
+/* Ensure product 'Learn more' CTA is visible in light mode on small viewports */
+.learn-more-btn {
+  /* default (light mode) styles reinforced */
+  background-color: #ffffff !important;
+  color: #102a6d !important;
+  border-color: #102a6d !important;
+}
+
+:where(html:not(.dark):not([data-theme="dark"])) .learn-more-btn {
+  background-color: #ffffff !important;
+  color: #102a6d !important;
+  border-color: #102a6d !important;
+}
+
+/* dark mode appearance: keep transparent background and white text/border */
+:where(.dark, [data-theme="dark"]) .learn-more-btn {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+
 :where(.dark, [data-theme="dark"]) .btn:hover { background-color: rgba(255,255,255,0.02) !important; }
 
 :where(.dark, [data-theme="dark"]) .hero .card .text-slate-600 { color: var(--muted) !important; }
