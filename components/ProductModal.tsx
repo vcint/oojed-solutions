@@ -86,8 +86,25 @@ export default function ProductModal({
   const imageList = (product as any)?.images as string[] | undefined;
   const mainImage = imageList && imageList.length > 0
     ? imageList[Math.max(0, Math.min(activeImageIdx, imageList.length - 1))]
-    : product?.image || "/product-1.svg";
+    : product?.image || "/oojed-logo.png";
   const imageCount = (imageList && imageList.length) || 1;
+
+  // normalize and fix double-encoded paths; return a safe, encoded URL
+  const normalizeSrc = (raw?: string) => {
+    if (!raw) return '/oojed-logo.png';
+    try {
+      const decoded = decodeURIComponent(String(raw));
+      const encoded = encodeURI(decoded);
+      return encoded.startsWith('/') ? encoded : `/${encoded}`;
+    } catch (e) {
+      try {
+        const encoded = encodeURI(String(raw));
+        return encoded.startsWith('/') ? encoded : `/${encoded}`;
+      } catch (err) {
+        return '/oojed-logo.png';
+      }
+    }
+  };
 
   // helper to scroll to a slide index
   const scrollToIndex = (idx: number) => {
@@ -177,7 +194,6 @@ export default function ProductModal({
         setActiveImageIdx(bestIdx);
       }
     }, { root: g, threshold: [0.25, 0.5, 0.75, 1] });
-    slides.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, [open, product]);
 
@@ -197,7 +213,6 @@ export default function ProductModal({
   // is supplied. Hooks above must always run to keep React's hooks order stable,
   // so the early return is placed after all hooks.
   if (!open || !product) return null;
-
   const modal = (
     <div
       className="fixed inset-0 z-50 grid place-items-center modal-root"
@@ -282,14 +297,14 @@ export default function ProductModal({
                   style={{ scrollbarWidth: "thin", maxHeight: "48vh" }}
                 >
                   <div className="flex gap-0 items-center">
-                    {(imageList && imageList.length > 0 ? imageList : [product.image || "/product-1.svg"]).map((src, idx) => (
+                    {(imageList && imageList.length > 0 ? imageList : [product.image || "/oojed-logo.png"]).map((src, idx) => (
                       <div
                         key={src + idx}
                         ref={(el) => { slideRefs.current[idx] = el; }}
                         className="gallery-slide snap-start flex-shrink-0 min-w-full p-2 flex items-center justify-center"
                       >
                         <div className="w-full flex items-center justify-center">
-                          <img src={src} alt={`${product.name} ${idx + 1}`} className="max-h-[44vh] w-auto h-auto object-contain rounded-md" />
+                          <img src={normalizeSrc(src)} alt={`${product.name} ${idx + 1}`} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="max-h-[44vh] w-auto h-auto object-contain rounded-md" />
                         </div>
                       </div>
                     ))}
@@ -310,7 +325,7 @@ export default function ProductModal({
                       className={`h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-blue-600 border-transparent" : "border-slate-200"}`}
                       aria-label={`Show image ${idx + 1}`}
                     >
-                      <img src={src} alt="" className="h-full w-full object-cover" />
+                      <img src={normalizeSrc(src)} alt="" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>

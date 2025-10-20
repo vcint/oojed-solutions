@@ -8,6 +8,25 @@ import { FiBox as Product, FiSun as Solar, FiZap as Lightbulb } from "react-icon
 export default function Products() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<any | null>(null);
+  const normalizeSrc = (raw?: string) => {
+    if (!raw) return '/oojed-logo.png';
+    try {
+      // decode any existing percent-encoding (handles both %20 and %2520 cases)
+      const decoded = decodeURIComponent(String(raw));
+      const encoded = encodeURI(decoded);
+      if (/^https?:\/\//i.test(encoded)) return encoded;
+      return encoded.startsWith("/") ? encoded : `/${encoded}`;
+    } catch (e) {
+      // fallback: attempt a safe encode of the raw string
+      try {
+        const s = String(raw);
+        const encoded = encodeURI(s);
+        return encoded.startsWith("/") ? encoded : `/${encoded}`;
+      } catch (err) {
+        return '/oojed-logo.png';
+      }
+    }
+  };
   const imgs = ['/solar-water-heater.webp','/2.webp','/solar-water-pump.webp', '/solar-street-light.webp','/poles.webp','/spare-parts.jpeg','/spare-2.jpeg','/spare-3.jpeg'];
   const [previews, setPreviews] = useState<Record<string, string>>({});
 
@@ -20,7 +39,9 @@ export default function Products() {
         if (!res.ok) return;
         const json = await res.json();
         if (Array.isArray(json.images) && json.images.length > 0) {
-          setPreviews((p) => ({ ...p, [cat.name]: json.images[0] }));
+          // normalize the API returned URL before saving
+          const first = normalizeSrc(json.images[0]);
+          setPreviews((p) => ({ ...p, [cat.name]: first }));
         }
       } catch (e) {
         // ignore
@@ -39,17 +60,18 @@ export default function Products() {
       const res = await fetch(`/api/images?dir=${encodeURIComponent(slug)}`);
       if (res.ok) {
         const json = await res.json();
-        const images = Array.isArray(json.images) && json.images.length > 0 ? json.images : fallback;
+        const rawImages = Array.isArray(json.images) && json.images.length > 0 ? json.images : fallback;
+        // normalize all returned URLs
+        const images = rawImages.map((r: string) => normalizeSrc(r));
         if (json.debug) console.debug("/api/images debug:", json.debug);
-        if ((!json.images || json.images.length === 0) && (json.debug || []).length) {
-          console.debug("/api/images returned no images; debug info:", json.debug || json);
-        }
         setSelected({ ...cat, images, image: images[0] });
       } else {
-        setSelected({ ...cat, images: fallback, image: fallback[0] });
+        const fb = fallback.map((r: string) => normalizeSrc(r));
+        setSelected({ ...cat, images: fb, image: fb[0] });
       }
     } catch (e) {
-      setSelected({ ...cat, images: fallback, image: fallback[0] });
+      const fb = fallback.map((r: string) => normalizeSrc(r));
+      setSelected({ ...cat, images: fb, image: fb[0] });
     }
     setOpen(true);
   };
@@ -71,10 +93,14 @@ export default function Products() {
               <div className="w-full h-40 relative cursor-pointer" onClick={() => openProduct(cat, i)}>
                 {/** Use category-specific preview image when available */}
                 <img
-                  src={(Array.isArray((cat as any).images) && (cat as any).images.length > 0)
-                    ? (cat as any).images[0]
-                    : (previews[cat.name] ? previews[cat.name] : imgs[i % imgs.length])}
+                  src={(() => {
+                    const s = (Array.isArray((cat as any).images) && (cat as any).images.length > 0)
+                        ? (cat as any).images[0]
+                        : (previews[cat.name] ? previews[cat.name] : '/oojed-logo.png');
+                    return normalizeSrc(s);
+                  })()}
                   alt={cat.name}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent product-overlay" />
