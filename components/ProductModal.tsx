@@ -306,7 +306,7 @@ export default function ProductModal({
                         className="gallery-slide snap-start flex-shrink-0 min-w-full p-2 flex items-center justify-center"
                       >
                         <div className="w-full flex items-center justify-center">
-                          <img src={normalizeSrc(src)} alt={`${product.name} ${idx + 1}`} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="max-h-[44vh] w-auto h-auto object-contain rounded-md" />
+                          <img src={normalizeSrc(src)} alt={`${product.name} ${idx + 1}`} loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="max-h-[44vh] w-auto h-auto object-contain rounded-md" />
                         </div>
                       </div>
                     ))}
@@ -327,7 +327,7 @@ export default function ProductModal({
                       className={`h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-blue-600 border-transparent" : "border-slate-200"}`}
                       aria-label={`Show image ${idx + 1}`}
                     >
-                      <img src={normalizeSrc(src)} alt="" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
+                      <img src={normalizeSrc(src)} alt="" loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -409,24 +409,21 @@ export default function ProductModal({
                 <button
                   type="button"
                   onClick={() => {
-                    // if on homepage, close modal and scroll to contact; otherwise navigate to homepage with hash
                     try {
-                      if (typeof window === 'undefined') return;
-                      const path = window.location.pathname || '/';
-                      if (path === '/' || path === '') {
-                        onClose();
-                        const el = document.getElementById('contact');
-                        if (el) {
-                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      if (typeof window !== 'undefined') {
+                        const path = window.location.pathname || '/';
+                        if (path === '/' || path === '') {
+                          // same-page: close modal and dispatch event
+                          onClose();
+                          window.dispatchEvent(new Event('openContactForm'));
                         } else {
-                          window.location.hash = '#contact';
+                          // different page: set a session flag so Contact can open after navigation
+                          try { sessionStorage.setItem('openContactForm', '1'); } catch (e) { /* ignore */ }
+                          // navigate to home with hash — Contact will handle focusing on load
+                          window.location.href = '/#contact';
                         }
-                      } else {
-                        // navigate to home contact
-                        window.location.href = '/#contact';
                       }
                     } catch (err) {
-                      // fallback: simple navigation
                       try { window.location.href = '/#contact'; } catch (e) { /* ignore */ }
                     }
                   }}

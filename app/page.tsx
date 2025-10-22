@@ -47,7 +47,7 @@ export default function HomePage() {
          <section id="about" className="section">
           <div className="container">
             <div className="prose max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold">About OOJED Solutions</h2>
+              <h2 className="text-3xl md:text-4xl font-bold">About OOJED</h2>
               <p className="text-slate-700 mt-2">{data.about}</p>
               <p className="text-slate-600 mt-4">Our core strengths include:</p>
               <ul className="list-disc ml-6 text-slate-700 mt-2">

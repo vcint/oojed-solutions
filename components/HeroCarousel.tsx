@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotionDiv, LazyAnimatePresence } from "./LazyMotion";
 import { useEffect, useState } from "react";
 
 const slides = [
@@ -26,9 +26,9 @@ export default function HeroCarousel({ interval = 6000 }: { interval?: number })
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
       {/* crossfade: show enter and exit simultaneously to prevent a blank white gap */}
-      <AnimatePresence initial={false} mode="sync">
+      <LazyAnimatePresence>
         {slides.map((s, i) => i === index && (
-          <motion.div
+          <LazyMotionDiv
             key={s.id}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -45,9 +45,9 @@ export default function HeroCarousel({ interval = 6000 }: { interval?: number })
               decoding="async"
               style={{ backgroundColor: s.colorA }}
             />
-          </motion.div>
+          </LazyMotionDiv>
         ))}
-      </AnimatePresence>
+      </LazyAnimatePresence>
       {/* dark overlay for contrast */}
       <div className="absolute inset-0 bg-black/35 mix-blend-normal" />
     </div>

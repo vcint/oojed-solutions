@@ -90,9 +90,9 @@ export default function Nav() {
       <div className="nav-glass">
           <div className="container flex items-center justify-between h-12 md:h-16 px-3 md:px-6">
           <Link href="/" className="inline-flex items-center gap-3">
-            <img src="/oojed-logo.png" alt="Oojed Solutions" className="h-12 md:h-14 w-auto" />
+            <img src="/oojed-logo.png" alt="OOJED" className="h-12 md:h-14 w-auto" />
             {/* <span className="text-blue-900 font-semibold text-lg md:text-xl tracking-tight">SOLUTIONS</span> */}
-            <span className="sr-only">Oojed Solutions</span>
+            <span className="sr-only">OOJED</span>
           </Link>
 
           {/* mobile hamburger */}

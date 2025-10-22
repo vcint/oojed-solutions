@@ -7,9 +7,9 @@ export default function Footer() {
     <footer className="bg-surface border-t border-slate-100">
       <div className="container py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <div className="text-xl font-semibold ui-text">OOJED Solutions</div>
+          <div className="text-xl font-semibold ui-text">OOJED</div>
           <p className="mt-3 muted">Manufacturer and supplier of solar water heaters, LED lighting and solar pumps — quality products, installation, and maintenance services with end-to-end support.</p>
-          <div className="mt-4 text-sm muted">© {new Date().getFullYear()} OOJED Solutions</div>
+          <div className="mt-4 text-sm muted">© {new Date().getFullYear()} OOJED</div>
         </div>
 
         <div>

@@ -1,4 +1,4 @@
-# Oojed Solutions — Marketing Site (Next.js + Tailwind + GSAP + Framer Motion)
+# OOJED — Marketing Site (Next.js + Tailwind + GSAP + Framer Motion)
 
 A modern, responsive website built with Next.js (App Router), TailwindCSS, GSAP, and Framer Motion. Includes a small Web Component `<contact-badge>`.
 

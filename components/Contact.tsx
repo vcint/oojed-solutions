@@ -1,6 +1,6 @@
 "use client";
+import React, { useState } from "react";
 import data from "@/data/site.json";
-import { useState } from "react";
 import Toast from "@/components/Toast";
 import { FiPhone as Phone, FiMail as Email, FiMapPin as Location } from "react-icons/fi";
 
@@ -8,6 +8,7 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ open: false, message: "" });
+  const nameRef = React.useRef<HTMLInputElement | null>(null);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -52,6 +53,37 @@ export default function Contact() {
     }
   };
 
+  // Listen for an event so other components (modals/buttons) can open the contact form
+  React.useEffect(() => {
+    const handler = () => {
+      try {
+        const el = document.getElementById('contact');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // focus the name input after a short delay so scroll has settled
+          setTimeout(() => nameRef.current?.focus(), 300);
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+    window.addEventListener('openContactForm', handler as EventListener);
+    // on mount: if URL hash is #contact or sessionStorage flag present, open and focus
+    try {
+      const hash = typeof window !== 'undefined' ? window.location.hash : '';
+      const flag = typeof window !== 'undefined' ? sessionStorage.getItem('openContactForm') : null;
+      if (hash === '#contact' || flag === '1') {
+        // remove the flag so it doesn't persist
+        try { sessionStorage.removeItem('openContactForm'); } catch (e) { /* ignore */ }
+        handler();
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    return () => window.removeEventListener('openContactForm', handler as EventListener);
+  }, []);
+
   return (
     <section id="contact" className="section bg-white">
       <div className="container grid lg:grid-cols-2 gap-8 items-start">
@@ -62,6 +94,7 @@ export default function Contact() {
             <label className="flex flex-col">
               <span className="text-sm text-slate-700 dark:text-slate-300 mb-1">Full name</span>
               <input
+                ref={nameRef}
                 name="name"
                 value={form.name}
                 onChange={onChange}

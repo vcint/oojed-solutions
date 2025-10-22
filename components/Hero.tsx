@@ -1,32 +1,47 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import data from "@/data/site.json";
 import HeroCarousel from "./HeroCarousel";
 // headline is rendered statically; typewriter component removed
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // subtle lift + fade for the heading container
-      gsap.fromTo(
-        ".hero-head",
-        { y: 8, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, delay: 0.12, ease: "power2.out" }
-      );
-      // left-to-right reveal for the text using clip-path
-      gsap.fromTo(
-        ".hero-head .reveal",
-        { clipPath: "inset(0 100% 0 0)" },
-        { clipPath: "inset(0 0% 0 0)", duration: 1.0, delay: 0.18, ease: "power2.out" }
-      );
-      gsap.fromTo(".hero-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .36, ease: "power2.out" });
-      gsap.fromTo(".hero-cta", { y: 6, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .56, ease: "power2.out" });
-    }, ref);
-    return () => ctx.revert();
+    let ctx: any = null;
+    let mounted = true;
+    // lazy load gsap and ScrollTrigger only when Hero mounts
+    import("gsap").then((gsapMod) => {
+      if (!mounted) return;
+      import("gsap/ScrollTrigger").then(() => {
+        try {
+          gsapMod.gsap.registerPlugin((gsapMod as any).ScrollTrigger || (globalThis as any).ScrollTrigger);
+        } catch (e) {
+          // ignore
+        }
+        try {
+          ctx = (gsapMod as any).gsap.context(() => {
+            (gsapMod as any).gsap.fromTo(
+              ".hero-head",
+              { y: 8, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.6, delay: 0.12, ease: "power2.out" }
+            );
+            (gsapMod as any).gsap.fromTo(
+              ".hero-head .reveal",
+              { clipPath: "inset(0 100% 0 0)" },
+              { clipPath: "inset(0 0% 0 0)", duration: 1.0, delay: 0.18, ease: "power2.out" }
+            );
+            (gsapMod as any).gsap.fromTo(".hero-sub", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .36, ease: "power2.out" });
+            (gsapMod as any).gsap.fromTo(".hero-cta", { y: 6, opacity: 0 }, { y: 0, opacity: 1, duration: 1.0, delay: .56, ease: "power2.out" });
+          }, ref);
+        } catch (e) {
+          // silent
+        }
+      }).catch(() => {
+        // if ScrollTrigger fails to import, still try basic gsap animations (best effort)
+      });
+    }).catch(() => {
+      // gsap failed to load — ignore animations
+    });
+    return () => { mounted = false; if (ctx && ctx.revert) ctx.revert(); };
   }, []);
   
 

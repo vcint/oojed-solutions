@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import site from '../data/site.json';
 
 function cleanPhone(phone?: string) {
@@ -9,8 +9,60 @@ function cleanPhone(phone?: string) {
 
 export default function WhatsAppButton() {
   const phone = cleanPhone(site.contacts?.phones?.[0]);
-  const text = encodeURIComponent("Hello Oojed Solutions, I would like to inquire about your products and services.");
+  const text = encodeURIComponent("Hello OOJED, I would like to inquire about your products and services.");
   const href = phone ? `https://wa.me/${phone.replace(/^\+/, '')}?text=${text}` : `https://wa.me/?text=${text}`;
+
+  // popup state and refs
+  const [showPopup, setShowPopup] = useState(false);
+  const popupTimeout = useRef<number | null>(null);
+
+  // threshold: fraction of total scroll (e.g., 0.25 = 25%) before showing popup
+  const SCROLL_THRESHOLD = 0.25;
+
+  useEffect(() => {
+    // compute mobile detection on mount (avoids SSR/mismatch)
+    const mobile = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0)) && window.innerWidth <= 900;
+    if (!mobile) return; // only show on mobile
+
+    // don't show more than once per session per page
+    const pathKey = (typeof window !== 'undefined' ? window.location.pathname : '/') || '/';
+    const sessionKey = `waPopupShown:${pathKey}`;
+    try {
+      if (sessionStorage.getItem(sessionKey) === '1') return;
+    } catch (e) {
+      // ignore sessionStorage errors
+    }
+
+    const onScroll = () => {
+      try {
+        const doc = document.documentElement;
+        const scrollTop = window.scrollY || doc.scrollTop || 0;
+        const scrollHeight = doc.scrollHeight || document.body.scrollHeight || 0;
+        const clientHeight = window.innerHeight || doc.clientHeight || 0;
+        const maxScroll = Math.max(1, scrollHeight - clientHeight);
+        const frac = scrollTop / maxScroll;
+        if (frac >= SCROLL_THRESHOLD) {
+          // show popup once
+          setShowPopup(true);
+          try { sessionStorage.setItem(sessionKey, '1'); } catch (e) {}
+          // hide after 5 seconds if not interacted
+          popupTimeout.current = window.setTimeout(() => setShowPopup(false), 5000) as unknown as number;
+          // remove listener (use same function reference)
+          try { window.removeEventListener('scroll', onScroll); } catch (e) { /* ignore */ }
+        }
+      } catch (e) {
+        // ignore
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true } as any);
+    return () => {
+      window.removeEventListener('scroll', onScroll as any);
+      if (popupTimeout.current) {
+        clearTimeout(popupTimeout.current as any);
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -22,6 +74,15 @@ export default function WhatsAppButton() {
         zIndex: 9999,
       }}
     >
+      {/* popup bubble shown on mobile after scroll threshold */}
+      {showPopup && (
+        <div className="mb-2 flex items-center justify-end">
+          <a href={href} target="_blank" rel="noopener noreferrer" onClick={() => setShowPopup(false)} className="rounded-lg bg-emerald-600 text-white px-3 py-2 shadow-lg max-w-xs text-sm flex items-center gap-2" style={{ marginRight: 8 }}>
+            <div className="flex-1">Connect with us on WhatsApp</div>
+            <button aria-label="Dismiss" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowPopup(false); }} className="opacity-80 hover:opacity-100">✕</button>
+          </a>
+        </div>
+      )}
       <a
         href={href}
         target="_blank"

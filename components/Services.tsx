@@ -1,7 +1,8 @@
 "use client";
 import data from "@/data/site.json";
-import { motion } from "framer-motion";
+import { LazyMotionDiv } from "./LazyMotion";
 import { useState, useEffect } from "react";
+import { getCache, setCache } from "@/lib/cache";
 import ProductModal from "./ProductModal";
 import { FiTool as Tool, FiMapPin as Feas, FiRefreshCw as Repair, FiClock as AMC } from "react-icons/fi";
 
@@ -41,13 +42,21 @@ export default function Services() {
   useEffect(() => {
     services.forEach(async (s) => {
       const slug = `services/${s.slug}`;
+      const cacheKey = `images:${slug}:preview`;
+      const cached = getCache(cacheKey);
+      if (cached) {
+        setPreviews((p) => ({ ...p, [s.name]: normalizeSrc(cached) }));
+        return;
+      }
       try {
         const res = await fetch(`/api/images?dir=${encodeURIComponent(slug)}`);
         if (!res.ok) return;
         const json = await res.json();
         if (json && json.debug) console.debug(`/api/images for ${slug}:`, json.debug);
         if (Array.isArray(json.images) && json.images.length > 0) {
-          setPreviews((p) => ({ ...p, [s.name]: normalizeSrc(json.images[0]) }));
+          const first = normalizeSrc(json.images[0]);
+          try { setCache(cacheKey, first, 1000 * 60 * 10); } catch (e) {}
+          setPreviews((p) => ({ ...p, [s.name]: first }));
         }
       } catch (e) {
         // ignore
@@ -57,21 +66,36 @@ export default function Services() {
 
   const openService = async (svc: any, i: number) => {
     const slug = `services/${svc.slug}`;
-    const fallback = [ '/oojed-logo.png' ];
-    try {
-      const res = await fetch(`/api/images?dir=${encodeURIComponent(slug)}`);
-      if (res.ok) {
-        const json = await res.json();
-        const rawImages = Array.isArray(json.images) && json.images.length > 0 ? json.images : fallback;
-        const images = rawImages.map((r: string) => normalizeSrc(r));
-        setSelected({ ...svc, images, image: images[0] });
-      } else {
-        setSelected({ ...svc, images: fallback, image: fallback[0] });
-      }
-    } catch (e) {
-      setSelected({ ...svc, images: fallback, image: fallback[0] });
-    }
+    const fallback = ['/oojed-logo.png'];
+
+    // open modal immediately with placeholder
+    const fb = fallback.map((r: string) => normalizeSrc(r));
+    setSelected({ ...svc, images: fb, image: fb[0] });
     setOpen(true);
+
+    // fetch images in background and update modal when available
+    (async () => {
+      try {
+        const cacheKey = `images:${slug}`;
+        const cached = getCache(cacheKey);
+        if (cached) {
+          const images = (cached as string[]).map((r: string) => normalizeSrc(r));
+          setSelected((prev) => prev && prev.slug === svc.slug ? { ...svc, images, image: images[0] } : { ...svc, images, image: images[0] });
+          return;
+        }
+
+        const res = await fetch(`/api/images?dir=${encodeURIComponent(slug)}`);
+        if (res.ok) {
+          const json = await res.json();
+          const rawImages = Array.isArray(json.images) && json.images.length > 0 ? json.images : fallback;
+          const images = rawImages.map((r: string) => normalizeSrc(r));
+          try { setCache(cacheKey, rawImages, 1000 * 60 * 60); } catch (e) {}
+          setSelected((prev) => prev && prev.slug === svc.slug ? { ...svc, images, image: images[0] } : { ...svc, images, image: images[0] });
+        }
+      } catch (e) {
+        // ignore
+      }
+    })();
   };
 
   return (
@@ -81,7 +105,7 @@ export default function Services() {
         <p className="muted mt-2">Installation, feasibility, repair, AMC and support — tailored to your site.</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
           {services.map((svc, i) => (
-            <motion.div key={svc.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: i * .05 }} className="card p-0 overflow-hidden hover-raise">
+            <LazyMotionDiv key={svc.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: i * .05 }} className="card p-0 overflow-hidden hover-raise">
               <div className="w-full h-40 relative cursor-pointer" onClick={() => openService(svc, i)}>
                 {/* use API-provided preview when available; otherwise try numbered fallback (1.jpg) then logo */}
                 <img src={normalizeSrc(previews[svc.name] || `/services/${svc.slug}/1.jpg`)} alt={svc.name} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="w-full h-full object-cover" />
@@ -107,7 +131,7 @@ export default function Services() {
                   <button onClick={() => openService(svc, i)} className="learn-more-btn w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-4 py-2 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20">Learn more</button>
                 </div>
               </div>
-            </motion.div>
+            </LazyMotionDiv>
           ))}
         </div>
       </div>
