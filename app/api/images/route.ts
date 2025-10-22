@@ -14,25 +14,44 @@ const normalize = (s: string) => String(s || "").toLowerCase().replace(/[^a-z0-9
 async function buildIndex(publicDir: string) {
   const map = new Map<string, IndexEntry>();
   try {
-    const productsDir = path.join(publicDir, "products");
-    const exists = await fs.stat(productsDir).then(() => true).catch(() => false);
-    if (!exists) return map;
-    const entries = await fs.readdir(productsDir);
-    for (const entry of entries) {
-      const full = path.join(productsDir, entry);
+    // Scan both `products` and `services` folders so clients can request either
+    const baseDirs = ["products", "services"];
+    for (const base of baseDirs) {
+      const basePath = path.join(publicDir, base);
+      const exists = await fs.stat(basePath).then(() => true).catch(() => false);
+      if (!exists) continue;
+      const entries = await fs.readdir(basePath);
+      for (const entry of entries) {
+        const full = path.join(basePath, entry);
       try {
         const st = await fs.stat(full);
         if (!st.isDirectory()) continue;
         const imgs = (await fs.readdir(full)).filter((f) => /\.(png|jpe?g|webp|svg)$/i.test(f)).sort();
         if (!imgs.length) continue;
+        const folder = `${base}/${entry}`;
         const key = normalize(entry);
-        map.set(key, { folder: `products/${entry}`, files: imgs });
-        // also map the raw folder name and a slugified variant
-        map.set(normalize(entry.replace(/\s+/g, "-")), { folder: `products/${entry}`, files: imgs });
-        map.set(normalize(entry.replace(/\s+/g, "_")), { folder: `products/${entry}`, files: imgs });
+        map.set(key, { folder, files: imgs });
+        // also map slugified/name variants to be forgiving in lookups
+        map.set(normalize(entry.replace(/\s+/g, "-")), { folder, files: imgs });
+        map.set(normalize(entry.replace(/\s+/g, "_")), { folder, files: imgs });
+        // also map a variant using the base (e.g. products_myfolder or services_myfolder) to avoid collisions
+        map.set(normalize(`${base}/${entry}`), { folder, files: imgs });
+        // map individual tokens from the folder name (e.g., "Feasibility & Survey" -> "feasibility", "survey")
+        const tokens = String(entry).split(/[^a-zA-Z0-9]+/).filter(Boolean);
+        for (const t of tokens) {
+          if (t.length < 2) continue;
+          map.set(normalize(t), { folder, files: imgs });
+        }
+        // extract acronym or parenthetical short names like (AMC)
+        const m = String(entry).match(/\(([^)]+)\)/);
+        if (m && m[1]) {
+          const acr = m[1].trim();
+          if (acr.length > 0) map.set(normalize(acr), { folder, files: imgs });
+        }
       } catch (e) {
         // ignore per-entry failures
       }
+    }
     }
   } catch (e) {
     // ignore
@@ -76,8 +95,8 @@ export async function GET(req: Request) {
       }
     }
 
-    // lookup in index by normalized name
-    const basename = decoded.replace(/^products\//, "");
+    // lookup in index by normalized name - support both `products/..` and `services/..`
+    const basename = decoded.replace(/^(products|services)\//, "");
     const key = normalize(basename);
     if (productsIndex && productsIndex.has(key)) {
       const entry = productsIndex.get(key)!;
@@ -92,6 +111,26 @@ export async function GET(req: Request) {
       });
       if (process.env.NODE_ENV !== "production") return NextResponse.json({ images: urls, debug: { foundDir: entry.folder } });
       return NextResponse.json({ images: urls });
+    }
+
+    // Fallback: scan index entries for folders that match the key when normalized.
+    if (productsIndex) {
+      for (const [_k, entry] of productsIndex.entries()) {
+        const folderNorm = normalize(entry.folder);
+        if (folderNorm.includes(key) || normalize(entry.folder.replace(/\s+/g, "")).includes(key)) {
+          const urls = entry.files.map((f) => {
+            let p = `/${entry.folder}/${f}`;
+            try {
+              while (/%25/i.test(p)) p = decodeURIComponent(p);
+            } catch (e) {
+              // ignore
+            }
+            return encodeURI(p);
+          });
+          if (process.env.NODE_ENV !== "production") return NextResponse.json({ images: urls, debug: { foundDir: entry.folder, fallback: true } });
+          return NextResponse.json({ images: urls });
+        }
+      }
     }
 
     // not found — return helpful debug info in non-prod

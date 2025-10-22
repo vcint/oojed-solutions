@@ -114,8 +114,12 @@ export default function Products() {
                 </div>
               </div>
                 <div className="p-4">
-                {/* quick look: one-line summary */}
-                {cat.desc && <p className="muted line-clamp-2 font-semibold">{cat.desc}</p>}
+                {/* quick look: prefer `long` truncated, fallback to `desc` */}
+                {cat.long ? (
+                  <p className="muted line-clamp-3 font-semibold">{cat.long}</p>
+                ) : (
+                  cat.desc && <p className="muted line-clamp-2 font-semibold">{cat.desc}</p>
+                )}
                 {/* small tags: show up to 2 representative items */}
                 {cat.items && (
                   <div className="mt-3 flex flex-wrap gap-2">

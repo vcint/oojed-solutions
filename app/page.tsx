@@ -1,16 +1,14 @@
-import Nav from "@/components/Nav";
+// Nav is provided by the RootLayout
 import HeroCarousel from "@/components/HeroCarousel";
 import Products from "@/components/Products";
 import Benefits from "@/components/Benefits";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+// Footer is provided by the RootLayout
 import data from "@/data/site.json";
 
 export default function HomePage() {
   return (
     <>
-      <Nav />
-      
       {/* SEO: Organization JSON-LD */}
       <script type="application/ld+json">
         {JSON.stringify({
@@ -66,8 +64,7 @@ export default function HomePage() {
         <Benefits />
         <Contact />
       </main>
-      <Footer />
-      <script src="/contact-badge.js" defer></script>
+  {/* contact-badge is loaded globally by RootLayout */}
       {/* @ts-expect-error - custom element
       <contact-badge email={data.contacts.email} phone={data.contacts.phones[0]} /> */}
     </>

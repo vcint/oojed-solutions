@@ -9,6 +9,8 @@ type Product = {
   items?: string[];
   highlights?: string[];
   specs?: string[];
+  long?: string;
+  images?: string[];
 };
 
 export default function ProductModal({
@@ -333,6 +335,13 @@ export default function ProductModal({
             </div>
 
             <div className="md:pl-2">
+              {product.long && (
+                <div>
+                  <div className="font-medium text-slate-900">About</div>
+                  <p className="mt-2 text-sm text-slate-700">{product.long}</p>
+                </div>
+              )}
+
               {product.items && product.items.length > 0 && (
                 <div>
                   <div className="font-medium text-slate-900">Items</div>
@@ -366,13 +375,65 @@ export default function ProductModal({
                 </div>
               )}
 
+              {/* FAQs */}
+              {(product as any).faqs && (product as any).faqs.length > 0 && (
+                <div className="mt-4">
+                  <div className="font-medium text-slate-900">Frequently Asked Questions</div>
+                  <div className="mt-2 text-sm text-slate-700">
+                    {(product as any).faqs.map((f: any) => (
+                      <div key={f.q} className="mt-3">
+                        <div className="font-semibold">{f.q}</div>
+                        <div className="mt-1">{f.a}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Case studies / examples */}
+              {(product as any).caseStudies && (product as any).caseStudies.length > 0 && (
+                <div className="mt-4">
+                  <div className="font-medium text-slate-900">Case studies</div>
+                  <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+                    {(product as any).caseStudies.map((c: any) => (
+                      <li key={c.title} className="mt-2">
+                        <div className="font-semibold">{c.title}</div>
+                        <div className="mt-1">{c.summary}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <div className="mt-6">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20"
+                <button
+                  type="button"
+                  onClick={() => {
+                    // if on homepage, close modal and scroll to contact; otherwise navigate to homepage with hash
+                    try {
+                      if (typeof window === 'undefined') return;
+                      const path = window.location.pathname || '/';
+                      if (path === '/' || path === '') {
+                        onClose();
+                        const el = document.getElementById('contact');
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                          window.location.hash = '#contact';
+                        }
+                      } else {
+                        // navigate to home contact
+                        window.location.href = '/#contact';
+                      }
+                    } catch (err) {
+                      // fallback: simple navigation
+                      try { window.location.href = '/#contact'; } catch (e) { /* ignore */ }
+                    }
+                  }}
+                  className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/40"
                 >
                   Request a Quote / Enquiry
-                </a>
+                </button>
               </div>
 
               {/* JSON-LD for Product */}

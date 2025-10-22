@@ -1,28 +1,51 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from 'next/navigation';
 import ThemeToggle from "./ThemeToggle";
 
 export default function Nav() {
   const [active, setActive] = useState<string>("home");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hideQuote, setHideQuote] = useState(false);
+  const pathname = usePathname();
+
   useEffect(() => {
+    // If we're on a different route (not the homepage), derive active from pathname
+    if (typeof pathname === 'string' && pathname !== '/') {
+      if (pathname.startsWith('/products')) {
+        setActive('products');
+        return;
+      }
+      if (pathname.startsWith('/services')) {
+        setActive('services');
+        return;
+      }
+      // fallback: use the first path segment
+      const seg = pathname.replace(/^\/+/, '').split('/')[0];
+      if (seg) {
+        setActive(seg);
+        return;
+      }
+    }
+
+    // otherwise, we're on the homepage — use scroll position to set active section
+    const ids = ["home","about","products","benefits","contact"];
     const handler = () => {
-      const ids = ["home","about","products","benefits","contact"];
       const top = window.scrollY + 120;
       for (const id of ids) {
         const el = document.getElementById(id);
         if (el && el.offsetTop <= top && top < el.offsetTop + el.offsetHeight) {
           setActive(id);
-          break;
+          return;
         }
       }
+      setActive('home');
     };
     handler();
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [pathname]);
   // hide the Quote button when the contact section is active or when the URL hash points to contact
   // (some deployments don't have a separate /contact route, so rely on hash too)
   useEffect(() => {
@@ -42,10 +65,12 @@ export default function Nav() {
   }, [active]);
   const link = (id: string, label: string, onClick?: () => void) => (
     <Link
-      href={`#${id}`}
+      href={
+        id.startsWith('/') ? id : (id === 'home' ? '/' : `/#${id}`)
+      }
       onClick={() => { if (onClick) onClick(); }}
       className={
-      (active === id ? "ui-text font-semibold" : "ui-text font-medium") +
+        (active === id.replace(/^\/+/, '') ? "ui-text font-semibold" : "ui-text font-medium") +
         " hover:text-slate-900 transition-colors"
       }
     >
@@ -55,7 +80,8 @@ export default function Nav() {
   const sections: { id: string; label: string }[] = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
-    { id: 'products', label: 'Products' },
+    { id: '/products', label: 'Products' },
+    { id: '/services', label: 'Services' },
     { id: 'benefits', label: 'Why Us' },
     { id: 'contact', label: 'Contact' },
   ];
@@ -93,7 +119,10 @@ export default function Nav() {
             </div>
 
               <div className="hidden md:flex gap-4 text-sm items-center">
-                {sections.filter(s => s.id !== active).map(s => (
+                {sections.filter(s => {
+                  const sid = s.id.startsWith('/') ? s.id.replace(/^\/+/, '') : s.id;
+                  return sid !== active;
+                }).map(s => (
                   <span key={s.id}>{link(s.id, s.label)}</span>
                 ))}
                 {!hideQuote && <Link href="#contact" className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">Get a Quote</Link>}
@@ -105,10 +134,13 @@ export default function Nav() {
         {/* mobile menu panel - positioned absolutely below the nav to avoid overlapping hero/logo */}
         {mobileOpen && (
           <div className="md:hidden relative">
-            <div className="absolute left-4 right-4 top-full mt-3 z-40">
+                <div className="absolute left-4 right-4 top-full mt-3 z-40">
               <div className="nav-panel p-3">
                 <div className="flex flex-col gap-3 text-sm text-slate-900">
-                  {sections.filter(s => s.id !== active).map(s => (
+                  {sections.filter(s => {
+                    const sid = s.id.startsWith('/') ? s.id.replace(/^\/+/, '') : s.id;
+                    return sid !== active;
+                  }).map(s => (
                     <div key={s.id}>{link(s.id, s.label, () => setMobileOpen(false))}</div>
                   ))}
                   {!hideQuote && (
