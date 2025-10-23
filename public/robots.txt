@@ -6,10 +6,12 @@
 User-agent: *
 Allow: /
 
-# Point crawlers to the sitemap (relative path). Generate a sitemap.xml at
-# the site root if you don't already have one.
-Sitemap: /sitemap.xml
+# Point crawlers to the sitemap. Use an absolute URL per Google Search Console
+# requirements. Generate a sitemap.xml at the site root if you don't already have one.
+Sitemap: https://oojed.com/sitemap.xml
 
 # Helpful notes:
-# - To block the whole site in staging, use: User-agent: *\nDisallow: /
+# - To block the whole site in staging, use:
+#     User-agent: *
+#     Disallow: /
 # - To set a crawl delay: add Crawl-delay: 10 (seconds) for slow origin servers

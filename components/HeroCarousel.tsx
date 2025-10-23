@@ -44,6 +44,7 @@ export default function HeroCarousel({ interval = 6000 }: { interval?: number })
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
               style={{ backgroundColor: s.colorA }}
+              {...(i === 0 ? { width: 1600, height: 900 } : {})}
             />
           </LazyMotionDiv>
         ))}

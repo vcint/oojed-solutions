@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from 'next/script';
 import site from '@/data/site.json';
 import "./globals.css";
+import { Inter } from 'next/font/google';
 import WhatsAppButton from "../components/WhatsAppButton";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -15,26 +16,25 @@ export const metadata: Metadata = {
   },
 };
 
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap', weight: ['300','400','600','700','800'] });
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
       <head>
-        {/* Performance & SEO: preconnect to common hosts (fonts, analytics), preload hero image(s) */}
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        {/* non-blocking Google Fonts: preload the stylesheet then swap media on the client to avoid render-blocking @import */}
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" media="print" />
-        <Script id="font-swap" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `(function(){try{var l=document.querySelector('link[href^="https://fonts.googleapis.com"]');if(!l)return;if((l as any).sheet){l.media='all';return;}l.addEventListener('load',function(){l.media='all';});}catch(e){}})();` }} />
-        <noscript>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" />
-        </noscript>
+        {/* Performance & SEO: preload hero image(s) */}
         {/* preload primary hero image for LCP improvement */}
         <link rel="preload" as="image" href="/2.webp" />
   {/* hero preloads removed — hero-1.jpg / hero-2.jpg were missing and caused 404s; consider preloading actual existing hero images if available */}
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#102a6d" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  {/* Critical CSS: inline small, high-priority rules to speed first paint/LCP */}
+  <style dangerouslySetInnerHTML={{ __html: `:root{--radius:.375rem;--accent:#102a6d;--bg:#fff;--muted:#94a3b8;--text:#0f172a;--card:#fff}html,body{height:100%;scroll-behavior:smooth}body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--text);background-color:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;margin:0} .container{max-width:72rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem} .section{padding-top:4rem;padding-bottom:4rem} .gradient-hero{background:linear-gradient(120deg,#e9ecef 0%,#f8fafc 100%)} ` }} />
+
+  {/* Runtime helper: convert Next-generated stylesheet links to preload early to reduce blocking (best-effort) */}
+  <script dangerouslySetInnerHTML={{ __html: `(function(){try{var links=document.querySelectorAll('link[rel="stylesheet"]');for(var i=0;i<links.length;i++){var l=links[i];if(l.href && l.href.indexOf('/_next/static/css/')!==-1){l.rel='preload';l.as='style';l.onload=function(){this.rel='stylesheet';};}}}catch(e){}})();` }} />
 
         {/* Open Graph */}
   <meta property="og:title" content="OOJED | Solar & LED Specialists" />
