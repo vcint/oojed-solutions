@@ -108,7 +108,7 @@ export default function Services() {
             <LazyMotionDiv key={svc.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: i * .05 }} className="card p-0 overflow-hidden hover-raise">
               <div className="w-full h-40 relative cursor-pointer" onClick={() => openService(svc, i)}>
                 {/* use API-provided preview when available; otherwise try numbered fallback (1.jpg) then logo */}
-                <img src={normalizeSrc(previews[svc.name] || `/services/${svc.slug}/1.jpg`)} alt={svc.name} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={normalizeSrc(previews[svc.name] || `/services/${svc.slug}/1.jpg`)} alt={svc.name} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent product-overlay" />
                 <div className="absolute left-4 bottom-4 text-white flex items-center gap-3">
                   <div className="icon-bg p-2 rounded-md">

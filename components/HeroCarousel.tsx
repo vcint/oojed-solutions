@@ -41,7 +41,7 @@ export default function HeroCarousel({ interval = 6000 }: { interval?: number })
               src={s.img}
               alt={`slide-${s.id}`}
               className="w-full h-full object-cover"
-              loading="eager"
+              loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"
               style={{ backgroundColor: s.colorA }}
             />

@@ -327,7 +327,7 @@ export default function ProductModal({
                       className={`h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-blue-600 border-transparent" : "border-slate-200"}`}
                       aria-label={`Show image ${idx + 1}`}
                     >
-                      <img src={normalizeSrc(src)} alt="" loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
+                        <img src={normalizeSrc(src)} alt={`${product.name} thumbnail ${idx + 1}`} loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>

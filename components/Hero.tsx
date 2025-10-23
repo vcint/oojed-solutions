@@ -80,7 +80,7 @@ export default function Hero() {
         <div className="card p-6 md:p-8">
           <div className="aspect-[4/3] rounded-md bg-surface grid place-items-center">
             <div className="text-center px-4">
-              <img src="/placeholder-illustration.svg" alt="solar illustration" className="mx-auto w-48 h-auto" />
+              <img src="/placeholder-illustration.svg" alt="solar illustration" loading="lazy" decoding="async" className="mx-auto w-48 h-auto" />
               <div className="mt-4 font-semibold text-lg ui-text">Clean energy for homes & businesses</div>
               <div className="muted text-sm mt-2">On-grid/Off-grid solar, heaters, pumps & LED</div>
             </div>

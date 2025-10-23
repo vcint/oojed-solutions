@@ -1,0 +1,15 @@
+# robots.txt for OOJED
+# Generated: 2025-10-23
+# Allow all user agents to crawl the site. If you need to restrict staging
+# or private areas, add Disallow lines for those paths.
+
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap (relative path). Generate a sitemap.xml at
+# the site root if you don't already have one.
+Sitemap: /sitemap.xml
+
+# Helpful notes:
+# - To block the whole site in staging, use: User-agent: *\nDisallow: /
+# - To set a crawl delay: add Crawl-delay: 10 (seconds) for slow origin servers

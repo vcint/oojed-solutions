@@ -121,6 +121,8 @@ export default function Products() {
                     return normalizeSrc(s);
                   })()}
                   alt={cat.name}
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }}
                   className="w-full h-full object-cover"
                 />

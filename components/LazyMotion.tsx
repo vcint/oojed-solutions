@@ -11,6 +11,15 @@ function useMotionModule() {
   useEffect(() => {
     if (m) return;
     let mounted = true;
+    // Only load framer-motion on larger screens (desktop/tablet) to avoid mobile JS cost
+    try {
+      if (typeof window === 'undefined') return;
+      const shouldLoad = window.innerWidth > 900;
+      if (!shouldLoad) return; // skip loading on small screens
+    } catch (e) {
+      // fallback to not loading
+      return;
+    }
     import("framer-motion")
       .then((mod) => {
         if (!mounted) return;
