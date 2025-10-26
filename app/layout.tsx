@@ -86,6 +86,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {/* contact badge web component (deferred) */}
       <Script src="/contact-badge.js" strategy="lazyOnload" />
 
+      {/* Google Analytics (gtag.js) - only load in production to avoid dev noise */}
+      {process.env.NODE_ENV === 'production' && (
+        <>
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-HSZ4TPF6RR" strategy="afterInteractive" />
+          <Script id="gtag-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-HSZ4TPF6RR');` }} />
+        </>
+      )}
+
     </body>
     </html>
   );
