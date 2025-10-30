@@ -2,7 +2,8 @@ import site from '@/data/site.json';
 import Link from 'next/link';
 import TrustBar from '@/components/TrustBar';
 
-type Props = { params: { city: string, category: string } };
+// inline param types to avoid conflicting with Next.js PageProps generic
+
 
 const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-');
 
@@ -26,7 +27,7 @@ export async function generateStaticParams() {
   return pairs;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: { params: { city: string; category: string } }) {
   const cityName = findCityName(params.city);
   const cat = findCategory(params.category);
   const catName = cat?.name || 'Category';
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: Props) {
   } as any;
 }
 
-export default function CityCategoryPage({ params }: Props) {
+export default function CityCategoryPage({ params }: { params: { city: string; category: string } }) {
   const cityName = findCityName(params.city);
   const cat = findCategory(params.category);
   if (!cat) {
