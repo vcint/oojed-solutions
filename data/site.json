@@ -2,14 +2,86 @@
   "hero": {
     "headline": "Simple, Smart, Reliable Clean Energy",
   "sub": "Manufacturer and supplier of Solar Water Heater Systems, Solar Power Systems, and Solar LED Street/Flood Lights in Maharashtra since 2014.",
-    "ctaPrimary": { "label": "Get a Quote", "href": "#contact" },
-    "ctaSecondary": { "label": "Our Products", "href": "#products" }
+  "ctaPrimary": { "label": "Get a Quote", "href": "/contact" },
+  "ctaSecondary": { "label": "Our Products", "href": "/products" }
   },
   "contacts": {
     "email": "sales@oojed.com",
     "phones": ["+91 95112 29430"],
     "puneOffice": "Walhekar Wadi Road, Near Munjoba Mandir, Chinchwad, Pune, Maharashtra 411033"
   },
+  "cities": [
+    "Mumbai",
+    "Pune",
+    "Pimpri Chinchwad",
+    "Thane",
+    "Navi Mumbai",
+    "Kalyan",
+    "Dombivli",
+    "Mira Bhayandar",
+    "Bhiwandi",
+    "Ulhasnagar",
+    "Vasai-Virar",
+    "Panvel",
+    "Raigad",
+    "Palghar",
+    "Alibag",
+    "Nagpur",
+    "Nashik",
+    "Aurangabad",
+    "Chhatrapati Sambhajinagar",
+    "Solapur",
+    "Kolhapur",
+    "Sangli",
+    "Satara",
+    "Ratnagiri",
+    "Sindhudurg",
+    "Ahmednagar",
+    "Jalgaon",
+    "Dhule",
+    "Nandurbar",
+    "Nanded",
+    "Latur",
+    "Beed",
+    "Osmanabad",
+    "Parbhani",
+    "Hingoli",
+    "Akola",
+    "Amravati",
+    "Buldhana",
+    "Washim",
+    "Yavatmal",
+    "Wardha",
+    "Chandrapur",
+    "Gadchiroli",
+    "Bhandara",
+    "Gondia",
+    "Jalna",
+    "Karad",
+    "Ichalkaranji",
+    "Malegaon",
+    "Lonavala",
+    "Mahabaleshwar",
+    "Shirdi",
+    "Baramati",
+    "Talegaon",
+    "Chakan",
+    "Hinjawadi",
+    "Talegaon Dabhade",
+    "Ambarnath",
+    "Badlapur",
+    "Boisar",
+    "Dahanu",
+    "Vapi",
+    "Valsad",
+    "Surat",
+    "Belagavi",
+    "Hubballi",
+    "Dharwad",
+    "Goa",
+    "Mapusa",
+    "Panaji"
+  ],
   "values": [
     "Quality-assured products (BIS/ISO compliant components)",
     "Ethical, transparent dealings",
@@ -25,9 +97,20 @@
       "name": "Solar Water Heaters",
       "slug": "solar water heaters",
       "desc": "High-efficiency ETC & FPC systems for Indian conditions. Pressurized/non-pressurized variants with winter-angle optimisation. Save 70–90% on water-heating with quick, warranty-backed installation.",
-  "metaTitle": "Solar Water Heaters - OOJED | ETC & FPC Systems",
-      "metaDescription": "High-efficiency ETC and FPC solar water heating systems for homes and small businesses in Maharashtra. Pressurized and non-pressurized options, fast installation and long warranties.",
-      "keywords": ["solar water heater","ETC","FPC","solar hot water","pressurized solar heater"],
+      "metaTitle": "Solar Water Heater Pune, Maharashtra — ETC/FPC Systems, Installation, AMC | OOJED",
+      "metaDescription": "Solar water heaters in Pune, Maharashtra — ETC/FPC systems with professional installation, sizing, repair and AMC. Pressurised and non‑pressurised options for homes, apartments and hostels.",
+      "keywords": [
+        "solar water heater pune",
+        "solar water heater maharashtra",
+        "etc solar heater",
+        "fpc solar heater",
+        "solar hot water system",
+        "solar heater installation",
+        "solar heater amc",
+        "solar water heater repair",
+        "solar heater supplier",
+        "solar heater manufacturer"
+      ],
       "long": "Our Solar Water Heaters combine locally optimised evacuated tube (ETC) and flat-plate (FPC) collectors with insulated storage to deliver dependable hot water year-round. Systems are offered in pressurised and non-pressurised variants with polymer-coated tanks for hard-water resilience, rapid on-site commissioning, and routine service plans. Ideal for homes, hostels and small commercial kitchens where predictable hot water and strong lifecycle value matter.",
       "items": [
         "ETC Solar Water Heater Systems (100–500 LPD)",
@@ -96,7 +179,9 @@
           { "q": "Will it work in winter/monsoon?", "a": "Yes. Systems are sized for local climate; even on cloudy days, insulated storage ensures usable hot water." },
           { "q": "Is hard water a problem?", "a": "Polymer-coated tanks resist scale. An annual flush keeps efficiency high." },
           { "q": "How long is installation?", "a": "Typically completed in 4–6 hours after survey confirmation." },
-          { "q": "What roof types are supported?", "a": "RCC and metal roofs; structure is assessed during the free site survey." }
+          { "q": "What roof types are supported?", "a": "RCC and metal roofs; structure is assessed during the free site survey." },
+          { "q": "How do you size capacity (LPD)?", "a": "We consider occupants, usage pattern, plumbing pressure and bathrooms to recommend 100–500 LPD with margin for winter." },
+          { "q": "Is subsidy available in my city?", "a": "Policies vary by state/city. We advise eligibility and documentation during the survey and include this in the quote." }
         ],
         "contact": { "phone": "+91-9511229430", "note": "Call for a free site survey and subsidy eligibility check." }
       }
@@ -105,7 +190,7 @@
       "name": "Solar Power Plants",
       "slug": "solar-power-plants",
       "desc": "On-Grid / Hybrid rooftop systems for homes, SMBs, and industry—design, permits, and net-metering included. Cut monthly bills by 70–90% with Tier-1 panels and BIS-certified balance-of-system.",
-  "metaTitle": "Rooftop Solar Power Plants - OOJED",
+      "metaTitle": "Rooftop Solar Power Plants - OOJED",
       "metaDescription": "Design and installation of on-grid and hybrid rooftop solar power plants for residences and businesses. Net-metering, monitoring and end-to-end commissioning included.",
       "keywords": ["rooftop solar","solar plant","net-metering","commercial solar","residential solar"],
       "long": "We design and deliver rooftop and ground-mounted solar power plants tailored to your energy profile and site constraints. Our service includes shadow analysis, yield estimates, net-metering coordination, and commissioning with monitored performance. Choose from efficient mono/perc panels and reliable inverters to maximise generation and reduce electricity costs over a long warranty-backed lifecycle.",
@@ -148,9 +233,17 @@
       "name": "Solar Pumps",
       "slug": "solar-pumps",
       "desc": "DC (1–21 HP) and AC (1–100 HP) solar pumping solutions for agriculture and industry—sized for your required head and flow, with MNRE-compliant protection.",
-  "metaTitle": "Solar Water Pumps - OOJED",
-      "metaDescription": "Efficient solar pumping systems for agriculture and industry with MPPT controllers, dry-run protection and remote monitoring options. Proper sizing for head and flow guaranteed.",
-      "keywords": ["solar pump","agri pump","submersible solar pump","MPPT pump controller"],
+      "metaTitle": "Solar Water Pumps Pune, Maharashtra — Sizing, Installation, AMC | OOJED",
+      "metaDescription": "Solar water pumps in Pune — accurate sizing for head/flow, MPPT/VFD controllers, dry‑run protection and installation with AMC options for farms and industry.",
+      "keywords": [
+        "solar pump pune",
+        "solar pump maharashtra",
+        "agriculture solar pump",
+        "submersible solar pump",
+        "mppt pump controller",
+        "solar pump installation",
+        "solar pump amc"
+      ],
       "long": "Our solar pumping systems pair purpose-built pumps with MPPT controllers and custom mounting to deliver reliable water supply for irrigation, livestock and remote sites. Systems are sized to the required head and flow, and protected against dry-run and voltage incidents. We provide civil drawings, structural mounts and optional monitoring for long-term, low-maintenance operation.",
       "items": [
         "DC Pumps 1–21 HP (surface/submersible)",
@@ -172,7 +265,9 @@
         },
         "faq": [
           { "q": "Can it run in low light?", "a": "Controllers maximise available sun; storage/over-sizing is recommended for monsoon." },
-          { "q": "Existing bore compatibility?", "a": "Yes—subject to bore size/depth and pump curve matching." }
+          { "q": "Existing bore compatibility?", "a": "Yes—subject to bore size/depth and pump curve matching." },
+          { "q": "How do you size head and flow?", "a": "We use bore/water-level depth, discharge requirement and pipeline friction to size pump HP and controller." },
+          { "q": "AC vs DC pump — which to choose?", "a": "DC is efficient for dedicated solar; AC+VFD is flexible where grid/genset is also used." }
         ],
         "cta": {
           "primary": "Request Pump Sizing",
@@ -185,9 +280,16 @@
       "name": "LED Lighting",
       "slug": "led-lighting",
       "desc": "High-efficiency street and flood lighting with BIS-approved control gear. Designed for Indian grid conditions with surge protection and IP65 enclosures.",
-  "metaTitle": "LED Street & Flood Lighting - OOJED",
-      "metaDescription": "Durable, high-efficiency LED street and flood lights with IP65 protection and surge-hardened drivers. Options for motion dimming, smart controls and retrofits.",
-      "keywords": ["LED street light","flood light","BIS LED","IP65 lighting","outdoor lighting"],
+      "metaTitle": "LED Street & Flood Lighting Pune — IP65, Surge Protected, Installation | OOJED",
+      "metaDescription": "LED street and flood lighting in Pune — high‑efficiency IP65 luminaires with surge‑hardened drivers, photometric layouts, and retrofit/installation support.",
+      "keywords": [
+        "led street light pune",
+        "led flood light pune",
+        "outdoor lighting maharashtra",
+        "ip65 street light",
+        "bis led driver",
+        "led lighting installation"
+      ],
       "long": "Our LED lighting solutions are built for real-world outdoor conditions—high efficacy LEDs with IP65 housings, surge-hardened drivers and flexible mounting options. We provide photometric layouts, pole and bracket choices, and retrofit services for existing installations so you can reduce energy use and improve nighttime visibility with robust, low-maintenance fixtures.",
       "items": [
         "12W–150W Street Lights",
@@ -209,22 +311,26 @@
       "__optional": {
         "faq": [
           { "q": "Does it handle voltage spikes?", "a": "Yes—drivers are surge-hardened and properly earthed in installation." },
-          { "q": "Mounting options?", "a": "Wall/arm mounts, poles, and high-mast brackets available." }
-        ],
-        "cta": {
-          "primary": "Get a Lighting Layout",
-          "secondary": "Download Spec Sheet (PDF)",
-          "helper": "Share road/area dimensions for a photometric plan."
-        }
+          { "q": "How bright are the lights (lm/W)?", "a": "Typical efficacy is 120–150 lm/W depending on model and optics." },
+          { "q": "What pole height should I choose?", "a": "Depends on road width and spacing; we share a quick layout recommendation during scoping." },
+          { "q": "Is dimming/smart control available?", "a": "Yes—options include motion dimming and scheduled dimming profiles." }
+        ]
       }
     },
     {
       "name": "Poles & Masts",
       "slug": "poles-masts",
       "desc": "Hot-dip galvanised (HDG) hexagonal/round poles and high masts—4 m, 5 m, 9 m, 12 m, 15 m—with 1/2/4/6 luminaire options.",
-  "metaTitle": "Poles & Masts for Lighting - OOJED",
-      "metaDescription": "Hot-dip galvanised poles and high masts for street and area lighting. Wind-zone rated designs with foundation drawings and installation support.",
-      "keywords": ["light poles","high mast","galvanised poles","street lighting poles"],
+      "metaTitle": "Lighting Poles & High Masts Pune — HDG, Wind‑zone Rated | OOJED",
+      "metaDescription": "Lighting poles and high masts in Pune, Maharashtra — hot‑dip galvanised (HDG) with foundation drawings, wind‑zone rated designs and installation guidance.",
+      "keywords": [
+        "lighting pole pune",
+        "high mast pune",
+        "galvanized pole",
+        "street lighting pole",
+        "hdg pole",
+        "pole installation"
+      ],
       "long": "We supply hot-dip galvanised poles and masts in common heights with bespoke options for wind-zone and luminaire count. Each delivery includes foundation drawings, base plates and bolt patterns to ease civil work and ensure safe, code-compliant installations for roads, campuses and commercial spaces.",
       "highlights": [
         "HDG finish for corrosion resistance",
@@ -233,54 +339,116 @@
         "Custom arm lengths and bracket options"
       ],
       "__optional": {
-        "quickSpecs": {
-          "Heights": "4 m, 5 m, 9 m, 12 m, 15 m",
-          "Arms": "1/2/4/6 luminaires",
-          "Finish": "Hot-dip galvanised"
-        },
         "cta": {
           "primary": "Request Foundation Drawing",
           "secondary": "Download Product Matrix (PDF)",
           "helper": "Share site wind zone and luminaire count."
-        }
+        },
+        "faq": [
+          { "q": "Do you provide foundation drawings?", "a": "Yes. Every pole/mast order includes base plate and foundation drawings for your wind zone to ease civil work." },
+          { "q": "Is HDG required?", "a": "Hot‑dip galvanising provides long‑term corrosion resistance and is recommended for outdoor installations in most Indian climates." },
+          { "q": "What heights and arm options are available?", "a": "Common heights are 4–15 m with single/dual/quad arms and custom brackets as needed." },
+          { "q": "Lead time?", "a": "Standard poles are often ready ex‑stock or within 7–14 days; custom masts may take longer." }
+        ]
       }
     },
     {
-      "name": "Solar Spare Parts",
-      "slug": "solar-spare-parts",
-      "desc": "OEM-compatible replacement components and consumables for solar water heaters, PV systems, and lighting.",
-  "metaTitle": "Solar Spare Parts & Consumables - OOJED",
-      "metaDescription": "Replacement vacuum tubes, drivers, controllers and mounting parts for solar heaters, PV systems and LED lighting. Fast dispatch and fitment guidance.",
-      "keywords": ["spare parts","vacuum tubes","solar drivers","replacement parts"],
-      "long": "Carry genuine or OEM-equivalent spare parts for vacuum tubes, drivers, controllers, gaskets and fasteners so your system stays productive. We help identify the correct part, provide fitment guidance and ship quickly for urgent maintenance, reducing downtime for critical systems.",
+      "name": "Solar Power Plant BOS Material",
+      "slug": "solar-power-plant-bos-material",
+      "desc": "Balance-of-System (BOS) materials for commercial and residential solar power plants: mounting structures, cables, MC4s, earthing and junction boxes.",
+      "metaTitle": "Solar BOS Material Pune — Mounting, MC4, Cables, Earthing | OOJED",
+      "metaDescription": "Solar BOS in Pune — rails & clamps, AC/DC cables, MC4 connectors, earthing and junction boxes for rooftop and ground‑mount projects with reliable supply.",
+      "keywords": [
+        "solar bos pune",
+        "solar mounting structure",
+        "mc4 connectors",
+        "pv cables",
+        "earthing kit",
+        "combiner box"
+      ],
+      "long": "Our BOS (Balance-of-System) offering includes everything needed to build a robust and code-compliant solar power plant. We supply mounting rails, clamps, fasteners, AC/DC cabling, MC4 connectors, combiner/junction boxes, earthing kits and other auxiliaries—sourced from trusted manufacturers and inspected for performance.",
       "items": [
-        "Vacuum tubes, gaskets & seals",
-        "Controllers, sensors, and valves",
-        "Drivers, optics, surge-protective devices (SPD)"
+        "Mounting rails & clamps",
+        "PV-specific AC/DC cabling",
+        "MC4 & PV connectors",
+        "Combiner / Junction boxes",
+        "Earthing & lightning protection kits"
       ],
       "highlights": [
-        "OEM compatibility and fitment guidance",
-        "High-durability materials for hard-water and outdoor use",
-        "Fast dispatch for maintenance & bulk orders"
+        "Project-grade material selection for long-term reliability",
+        "Compatibility with Tier-1 modules and inverters",
+        "Bulk supply and timely dispatch for installation projects"
       ],
       "__optional": {
         "cta": {
-          "primary": "Check Part Availability",
-          "secondary": "Download Spare Parts Catalog (PDF)",
-          "helper": "Share part name, rating, and photos for faster matching."
-        }
+          "primary": "Request BOS Quote",
+          "secondary": "Download BOS Checklist (PDF)",
+          "helper": "Share system size and site constraints for a tailored BOS list."
+        },
+        "faq": [
+          { "q": "Can you match BOS to my module/inverter?", "a": "Yes. We prepare a compatible BOM against your selected modules/inverters and local codes." },
+          { "q": "Do you support bulk project supply?", "a": "We stock and schedule dispatches to align with site execution timelines for minimal downtime." },
+          { "q": "Do cables and connectors meet codes?", "a": "We supply BIS/MNRE-compliant components and size cabling to voltage drop and current requirements." },
+          { "q": "Can you ship across Maharashtra?", "a": "Yes. We coordinate logistics for timely delivery aligned with site work." }
+        ]
+      }
+    },
+    {
+      "name": "Solar Water Heater Spare Parts",
+      "slug": "solar-water-heater-spare-parts",
+      "desc": "Replacement components and consumables specifically for solar water heater systems: vacuum tubes, valves, gaskets, and tank components.",
+      "metaTitle": "Solar Water Heater Spare Parts Pune — Tubes, Valves, Gaskets | OOJED",
+      "metaDescription": "Solar water heater spare parts in Pune — vacuum tubes, manifolds, valves, gaskets and tank components with fitment guidance and quick dispatch.",
+      "keywords": [
+        "solar heater spare parts pune",
+        "etc vacuum tubes",
+        "solar manifold",
+        "solar valves",
+        "solar gaskets",
+        "solar tank parts"
+      ],
+      "long": "We stock a wide range of spare parts tailored for solar water heating systems: replacement vacuum tubes (ETC), manifolds, pressure valves, insulation jackets, anode kits and flanges. Our team helps identify the correct part and provides fitment guidance so systems can be restored quickly with minimal downtime.",
+      "items": [
+        "Vacuum tubes & collectors",
+        "Manifold assemblies & flanges",
+        "Pressure/temperature valves",
+        "Gaskets, seals & fittings",
+        "Insulation jackets & tank components"
+      ],
+      "highlights": [
+        "Parts compatible with common ETC and FPC systems",
+        "Rapid dispatch for urgent maintenance",
+        "Fitment guidance and simple installation notes"
+      ],
+      "__optional": {
+        "cta": {
+          "primary": "Check Availability",
+          "secondary": "Request Fitment Help",
+          "helper": "Share product photos & model information for faster matching."
+        },
+        "faq": [
+          { "q": "How do I identify the right tube size?", "a": "Share the tank/capacity and tube length/diameter or a photo; we’ll match the correct ETC tube." },
+          { "q": "Do you ship spares quickly?", "a": "Yes. Common parts are in stock for same/next‑day dispatch in Maharashtra." },
+          { "q": "Are parts compatible across brands?", "a": "Many parts are cross‑compatible, but we confirm fitment against photos/measurements before dispatch." },
+          { "q": "Do you offer installation support?", "a": "We provide fitment guidance and can schedule a service visit if needed." }
+        ]
       }
     }
-  ]
-  ,
+  ],
   "services": [
     {
       "name": "Installation",
       "slug": "installation",
       "short": "Professional on-site installation and commissioning.",
-  "metaTitle": "Professional Installation & Commissioning | OOJED",
-      "metaDescription": "Turnkey installation services for solar water heaters, solar PV and LED lighting — site assessment, structural mounting, electrical integration and certified commissioning.",
-      "keywords": ["solar installation","system commissioning","turnkey installation","site assessment","solar mounting"],
+  "metaTitle": "Solar Installation Pune, Maharashtra — Certified Commissioning | OOJED",
+      "metaDescription": "Professional solar installation in Pune — site assessment, structural mounting, electrical integration and certified commissioning for water heaters, PV and LED lighting.",
+      "keywords": [
+        "solar installation pune",
+        "system commissioning",
+        "turnkey solar installation",
+        "site assessment",
+        "solar mounting"
+      ],
       "long": "OOJED provides end-to-end, certified installation for residential and commercial clean-energy systems. We start with a detailed site assessment (roof structure, tilt, mounting options) and hand off a clear installation plan. Our technicians perform civil/roof mounting, secure electrical interconnections, piping, and controller/inverter commissioning using tested procedures and quality components. Every installation includes safety checks, labelling, and client handover with documentation and basic user training. For larger projects we co-ordinate with architects and local authorities to ensure compliance and smooth net-metering approvals.",
       "highlights": [
         "Site survey & mounting design",
@@ -288,19 +456,33 @@
         "Electrical interconnection & labeling",
         "Commissioning, testing & client handover"
       ],
+      "faqs": [
+        { "q": "How long does installation take?", "a": "Most residential installations complete within 1 day for heaters and 1–2 days for small PV/lighting, subject to site readiness." },
+        { "q": "Do you handle net‑metering paperwork?", "a": "Yes. For PV systems we guide documentation and coordinate with the DISCOM where applicable." },
+        { "q": "What is included in installation?", "a": "Stand, mounting, basic piping/wiring, commissioning, safety checks and client handover. Extras are quoted if required by site conditions." },
+        { "q": "Is there workmanship warranty?", "a": "Yes. Our installations include workmanship warranty; component warranties are as per OEM." }
+      ],
       "cta": { "primary": "Request Installation" }
     },
     {
       "name": "Feasibility & Survey",
       "slug": "feasibility",
       "short": "Site surveys, shading analysis and yield estimation.",
-  "metaTitle": "Feasibility & Site Survey - OOJED",
-      "metaDescription": "On-site shading analysis, orientation study and generation estimates — a practical feasibility report to size your solar system with expected payback and subsidy guidance.",
-      "keywords": ["site survey","shading analysis","solar feasibility","yield estimate","solar site assessment"],
+  "metaTitle": "Solar Feasibility & Site Survey Pune — Shading, Yield, Payback | OOJED",
+      "metaDescription": "On‑site solar feasibility in Pune — shading analysis, orientation/tilt study, generation estimates and a practical report with sizing, payback and subsidy guidance.",
+      "keywords": [
+        "solar site survey pune",
+        "shading analysis",
+        "solar feasibility",
+        "yield estimate",
+        "site assessment"
+      ],
       "long": "A professional site feasibility and survey provides the single most important input to a reliable solar system: correct sizing. Our field survey includes roof orientation, azimuth, tilt optimisation, shading (trees/nearby walls), structural checks, and AC/DC routing for best performance. We model expected generation and provide an itemised recommendation with payback and subsidy guidance tailored to your city and electricity tariff. The result: a practical, low-risk proposal you can trust for procurement or subsidy applications.",
       "faqs": [
         { "q": "What does a feasibility survey include?", "a": "On-site shadow study, orientation & tilt checks, structural mounting assessment, estimated generation and a short written report with recommended system sizing and expected payback." },
-        { "q": "How long does a survey take?", "a": "A typical residential rooftop survey takes 1–2 hours; larger commercial sites are scoped during an initial remote review and surveyed in a single day when possible." }
+        { "q": "How long does a survey take?", "a": "A typical residential rooftop survey takes 1–2 hours; larger commercial sites are scoped during an initial remote review and surveyed in a single day when possible." },
+        { "q": "Do you charge for surveys?", "a": "We offer free/basic surveys in Pune city limits; extended travel or detailed engineering may be chargeable and adjusted against order value." },
+        { "q": "What if my roof has shading?", "a": "We measure shading and propose alternatives: layout changes, pruning, or sizing adjustment with realistic yield estimates." }
       ],
       "highlights": [
         "On-site shading & tilt analysis",
@@ -320,7 +502,9 @@
       "long": "Our repair and service team specialises in rapid fault triage for solar water heaters, PV systems, pumps and LED lighting. We follow a structured diagnosis approach: remote tele-triage, on-site inspection, root-cause identification and a clear repair plan with costed spare part options. For common failures we carry an inventory of OEM-compatible spares to minimise downtime. We also offer hourly-based repairs and structured warranty handling for installations we supply.",
       "faqs": [
         { "q": "Do you stock spare parts?", "a": "Yes. We keep common spares to ensure quick turnaround for common faults — vacuum tubes, drivers, controllers, and selected inverter models." },
-        { "q": "Do you provide emergency breakdown support?", "a": "We provide priority dispatch options and telephone troubleshooting to isolate issues quickly and schedule a field team when needed." }
+        { "q": "Do you provide emergency breakdown support?", "a": "We provide priority dispatch options and telephone troubleshooting to isolate issues quickly and schedule a field team when needed." },
+        { "q": "Do repairs carry warranty?", "a": "We provide limited warranty on repair workmanship and replaced parts as applicable." },
+        { "q": "Which brands do you service?", "a": "We service most common brands; share make/model details for confirmation." }
       ],
       "highlights": [
         "Fast fault triage & isolation",
@@ -340,7 +524,9 @@
       "long": "Our AMC plans are built to preserve system performance over years: scheduled preventive visits, cleaning and inspection of collectors/tanks, electrical checks, tightening and corrosion prevention, and performance monitoring. AMCs reduce emergency visits and extend equipment life by catching issues early. Contracts include service-level options (response time, spare part allowances) so you can choose the level of coverage that matches your operational risk tolerance.",
       "faqs": [
         { "q": "What does AMC cover?", "a": "Scheduled preventive visits, basic cleaning, performance checks, fast-triage and discounts on parts and labour as per the plan chosen." },
-        { "q": "Are spare parts included?", "a": "Some plans include a spare-part allowance; others provide discounted rates. We include this detail in the contract so there are no surprises." }
+        { "q": "Are spare parts included?", "a": "Some plans include a spare-part allowance; others provide discounted rates. We include this detail in the contract so there are no surprises." },
+        { "q": "How often are visits?", "a": "Typically 2–4 preventive visits per year depending on system size and environment." },
+        { "q": "What is excluded?", "a": "Major component replacements and civil modifications are outside standard AMC and are quoted separately." }
       ],
       "highlights": [
         "Scheduled preventive visits",

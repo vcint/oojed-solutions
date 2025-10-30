@@ -15,10 +15,10 @@ export default function Footer() {
         <div>
           <div className="font-medium ui-text">Quick links</div>
           <ul className="mt-3 space-y-2 muted">
-            <li><Link href={"/#about"} className="hover:text-blue-700">About</Link></li>
+            <li><Link href={"/about"} className="hover:text-blue-700">About</Link></li>
             <li><Link href={"/products"} className="hover:text-blue-700">Products</Link></li>
             <li><Link href={"/services"} className="hover:text-blue-700">Services</Link></li>
-            <li><Link href={"/#benefits"} className="hover:text-blue-700">Why Us</Link></li>
+            <li><Link href={"/benefits"} className="hover:text-blue-700">Why Us</Link></li>
             {/* <li><Link href="#contact" className="hover:text-blue-700">Contact</Link></li> */}
           </ul>
         </div>

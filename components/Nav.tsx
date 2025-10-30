@@ -77,13 +77,14 @@ export default function Nav() {
       {label}
     </Link>
   );
+  // Use top-level routes for pages we've created. Keep anchors for purely in-page sections.
   const sections: { id: string; label: string }[] = [
     { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
+    { id: '/about', label: 'About' },
     { id: '/products', label: 'Products' },
     { id: '/services', label: 'Services' },
     { id: 'benefits', label: 'Why Us' },
-    { id: 'contact', label: 'Contact' },
+    { id: '/contact', label: 'Contact' },
   ];
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[94%] md:w-[92%] lg:w-[84%]">
@@ -125,7 +126,7 @@ export default function Nav() {
                 }).map(s => (
                   <span key={s.id}>{link(s.id, s.label)}</span>
                 ))}
-                {!hideQuote && <Link href="#contact" className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">Get a Quote</Link>}
+                {!hideQuote && <Link href="/contact" className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300">Get a Quote</Link>}
                 <ThemeToggle />
               </div>
           </div>
@@ -144,7 +145,7 @@ export default function Nav() {
                     <div key={s.id}>{link(s.id, s.label, () => setMobileOpen(false))}</div>
                   ))}
                   {!hideQuote && (
-                      <Link href="#contact" className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
+                      <Link href="/contact" className="w-full mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-4 py-2 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300" onClick={() => setMobileOpen(false)}>Get a Quote</Link>
                     )}
                 </div>
               </div>

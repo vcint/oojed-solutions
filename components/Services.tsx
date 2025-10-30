@@ -4,6 +4,7 @@ import { LazyMotionDiv } from "./LazyMotion";
 import { useState, useEffect } from "react";
 import { getCache, setCache } from "@/lib/cache";
 import ProductModal from "./ProductModal";
+import Button from './Button';
 import { FiTool as Tool, FiMapPin as Feas, FiRefreshCw as Repair, FiClock as AMC } from "react-icons/fi";
 
 export default function Services() {
@@ -128,7 +129,7 @@ export default function Services() {
                     return text.length > max ? text.slice(0, max).trim() + '…' : text;
                   })()}</p>
                 <div className="mt-4 relative z-20">
-                  <button onClick={() => openService(svc, i)} className="learn-more-btn w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-4 py-2 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/20">Learn more</button>
+                  <Button href={`/services/${svc.slug}`} variant="outline" className="w-full md:w-auto">Learn more</Button>
                 </div>
               </div>
             </LazyMotionDiv>

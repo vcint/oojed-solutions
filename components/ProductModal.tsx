@@ -419,12 +419,12 @@ export default function ProductModal({
                         } else {
                           // different page: set a session flag so Contact can open after navigation
                           try { sessionStorage.setItem('openContactForm', '1'); } catch (e) { /* ignore */ }
-                          // navigate to home with hash — Contact will handle focusing on load
-                          window.location.href = '/#contact';
+                          // navigate to the dedicated contact page — Contact will open on load
+                          window.location.href = '/contact';
                         }
                       }
                     } catch (err) {
-                      try { window.location.href = '/#contact'; } catch (e) { /* ignore */ }
+                      try { window.location.href = '/contact'; } catch (e) { /* ignore */ }
                     }
                   }}
                   className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/40"

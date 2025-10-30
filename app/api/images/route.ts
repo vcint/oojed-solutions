@@ -129,13 +129,49 @@ export async function GET(req: Request) {
     if (decoded) {
   if (IS_DEV) console.time?.(`images:fs-check:${dir}`);
       const candidatePath = path.join(publicDir, decoded);
-      const stat = await fs.stat(candidatePath).catch(() => null);
+      let stat = await fs.stat(candidatePath).catch(() => null);
+      // tolerant fallback: if the exact decoded path doesn't exist, try to locate a matching
+      // folder under `public/products` or `public/services` by normalized name. This handles
+      // cases where the client sends a slug (hyphenated/lowercase) but the filesystem folder
+      // contains spaces or different casing (e.g. "Solar Power Plant BOS Material").
+      if (!stat) {
+        try {
+          const parts = decoded.split("/");
+          const base = parts[0];
+          const basename = parts.slice(1).join("/");
+          if (base === "products" || base === "services") {
+            const basePath = path.join(publicDir, base);
+            const dirents = await fs.readdir(basePath, { withFileTypes: true }).catch(() => [] as any[]);
+            const match = (dirents || []).find((d: any) => {
+              if (!d || !d.isDirectory) return false;
+              const name = d.name || "";
+              return normalize(name) === normalize(basename) || normalize(name.replace(/\s+/g, "-")) === normalize(basename);
+            });
+            if (match && match.name) {
+              const resolved = path.join(basePath, match.name);
+              stat = await fs.stat(resolved).catch(() => null);
+              if (stat && stat.isDirectory()) {
+                // update candidatePath to the real folder found on disk
+                (globalThis as any).__images_last_resolved = resolved;
+                // proceed with resolved path below
+              }
+            }
+          }
+        } catch (e) {
+          // ignore tolerant-fallback failures and continue
+        }
+      }
       if (stat && stat.isDirectory()) {
-        const imgs = (await fs.readdir(candidatePath)).filter((f) => /\.(png|jpe?g|webp|svg)$/i.test(f)).sort();
+        // determine actual path to read: prefer the explicit candidatePath if it exists,
+        // otherwise use the tolerant-resolved path stored above (if any)
+        const actualPath = stat && stat.isDirectory() ? (stat ? (path.join(publicDir, decoded)) : null) : null;
+        const folderToRead = (actualPath && (await fs.stat(actualPath).catch(() => null))) ? actualPath : ((globalThis as any).__images_last_resolved ? (globalThis as any).__images_last_resolved : null);
+        const imgs = (await fs.readdir(folderToRead || candidatePath)).filter((f) => /\.(png|jpe?g|webp|svg)$/i.test(f)).sort();
         if (imgs.length) {
+          const folderName = path.relative(publicDir, folderToRead || candidatePath).replace(/\\/g, "/");
           const urls = imgs.map((f) => {
-            // defensive: decode repeated %25 entries then encode once
-            let p = `/${decoded}/${f}`;
+            // defensive: build URL from the real folder name found on disk and encode it
+            let p = `/${folderName}/${f}`;
             try {
               while (/%25/i.test(p)) p = decodeURIComponent(p);
             } catch (e) {
@@ -145,7 +181,7 @@ export async function GET(req: Request) {
           });
           const payload = IS_DEV ? { images: urls, debug: { foundDir: decoded } } : { images: urls };
           try { responseCache.set(cacheKey, { expires: Date.now() + RESPONSE_TTL_MS, payload }); } catch (e) {}
-          if (IS_DEV) console.log(`[images] fs-direct -> found ${decoded} for dir=${dir}`);
+          if (IS_DEV) console.log(`[images] fs-direct -> found ${folderToRead || decoded} for dir=${dir}`);
           if (IS_DEV) console.timeEnd?.(`images:fs-check:${dir}`);
           return NextResponse.json(payload);
         }

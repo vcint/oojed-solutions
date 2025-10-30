@@ -14,12 +14,12 @@ export default function HomePage() {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          "name": "Oojed Solutions",
-          "url": "https://example.com",
-          "logo": "https://example.com/logo.png",
+          "name": "OOJED",
+          "url": "https://oojed.com",
+          "logo": "https://oojed.com/oojed-logo.png",
           "contactPoint": [{
             "@type": "ContactPoint",
-            "telephone": data.contacts.phones[0],
+            "telephone": data.contacts.phones?.[0],
             "contactType": "customer service",
             "areaServed": "IN",
             "availableLanguage": ["English"]
