@@ -5,13 +5,10 @@ import Link from 'next/link';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
 
-type Props = { params: { slug: string } };
-
 export async function generateStaticParams() {
   return data.services.map((s: any) => ({ slug: s.slug }));
 }
-
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: { params: any }) {
   const svc = data.services.find((s: any) => s.slug === params.slug);
   if (!svc) return { title: 'Service' };
   return {
@@ -57,7 +54,7 @@ async function getImagesFor(base: 'products' | 'services', slug: string) {
   return [];
 }
 
-export default async function ServicePage({ params }: Props) {
+export default async function ServicePage({ params }: { params: any }) {
   const svc = data.services.find((s: any) => s.slug === params.slug);
   if (!svc) {
     return (

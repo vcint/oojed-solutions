@@ -5,7 +5,7 @@ import Link from 'next/link';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
 
-type Props = { params: { slug: string } };
+// inline param types to avoid Next.js PageProps generic conflicts
 
 const buildSlug = (s: string) => String(s || '').replace(/\s+/g, '-').toLowerCase();
 
@@ -45,7 +45,7 @@ export async function generateStaticParams() {
   return categories.map((c: any) => ({ slug: buildSlug(String(c.slug || c.name || '')) }));
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: { params: any }) {
   const slug = String(params.slug || '').toLowerCase();
   const cat = (data as any).categories?.find((c: any) => buildSlug(String(c.slug || c.name)) === slug);
   if (!cat) return { title: 'Product — OOJED' } as any;
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: Props) {
   } as any;
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params }: { params: any }) {
   const slug = String(params.slug || '').toLowerCase();
   const cat = (data.categories || []).find((c: any) => buildSlug(String(c.slug || c.name)) === slug);
 

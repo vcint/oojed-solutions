@@ -27,7 +27,7 @@ export async function generateStaticParams() {
   return pairs;
 }
 
-export async function generateMetadata({ params }: { params: { city: string; category: string } }) {
+export async function generateMetadata({ params }: { params: any }) {
   const cityName = findCityName(params.city);
   const cat = findCategory(params.category);
   const catName = cat?.name || 'Category';
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: { city: string; cat
   } as any;
 }
 
-export default function CityCategoryPage({ params }: { params: { city: string; category: string } }) {
+export default function CityCategoryPage({ params }: { params: any }) {
   const cityName = findCityName(params.city);
   const cat = findCategory(params.category);
   if (!cat) {

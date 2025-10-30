@@ -2,8 +2,6 @@ import site from '@/data/site.json';
 import Link from 'next/link';
 import TrustBar from '@/components/TrustBar';
 
-type Props = { params: { city: string } };
-
 const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-');
 const fromSlug = (slug: string) => {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
@@ -16,7 +14,7 @@ export async function generateStaticParams() {
   return cities.map((c) => ({ city: toSlug(c) }));
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
   const title = `Solar Solutions in ${cityName} — Heaters, Pumps, LED Lighting | OOJED`;
   const description = `OOJED serves ${cityName} with solar water heaters (ETC/FPC), rooftop solar, solar pumps, LED street/flood lighting, installation, repair and AMC.`;
@@ -30,7 +28,7 @@ export async function generateMetadata({ params }: Props) {
   } as any;
 }
 
-export default function CityPage({ params }: Props) {
+export default function CityPage({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
   return (
     <main className="container py-12">
