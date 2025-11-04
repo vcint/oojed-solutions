@@ -5,6 +5,17 @@ import Link from 'next/link';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
 
+const DEFAULT_CITY = 'Pune';
+const fillCity = (text: any, city?: string) => {
+  if (text == null) return text;
+  const c = String(city || DEFAULT_CITY);
+  try {
+    return String(text).replace(/\{\{\s*city\s*\}\}/gi, c);
+  } catch (e) {
+    return text;
+  }
+};
+
 // inline param types to avoid Next.js PageProps generic conflicts
 
 const buildSlug = (s: string) => String(s || '').replace(/\s+/g, '-').toLowerCase();
@@ -49,10 +60,10 @@ export async function generateMetadata({ params }: { params: any }) {
   const slug = String(params.slug || '').toLowerCase();
   const cat = (data as any).categories?.find((c: any) => buildSlug(String(c.slug || c.name)) === slug);
   if (!cat) return { title: 'Product — OOJED' } as any;
-  const title = cat.metaTitle || `${cat.name} — OOJED`;
-  const description = cat.metaDescription || cat.desc || cat.long || `Explore ${cat.name} from OOJED.`;
+  const title = fillCity(cat.metaTitle || `${cat.name} — OOJED`);
+  const description = fillCity(cat.metaDescription || cat.desc || cat.long || `Explore ${cat.name} from OOJED.`);
   const url = `https://oojed.com/products/${encodeURIComponent(slug)}`;
-  const keywords = Array.isArray(cat.keywords) ? cat.keywords : undefined;
+  const keywords = Array.isArray(cat.keywords) ? cat.keywords.map((k: string) => fillCity(k)) : undefined;
   return {
     title,
     description,
@@ -116,7 +127,7 @@ export default async function ProductPage({ params }: { params: any }) {
           '@context': 'https://schema.org',
           '@type': 'OfferCatalog',
           name: cat.name,
-          description: cat.metaDescription || cat.desc || undefined,
+    description: fillCity(cat.metaDescription || cat.desc || undefined),
           url: `https://oojed.com/products/${encodeURIComponent(slug)}`,
           itemListElement: Array.isArray(cat.items) ? cat.items.map((label: string, idx: number) => ({
             '@type': 'OfferCatalog',
@@ -140,16 +151,16 @@ export default async function ProductPage({ params }: { params: any }) {
                 '@type': 'FAQPage',
                 mainEntity: ((cat as any).__optional?.faq || (cat as any).faqs || []).map((f: any) => ({
                   '@type': 'Question',
-                  name: f.q,
-                  acceptedAnswer: { '@type': 'Answer', text: f.a },
+                  name: fillCity(f.q),
+                  acceptedAnswer: { '@type': 'Answer', text: fillCity(f.a) },
                 })),
               }),
             }}
           />
         )}
 
-        {cat.metaDescription && <p className="mt-4 text-lg text-slate-700">{cat.metaDescription}</p>}
-        {cat.long && <div className="mt-6 text-slate-700 leading-relaxed">{cat.long}</div>}
+  {cat.metaDescription && <p className="mt-4 text-lg text-slate-700">{fillCity(cat.metaDescription)}</p>}
+  {cat.long && <div className="mt-6 text-slate-700 leading-relaxed">{fillCity(cat.long)}</div>}
 
         {cat.items && cat.items.length > 0 && (
           <section className="mt-6">
@@ -192,7 +203,7 @@ export default async function ProductPage({ params }: { params: any }) {
         <section className="mt-8 border-t pt-6">
           <h2 className="text-xl font-semibold">Related services</h2>
           <ul className="list-disc list-inside mt-2 space-y-1">
-            <li><Link href="/services/installation" className="text-blue-700 hover:underline">Solar installation & commissioning services (Pune, Maharashtra)</Link></li>
+            <li><Link href="/services/installation" className="text-blue-700 hover:underline">Solar installation & commissioning services</Link></li>
             <li><Link href="/services/amc" className="text-blue-700 hover:underline">Annual Maintenance Contracts (AMC) for solar systems</Link></li>
             <li><Link href="/services/repair" className="text-blue-700 hover:underline">Repair and service for {cat.name.toLowerCase()}</Link></li>
           </ul>

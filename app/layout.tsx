@@ -6,6 +6,8 @@ import { Inter } from 'next/font/google';
 import WhatsAppButton from "../components/WhatsAppButton";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+// client-side location detection and redirect helper
+import LocationDetector from '@/components/LocationDetector';
 
 export const metadata: Metadata = {
   title: "OOJED | Solar & LED Specialists",
@@ -46,6 +48,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   <meta name="robots" content="index, follow" />
   {/* Aggregate keywords from site data for a general keywords tag */}
   <meta name="keywords" content={(Array.from(new Set(["solar","solar water heaters","solar pumps","rooftop solar","LED street lights","solar spare parts","OOJED"]))).slice(0,25).join(', ')} />
+  {/* Application / Publisher metadata to strengthen brand signals */}
+  <meta name="application-name" content="OOJED" />
+  <meta name="publisher" content="OOJED" />
+  <link rel="publisher" href="https://oojed.com" />
         <meta property="og:type" content="website" />
 
         {/* Twitter */}
@@ -60,6 +66,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name: "OOJED",
           url: "https://oojed.com",
           logo: "https://oojed.com/oojed-logo.png",
+          brand: {
+            "@type": "Brand",
+            name: "OOJED",
+            url: "https://oojed.com"
+          },
+          // External profiles for identity consolidation (Justdial, IndiaMART)
+          sameAs: [
+            "https://www.justdial.com/Pune/OOJED-SOLAR-SOLUTIONS/020PXX20-XX20-170305105945-P6R6_BZDET",
+            "https://www.indiamart.com/oojed-solutions/profile.html"
+          ],
           email: site.contacts?.email,
           telephone: Array.isArray(site.contacts?.phones) ? site.contacts.phones[0] : site.contacts?.phones,
           address: {
@@ -73,6 +89,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         }, null, 2) }} />
       </head>
     <body className="selection:bg-brand-300/40">
+  {/* Run location detection early on the client. It only redirects if user previously set an override. */}
+  <LocationDetector />
       <Nav />
       <main>
         {children}

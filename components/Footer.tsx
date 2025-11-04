@@ -49,7 +49,7 @@ export default function Footer() {
 
           <div className="mt-4 flex items-center gap-3">
             <a href="#" className="text-slate-500 hover:text-blue-700" target="_blank"><FiFacebook className="w-5 h-5" /></a>
-            <a href="https://www.instagram.com/oojed_solutions" className="text-slate-500 hover:text-blue-700" target="_blank"><FiInstagram className="w-5 h-5" /></a>
+            <a href="https://www.instagram.com/oojed_solar" className="text-slate-500 hover:text-blue-700" target="_blank"><FiInstagram className="w-5 h-5" /></a>
             <a href="#" className="text-slate-500 hover:text-blue-700" target="_blank"><FiLinkedin className="w-5 h-5" /></a>
           </div>
         </div>

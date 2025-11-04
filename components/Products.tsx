@@ -30,6 +30,16 @@ export default function Products() {
       }
     }
   };
+  const DEFAULT_CITY = 'Pune';
+  const fillCity = (text: any, city?: string) => {
+    if (text == null) return text;
+    const c = String(city || DEFAULT_CITY);
+    try {
+      return String(text).replace(/\{\{\s*city\s*\}\}/gi, c);
+    } catch (e) {
+      return text;
+    }
+  };
   const imgs = ['/solar-water-heater.webp','/2.webp','/solar-water-pump.webp', '/solar-street-light.webp','/poles.webp','/spare-parts.jpeg','/spare-2.jpeg','/spare-3.jpeg'];
   const [previews, setPreviews] = useState<Record<string, string>>({});
 
@@ -70,7 +80,16 @@ export default function Products() {
 
     // Immediately open modal with fallback images for a fast UI response
     const fb = fallback.map((r: string) => normalizeSrc(r));
-    setSelected({ ...cat, images: fb, image: fb[0] });
+    // create a shallow copy with placeholders filled so modal and previews don't show literal {{city}}
+    const filled = {
+      ...cat,
+      long: fillCity(cat.long),
+      desc: fillCity(cat.desc),
+      items: Array.isArray(cat.items) ? cat.items.map((it: any) => fillCity(it)) : cat.items,
+      highlights: Array.isArray(cat.highlights) ? cat.highlights.map((h: any) => fillCity(h)) : cat.highlights,
+      faqs: Array.isArray(cat.faqs) ? cat.faqs.map((f: any) => ({ q: fillCity(f.q), a: fillCity(f.a) })) : cat.faqs,
+    };
+    setSelected({ ...filled, images: fb, image: fb[0] });
     setOpen(true);
 
     // Fetch real images in the background and update the modal when ready

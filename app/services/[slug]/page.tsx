@@ -5,19 +5,37 @@ import Link from 'next/link';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
 
+const DEFAULT_CITY = 'Pune';
+const fillCity = (text: any, city?: string) => {
+  if (text == null) return text;
+  const c = String(city || DEFAULT_CITY);
+  try {
+    return String(text).replace(/\{\{\s*city\s*\}\}/gi, c);
+  } catch (e) {
+    return text;
+  }
+};
+
 export async function generateStaticParams() {
   return data.services.map((s: any) => ({ slug: s.slug }));
 }
 export async function generateMetadata({ params }: { params: any }) {
   const svc = data.services.find((s: any) => s.slug === params.slug);
   if (!svc) return { title: 'Service' };
+  // Ensure the brand name is present in page titles for consistent SEO
+  let title = fillCity(svc.metaTitle || svc.name);
+  if (!/oojed/i.test(title)) {
+    title = `${title} — OOJED`;
+  }
+  const description = fillCity(svc.metaDescription || svc.short || svc.long);
+  const url = `https://oojed.com/services/${encodeURIComponent(params.slug)}`;
   return {
-    title: svc.metaTitle || svc.name,
-    description: svc.metaDescription || svc.short || svc.long,
+    title,
+    description,
     openGraph: {
-      title: svc.metaTitle || svc.name,
-      description: svc.metaDescription || svc.short || svc.long,
-      url: `https://oojed.com/services/${encodeURIComponent(params.slug)}`,
+      title,
+      description,
+      url,
       siteName: 'OOJED',
     },
   };
@@ -93,8 +111,8 @@ export default async function ServicePage({ params }: { params: any }) {
           </div>
         )}
 
-        {svc.metaDescription && <p className="mt-4 text-lg text-slate-700">{svc.metaDescription}</p>}
-        {svc.long && <div className="mt-6 text-slate-700 leading-relaxed">{svc.long}</div>}
+  {svc.metaDescription && <p className="mt-4 text-lg text-slate-700">{fillCity(svc.metaDescription)}</p>}
+  {svc.long && <div className="mt-6 text-slate-700 leading-relaxed">{fillCity(svc.long)}</div>}
 
         {svc.highlights && (
           <section className="mt-6">

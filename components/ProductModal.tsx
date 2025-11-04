@@ -108,6 +108,17 @@ export default function ProductModal({
     }
   };
 
+  const DEFAULT_CITY = 'Pune';
+  const fillCity = (text: any, city?: string) => {
+    if (text == null) return text;
+    const c = String(city || DEFAULT_CITY);
+    try {
+      return String(text).replace(/\{\{\s*city\s*\}\}/gi, c);
+    } catch (e) {
+      return text;
+    }
+  };
+
   // helper to scroll to a slide index
   const scrollToIndex = (idx: number) => {
     const gallery = galleryRef.current;
@@ -243,7 +254,7 @@ export default function ProductModal({
             </h3>
             {product.desc && (
               <p id={descId} className="mt-1 text-sm muted">
-                {product.desc}
+                {fillCity(product.desc)}
               </p>
             )}
           </div>
@@ -338,7 +349,7 @@ export default function ProductModal({
               {product.long && (
                 <div>
                   <div className="font-medium text-slate-900">About</div>
-                  <p className="mt-2 text-sm text-slate-700">{product.long}</p>
+                  <p className="mt-2 text-sm text-slate-700">{fillCity(product.long)}</p>
                 </div>
               )}
 
@@ -382,8 +393,8 @@ export default function ProductModal({
                   <div className="mt-2 text-sm text-slate-700">
                     {(product as any).faqs.map((f: any) => (
                       <div key={f.q} className="mt-3">
-                        <div className="font-semibold">{f.q}</div>
-                        <div className="mt-1">{f.a}</div>
+                        <div className="font-semibold">{fillCity(f.q)}</div>
+                        <div className="mt-1">{fillCity(f.a)}</div>
                       </div>
                     ))}
                   </div>
