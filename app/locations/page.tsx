@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata = {
   title: 'Service Areas — OOJED',
   description: 'Cities we serve in Maharashtra for solar water heaters, pumps, LED lighting, and installation/AMC services.',
+  alternates: { canonical: 'https://oojed.com/locations' },
 };
 
 export default function LocationsIndex() {

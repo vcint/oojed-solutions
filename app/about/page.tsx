@@ -4,6 +4,7 @@ import TrustBar from '@/components/TrustBar';
 export const metadata = {
   title: 'About — OOJED',
   description: data.about ? (String(data.about).slice(0, 160)) : 'About OOJED',
+  alternates: { canonical: 'https://oojed.com/about' },
 };
 
 export default function AboutPage() {

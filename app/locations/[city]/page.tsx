@@ -75,17 +75,53 @@ export default function CityPage({ params }: { params: any }) {
 
       <TrustBar />
 
-      {/* Local intent FAQ JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: [
-          { '@type': 'Question', name: `Do you serve all areas of ${cityName}?`, acceptedAnswer: { '@type': 'Answer', text: `Yes, we serve most neighbourhoods in ${cityName} and nearby areas. Share your location for scheduling.` } },
-          { '@type': 'Question', name: 'How fast can installation be scheduled?', acceptedAnswer: { '@type': 'Answer', text: 'For standard jobs we schedule within 2–7 days depending on survey and material readiness.' } },
-          { '@type': 'Question', name: 'Do you assist with subsidies and net-metering?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We advise on state/city policies and manage documentation where applicable.' } },
-          { '@type': 'Question', name: 'Do you provide post-installation service?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. We offer repair visits and Annual Maintenance Contracts (AMC) with defined SLAs.' } },
-        ],
-      }) }} />
+      {/* Local intent FAQ: generate an extensive, city-aware FAQ to improve local indexing */}
+      {
+        (() => {
+          const phone = (site as any).contacts?.phones?.[0] || (site as any).contacts?.phone || '';
+          const baseFaq = [
+            { q: `Do you serve all areas of ${cityName}?`, a: `Yes, we serve most neighbourhoods in ${cityName} and nearby areas. Share your location for scheduling.` },
+            { q: `How quickly can installation be scheduled in ${cityName}?`, a: `For standard residential installations we typically schedule within 2–7 business days after a site survey and material confirmation; larger or custom projects may take longer.` },
+            { q: `Do you provide post-installation service in ${cityName}?`, a: `Yes. We provide repair visits and Annual Maintenance Contracts (AMC) with defined SLAs. Call ${phone} to book a service visit.` },
+            { q: `Do you assist with subsidies and net-metering for ${cityName}?`, a: `Yes. We advise on state/city subsidy schemes and assist with net-metering paperwork where applicable.` },
+            { q: `What areas do your warranties and service cover in ${cityName}?`, a: `Warranties vary by product: tubes and tanks typically have multi-year warranties while service support and AMC are available across ${cityName}. We explain warranty terms during the quote.` },
+            { q: `Can you do installations on apartment blocks or multi-storey buildings in ${cityName}?`, a: `Yes. We provision manifold/pressurized systems and booster arrangements for multi-storey buildings; we also provide structural mounting and civil drawings as required.` },
+            { q: `What preparations are needed before a site survey in ${cityName}?`, a: `Please share roof access details, expected hot‑water usage (family size), and any existing plumbing constraints. Photos help speed up the survey.` },
+            { q: `Do you supply spare parts and emergency support in ${cityName}?`, a: `We stock common spare parts and offer emergency repair visits; contact ${phone} for urgent requests.` },
+          ];
+
+          // Category-focused FAQs to increase keyword coverage
+          const categoryFaqs = [
+            { q: `Which solar water heater model is recommended for ${cityName}?`, a: `We recommend ETC or FPC systems based on roof orientation, water usage and local climate. Our site survey in ${cityName} determines the best choice.` },
+            { q: `Can you install LED street lighting projects in ${cityName}?`, a: `Yes. We design photometric layouts, provide poles/masts and deliver complete installation for municipal and commercial projects in ${cityName}.` },
+            { q: `Do you size solar pumps for agricultural sites near ${cityName}?`, a: `Yes. We size pumps to required head and flow. Provide bore depth, desired discharge and irrigation schedule for an accurate quote.` },
+          ];
+
+          const faqs = [...baseFaq, ...categoryFaqs];
+
+          return (
+            <>
+              <section className="mt-8" aria-labelledby="local-faqs">
+                <h2 id="local-faqs" className="text-xl font-semibold">Frequently asked questions — {cityName}</h2>
+                <div className="mt-4 prose max-w-none text-slate-700">
+                  {faqs.map((f, i) => (
+                    <div key={i} className="mb-4">
+                      <div className="font-semibold">{f.q}</div>
+                      <div className="mt-1">{f.a}</div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+              }) }} />
+            </>
+          );
+        })()
+      }
 
       <div className="mt-8">
         <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#102a6d] to-[#0b4bd6] text-white font-semibold shadow-md px-5 py-2.5 hover:shadow-lg">Request a quote in {cityName}</Link>

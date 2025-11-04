@@ -112,6 +112,12 @@ export default async function ProductPage({ params }: { params: any }) {
         </nav>
 
         <h1 className="text-3xl font-bold">{cat.name}</h1>
+        {/* SEO: keyword-rich intro to assist indexing */}
+        {Array.isArray(cat.keywords) && cat.keywords.length > 0 && (
+          <p className="mt-3 text-lg text-slate-700">
+            {fillCity(`${cat.metaDescription || cat.desc || ''}`)}
+          </p>
+        )}
         {/* BreadcrumbList JSON-LD for better context */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           '@context': 'https://schema.org',

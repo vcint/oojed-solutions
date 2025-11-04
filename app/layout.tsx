@@ -44,7 +44,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   <meta property="og:description" content="OOJED — Solar water heaters, LED lighting, solar pumps, and power plants in Maharashtra." />
         <meta property="og:image" content="/oojed-logo.png" />
   <meta property="og:url" content="https://oojed.com" />
-  <link rel="canonical" href="https://oojed.com" />
   <meta name="robots" content="index, follow" />
   {/* Aggregate keywords from site data for a general keywords tag */}
   <meta name="keywords" content={(Array.from(new Set(["solar","solar water heaters","solar pumps","rooftop solar","LED street lights","solar spare parts","OOJED"]))).slice(0,25).join(', ')} />

@@ -4,6 +4,7 @@ import Contact from '@/components/Contact';
 export const metadata = {
   title: 'Contact — OOJED',
   description: data.contacts ? `Contact OOJED — ${data.contacts.email}` : 'Contact OOJED',
+  alternates: { canonical: 'https://oojed.com/contact' },
 };
 
 export default function ContactPage() {

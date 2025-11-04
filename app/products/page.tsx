@@ -2,7 +2,8 @@ import Products from "@/components/Products";
 
 export const metadata = {
   title: 'Products - OOJED Solutions',
-  description: 'Products offered by OOJED Solutions: Solar Water Heaters, Solar Power Plants, Solar Pumps, LED Lighting, Poles & Masts and Spare Parts.'
+  description: 'Products offered by OOJED Solutions: Solar Water Heaters, Solar Power Plants, Solar Pumps, LED Lighting, Poles & Masts and Spare Parts.',
+  alternates: { canonical: 'https://oojed.com/products' },
 };
 
 export default function ProductsPage() {

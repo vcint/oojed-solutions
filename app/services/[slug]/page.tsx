@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: { params: any }) {
   return {
     title,
     description,
+    alternates: { canonical: url },
     openGraph: {
       title,
       description,
@@ -105,6 +106,10 @@ export default async function ServicePage({ params }: { params: any }) {
         }) }} />
 
         <h1 className="text-3xl font-bold">{svc.name}</h1>
+        {/* SEO: keyword-rich intro to assist indexing */}
+        {(svc.metaDescription || svc.long) && (
+          <p className="mt-3 text-lg text-slate-700">{fillCity(svc.metaDescription || svc.long)}</p>
+        )}
         {images && images.length > 0 && (
           <div className="mt-6">
             <ImageGallery images={images} alt={svc.name} />
