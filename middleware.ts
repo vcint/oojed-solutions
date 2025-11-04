@@ -1,23 +1,16 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+// Temporarily disable host-enforcing middleware to avoid redirect loops.
+// The previous implementation redirected www -> non-www unconditionally which
+// can conflict with hosting/CDN-level redirects (causing ERR_TOO_MANY_REDIRECTS).
+//
+// If you prefer an automatic redirect, re-enable it deliberately (for example,
+// set ENABLE_WWW_REDIRECT=1 in your Vercel environment and deploy) or configure
+// the redirect at the Vercel dashboard (recommended).
 
-/**
- * Simple middleware to enforce a canonical host (non-www).
- * Redirects requests from www.oojed.com -> oojed.com with a 301.
- * This helps prevent duplicate-host indexing issues.
- */
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+
 export function middleware(req: NextRequest) {
-  try {
-    const host = req.headers.get('host') || '';
-    if (host.startsWith('www.')) {
-      const url = req.nextUrl.clone();
-      url.hostname = host.replace(/^www\./i, '');
-      return NextResponse.redirect(url, 301);
-    }
-  } catch (e) {
-    // fail open — don't block requests on middleware errors
-    return NextResponse.next();
-  }
+  // No-op middleware: allow all requests through to avoid redirect loops.
   return NextResponse.next();
 }
 
