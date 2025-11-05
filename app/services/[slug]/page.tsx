@@ -116,15 +116,13 @@ async function getImagesFor(base: 'products' | 'services', slug: string) {
 }
 
 type PageProps = {
-  params: { slug: string } | Promise<{ slug: string }>;
-  searchParams?: SearchParams | Promise<SearchParams | undefined>;
+  params: { slug: string };
+  searchParams?: SearchParams;
 };
 
 export default async function ServicePage({ params, searchParams }: PageProps) {
-  const [resolvedParams, resolvedSearchParams] = await Promise.all([
-    params instanceof Promise ? params : Promise.resolve(params),
-    searchParams instanceof Promise ? searchParams : Promise.resolve(searchParams),
-  ]);
+  const resolvedParams = params;
+  const resolvedSearchParams = searchParams;
   const slug = String(resolvedParams?.slug || '').toLowerCase();
   const cookieStore = await cookies();
   const cookieCity = cookieStore.get(CITY_COOKIE)?.value;
