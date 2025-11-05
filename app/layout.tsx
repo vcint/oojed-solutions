@@ -9,12 +9,137 @@ import Footer from "../components/Footer";
 // client-side location detection and redirect helper
 import LocationDetector from '@/components/LocationDetector';
 
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const fallbackSiteUrl = 'https://oojed.com';
+const siteUrl = rawSiteUrl && /^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : fallbackSiteUrl;
+const metadataBaseUrl = (() => {
+  try {
+    return new URL(siteUrl);
+  } catch (error) {
+    return new URL(fallbackSiteUrl);
+  }
+})();
+const siteOrigin = metadataBaseUrl.origin;
+const defaultTitle = 'OOJED | Solar & LED Specialists';
+const defaultDescription = 'OOJED designs, manufactures and installs solar water heaters, rooftop solar plants, solar pumps and LED lighting projects across Maharashtra.';
+const ogImageUrl = new URL('/10.webp', metadataBaseUrl).toString();
+
+const keywordSet = new Set<string>();
+const addKeyword = (value?: string | null) => {
+  if (typeof value !== 'string') return;
+  const trimmed = value.trim();
+  if (trimmed) keywordSet.add(trimmed);
+};
+
+[
+  'OOJED',
+  'solar solutions Maharashtra',
+  'solar water heater supplier',
+  'solar lighting manufacturer',
+  'solar pumps installer',
+  'LED street lighting Maharashtra',
+  'solar AMC services',
+].forEach(addKeyword);
+
+const categories: any[] = Array.isArray((site as any).categories) ? (site as any).categories : [];
+categories.forEach((cat) => {
+  addKeyword(cat?.name);
+  if (Array.isArray(cat?.keywords)) cat.keywords.forEach(addKeyword);
+});
+
+const services: any[] = Array.isArray((site as any).services) ? (site as any).services : [];
+services.forEach((svc) => {
+  addKeyword(svc?.name);
+  if (Array.isArray(svc?.keywords)) svc.keywords.forEach(addKeyword);
+});
+
+const globalKeywords = Array.from(keywordSet).slice(0, 30);
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteOrigin}#organization`,
+  name: "OOJED",
+  url: siteOrigin,
+  logo: `${siteOrigin}/oojed-logo.png`,
+  brand: {
+    "@type": "Brand",
+    name: "OOJED",
+    url: siteOrigin,
+  },
+  sameAs: [
+    "https://www.justdial.com/Pune/OOJED-SOLAR-SOLUTIONS/020PXX20-XX20-170305105945-P6R6_BZDET",
+    "https://www.indiamart.com/oojed-solutions/profile.html",
+  ],
+  email: (site as any).contacts?.email,
+  telephone: Array.isArray((site as any).contacts?.phones)
+    ? (site as any).contacts?.phones?.[0]
+    : (site as any).contacts?.phones,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: (site as any).contacts?.puneOffice || undefined,
+    addressLocality: "Pune",
+    addressRegion: "Maharashtra",
+    postalCode: "411033",
+    addressCountry: "IN",
+  },
+};
+
 export const metadata: Metadata = {
-  title: "OOJED | Solar & LED Specialists",
-  description: "OOJED — Solar water heaters, LED lighting, solar pumps, and power plants in Maharashtra.",
+  metadataBase: metadataBaseUrl,
+  title: {
+    default: defaultTitle,
+    template: "%s | OOJED",
+  },
+  description: defaultDescription,
+  applicationName: "OOJED",
+  publisher: "OOJED",
+  keywords: globalKeywords,
+  category: "Renewable energy",
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-IN": "/",
+      "en": "/",
+    },
+  },
   icons: {
-    icon: '/oojed-logo.png',
-    shortcut: '/oojed-logo.png',
+    icon: "/oojed-logo.png",
+    shortcut: "/oojed-logo.png",
+    apple: "/oojed-logo.png",
+  },
+  openGraph: {
+    title: defaultTitle,
+    description: defaultDescription,
+    url: siteOrigin,
+    siteName: "OOJED",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1600,
+        height: 900,
+        alt: "OOJED solar installation in Maharashtra",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [ogImageUrl],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 
@@ -38,54 +163,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   {/* Runtime helper: convert Next-generated stylesheet links to preload early to reduce blocking (best-effort) */}
   <script dangerouslySetInnerHTML={{ __html: `(function(){try{var links=document.querySelectorAll('link[rel="stylesheet"]');for(var i=0;i<links.length;i++){var l=links[i];if(l.href && l.href.indexOf('/_next/static/css/')!==-1){l.rel='preload';l.as='style';l.onload=function(){this.rel='stylesheet';};}}}catch(e){}})();` }} />
 
-        {/* Open Graph */}
-  <meta property="og:title" content="OOJED | Solar & LED Specialists" />
-  <meta property="og:site_name" content="OOJED" />
-  <meta property="og:description" content="OOJED — Solar water heaters, LED lighting, solar pumps, and power plants in Maharashtra." />
-        <meta property="og:image" content="/oojed-logo.png" />
-  <meta property="og:url" content="https://oojed.com" />
-  <meta name="robots" content="index, follow" />
-  {/* Aggregate keywords from site data for a general keywords tag */}
-  <meta name="keywords" content={(Array.from(new Set(["solar","solar water heaters","solar pumps","rooftop solar","LED street lights","solar spare parts","OOJED"]))).slice(0,25).join(', ')} />
-  {/* Application / Publisher metadata to strengthen brand signals */}
-  <meta name="application-name" content="OOJED" />
-  <meta name="publisher" content="OOJED" />
-  <link rel="publisher" href="https://oojed.com" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="OOJED | Solar & LED Specialists" />
-  <meta name="twitter:description" content="OOJED — Solar water heaters, LED lighting, solar pumps, and power plants in Maharashtra." />
-        <meta name="twitter:image" content="/oojed-logo.png" />
+        <link rel="publisher" href={siteOrigin} />
         {/* Organization JSON-LD for better local/brand SEO */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "OOJED",
-          url: "https://oojed.com",
-          logo: "https://oojed.com/oojed-logo.png",
-          brand: {
-            "@type": "Brand",
-            name: "OOJED",
-            url: "https://oojed.com"
-          },
-          // External profiles for identity consolidation (Justdial, IndiaMART)
-          sameAs: [
-            "https://www.justdial.com/Pune/OOJED-SOLAR-SOLUTIONS/020PXX20-XX20-170305105945-P6R6_BZDET",
-            "https://www.indiamart.com/oojed-solutions/profile.html"
-          ],
-          email: site.contacts?.email,
-          telephone: Array.isArray(site.contacts?.phones) ? site.contacts.phones[0] : site.contacts?.phones,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: site.contacts?.puneOffice || undefined,
-            addressLocality: "Pune",
-            addressRegion: "Maharashtra",
-            postalCode: "411033",
-            addressCountry: "IN"
-          }
-        }, null, 2) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd, null, 2) }} />
       </head>
     <body className="selection:bg-brand-300/40">
   {/* Run location detection early on the client. It only redirects if user previously set an override. */}

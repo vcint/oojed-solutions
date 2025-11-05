@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useId, useRef, useState } from "react";
+import FaqAccordion from './FaqAccordion';
 import { createPortal } from "react-dom";
 
 type Product = {
@@ -391,12 +392,14 @@ export default function ProductModal({
                 <div className="mt-4">
                   <div className="font-medium text-slate-900">Frequently Asked Questions</div>
                   <div className="mt-2 text-sm text-slate-700">
-                    {(product as any).faqs.map((f: any) => (
-                      <div key={f.q} className="mt-3">
-                        <div className="font-semibold">{fillCity(f.q)}</div>
-                        <div className="mt-1">{fillCity(f.a)}</div>
-                      </div>
-                    ))}
+                    {/* ProductModal is a client component so we can use the FaqAccordion directly */}
+                    {/* eslint-disable-next-line @typescript-eslint/no-var-requires */}
+                    {/**/}
+                    <React.Suspense fallback={<div className="mt-2">Loading FAQs…</div>}>
+                      {/* Lazy render: inline accordion */}
+                      {/* @ts-ignore */}
+                      <FaqAccordion items={(product as any).faqs.map((f: any) => ({ q: fillCity(f.q), a: fillCity(f.a) }))} idPrefix={`modal-faq`} />
+                    </React.Suspense>
                   </div>
                 </div>
               )}

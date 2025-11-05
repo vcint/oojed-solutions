@@ -3,10 +3,30 @@ import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 const DEFAULT_CITY = "Pune";
+const CITY_COOKIE = 'oojed_city';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 180; // ~180 days
 
 function normalizeCity(raw?: string) {
-  if (!raw) return DEFAULT_CITY;
-  return String(raw || "").trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+  const base = raw ?? DEFAULT_CITY;
+  return String(base || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
+}
+
+function setCityCookie(slug: string) {
+  try {
+    document.cookie = `${CITY_COOKIE}=${encodeURIComponent(slug)}; path=/; max-age=${COOKIE_MAX_AGE}; sameSite=Lax`;
+  } catch (e) {
+    // ignore cookie set errors (Safari private mode, etc.)
+  }
+}
+
+function getCityCookie() {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(new RegExp(`(?:^|; )${CITY_COOKIE}=([^;]*)`));
+  return match ? decodeURIComponent(match[1]) : null;
 }
 
 export default function LocationDetector() {
@@ -18,11 +38,21 @@ export default function LocationDetector() {
     if (typeof window === 'undefined') return;
     if (pathname && pathname !== '/') return;
 
+    // If a cookie is missing, seed it from override/detected/default for server-side usage.
+    const existingCookieSlug = getCityCookie();
+    if (!existingCookieSlug) {
+      const overrideSlug = normalizeCity(window.localStorage.getItem('oojed_city_override') || undefined);
+      const detectedSlug = normalizeCity(window.localStorage.getItem('oojed_detected_city') || undefined);
+      const seed = overrideSlug || detectedSlug || normalizeCity(DEFAULT_CITY);
+      setCityCookie(seed);
+    }
+
     // If user previously set an explicit override, respect it and redirect.
     // Otherwise do NOT auto-redirect: we'll surface a prompt so the user can choose.
     const storedOverride = window.localStorage.getItem('oojed_city_override');
     if (storedOverride) {
       const slug = normalizeCity(storedOverride);
+      setCityCookie(slug);
       if (window.location.pathname !== `/locations/${slug}`) {
         router.replace(`/locations/${slug}`);
       }
@@ -34,7 +64,9 @@ export default function LocationDetector() {
     const finishWith = (city?: string) => {
       if (finished) return;
       finished = true;
+      const slug = normalizeCity(city || DEFAULT_CITY);
       try { window.localStorage.setItem('oojed_detected_city', city || DEFAULT_CITY); } catch (e) {}
+      setCityCookie(slug);
       // do not redirect automatically unless user previously requested overrides
       // the LocationPrompt UI reads `oojed_detected_city` and offers the user a choice
     };

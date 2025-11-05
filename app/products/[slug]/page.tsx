@@ -4,13 +4,18 @@ import data from '@/data/site.json';
 import Link from 'next/link';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
+import FaqAccordion from '@/components/FaqAccordion';
 
 const DEFAULT_CITY = 'Pune';
+const DEFAULT_CITY_SLUG = 'pune';
 const fillCity = (text: any, city?: string) => {
   if (text == null) return text;
   const c = String(city || DEFAULT_CITY);
   try {
-    return String(text).replace(/\{\{\s*city\s*\}\}/gi, c);
+    return String(text)
+      .replace(/\{\{\s*city\s*\}\}/gi, c)
+      .replace(/Pune,\s*Maharashtra/gi, `${c}, Maharashtra`)
+      .replace(/\bPune\b/gi, c);
   } catch (e) {
     return text;
   }
@@ -101,6 +106,12 @@ export default async function ProductPage({ params }: { params: any }) {
   }
 
   const images = await getImagesFor('products', slug);
+  const introCopy = fillCity(cat.metaDescription || cat.desc || cat.long || '');
+  const metaCopy = fillCity(cat.metaDescription || '');
+  const longCopy = fillCity(cat.long || '');
+  const showIntro = introCopy.trim().length > 0;
+  const showMetaCopy = metaCopy && metaCopy !== introCopy;
+  const showLongCopy = longCopy && longCopy !== introCopy;
 
   return (
     <main className="container py-12">
@@ -113,9 +124,9 @@ export default async function ProductPage({ params }: { params: any }) {
 
         <h1 className="text-3xl font-bold">{cat.name}</h1>
         {/* SEO: keyword-rich intro to assist indexing */}
-        {Array.isArray(cat.keywords) && cat.keywords.length > 0 && (
+        {showIntro && (
           <p className="mt-3 text-lg text-slate-700">
-            {fillCity(`${cat.metaDescription || cat.desc || ''}`)}
+            {introCopy}
           </p>
         )}
         {/* BreadcrumbList JSON-LD for better context */}
@@ -147,26 +158,37 @@ export default async function ProductPage({ params }: { params: any }) {
           </div>
         )}
 
-        {/* FAQPage JSON-LD if FAQs are present in data */}
-        {((cat as any)?.__optional?.faq || (cat as any)?.faqs) && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'FAQPage',
-                mainEntity: ((cat as any).__optional?.faq || (cat as any).faqs || []).map((f: any) => ({
-                  '@type': 'Question',
-                  name: fillCity(f.q),
-                  acceptedAnswer: { '@type': 'Answer', text: fillCity(f.a) },
-                })),
-              }),
-            }}
-          />
+        {/* Expanded narrative */}
+        {showMetaCopy && (
+          <p className="mt-4 text-lg text-slate-700">{metaCopy}</p>
+        )}
+        {showLongCopy && (
+          <div className="mt-6 text-slate-700 leading-relaxed">
+            {longCopy}
+          </div>
         )}
 
-  {cat.metaDescription && <p className="mt-4 text-lg text-slate-700">{fillCity(cat.metaDescription)}</p>}
-  {cat.long && <div className="mt-6 text-slate-700 leading-relaxed">{fillCity(cat.long)}</div>}
+        <section className="mt-6 space-y-4 text-slate-700 leading-relaxed">
+          <p>
+            {fillCity(`We source and assemble ${cat.name.toLowerCase()} using component partners who meet BIS, MNRE and ISO standards, then configure the solution to match Indian site realities. From plumbing interfaces to mounting structures and electrical protections, every element is pre-engineered so installation is swift and repeatable even on challenging rooftops or industrial layouts.`)}
+          </p>
+          <p>
+            {fillCity(`During specification we look beyond nameplate ratings. Heat losses, flow rates, wiring runs, surge protection, water quality and future expansion needs are all factored into the bill of materials. The result is a system that performs exactly as promised, with fewer callbacks and a lower lifetime cost of ownership.`)}
+          </p>
+          <p>
+            {fillCity(`After commissioning you get access to spare-part support, AMC visits and remote guidance from OOJED experts. Documentation packs include wiring diagrams, plumbing schematics, preventive maintenance checklists and warranty contacts so facility teams can operate with confidence.`)}
+          </p>
+        </section>
+
+        <section className="mt-6 border rounded-lg bg-white/60 px-5 py-4">
+          <h2 className="text-xl font-semibold">Why organisations choose {cat.name.toLowerCase()} from OOJED</h2>
+          <ul className="list-disc list-inside mt-3 space-y-2 text-slate-700">
+            <li>{fillCity(`Seasoned engineering support for sizing, layout optimisation and subsidy/net-metering paperwork when applicable.`)}</li>
+            <li>{fillCity(`Rapid deployment model with pre-tested assemblies, trained technicians and safety-compliant work practices.`)}</li>
+            <li>{fillCity(`Lifecycle services covering warranty claims, emergency callouts and structured AMC programs tailored to usage intensity.`)}</li>
+            <li>{fillCity(`Transparent reporting with performance baselines, O&M logs and upgrade recommendations to keep your asset productive.`)}</li>
+          </ul>
+        </section>
 
         {cat.items && cat.items.length > 0 && (
           <section className="mt-6">
@@ -205,18 +227,43 @@ export default async function ProductPage({ params }: { params: any }) {
           </section>
         )}
 
+        {/* FAQ JSON-LD + visible accordion: placed after product details so it doesn't interrupt the intro */}
+        {((cat as any).__optional?.faq || (cat as any).faqs) && (
+          <>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: ((cat as any).__optional?.faq || (cat as any).faqs || []).map((f: any) => ({
+                  '@type': 'Question',
+                  name: fillCity(f.q),
+                  acceptedAnswer: { '@type': 'Answer', text: fillCity(f.a) },
+                })),
+              }) }}
+            />
+
+            <section className="mt-8" aria-labelledby="product-faqs">
+              <h2 id="product-faqs" className="text-xl font-semibold">Frequently asked questions</h2>
+              <div className="mt-4">
+                <FaqAccordion items={((cat as any).__optional?.faq || (cat as any).faqs || []).map((f: any) => ({ q: fillCity(f.q), a: fillCity(f.a) }))} idPrefix={`prod-faq-${encodeURIComponent(slug)}`} />
+              </div>
+            </section>
+          </>
+        )}
+
         {/* Related services with descriptive anchors */}
         <section className="mt-8 border-t pt-6">
           <h2 className="text-xl font-semibold">Related services</h2>
           <ul className="list-disc list-inside mt-2 space-y-1">
-            <li><Link href="/services/installation" className="text-blue-700 hover:underline">Solar installation & commissioning services</Link></li>
-            <li><Link href="/services/amc" className="text-blue-700 hover:underline">Annual Maintenance Contracts (AMC) for solar systems</Link></li>
-            <li><Link href="/services/repair" className="text-blue-700 hover:underline">Repair and service for {cat.name.toLowerCase()}</Link></li>
+            <li><Link href={`/services/installation?city=${encodeURIComponent(DEFAULT_CITY_SLUG)}`} className="text-blue-700 hover:underline">Solar installation & commissioning services</Link></li>
+            <li><Link href={`/services/amc?city=${encodeURIComponent(DEFAULT_CITY_SLUG)}`} className="text-blue-700 hover:underline">Annual Maintenance Contracts (AMC) for solar systems</Link></li>
+            <li><Link href={`/services/repair?city=${encodeURIComponent(DEFAULT_CITY_SLUG)}`} className="text-blue-700 hover:underline">Repair and service for {cat.name.toLowerCase()}</Link></li>
           </ul>
         </section>
 
         <div className="mt-8">
-          <Button href="/contact" variant="primary">Contact us for pricing &amp; sizing</Button>
+          <Button href={`/contact?city=${encodeURIComponent(DEFAULT_CITY_SLUG)}`} variant="primary">Contact us for pricing &amp; sizing</Button>
         </div>
       </div>
     </main>

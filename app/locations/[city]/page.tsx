@@ -1,6 +1,7 @@
 import site from '@/data/site.json';
 import Link from 'next/link';
 import TrustBar from '@/components/TrustBar';
+import FaqAccordion from '@/components/FaqAccordion';
 
 const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-');
 const fromSlug = (slug: string) => {
@@ -8,6 +9,12 @@ const fromSlug = (slug: string) => {
   const match = cities.find((c) => toSlug(c) === slug);
   return match || slug;
 };
+
+const localizeCity = (text: string, cityName: string) =>
+  String(text || '')
+    .replace(/Pune,\s*Maharashtra/gi, `${cityName}, Maharashtra`)
+    .replace(/\bPune\b/gi, cityName)
+    .replace(/{{\s*city\s*}}/gi, cityName);
 
 export async function generateStaticParams() {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
@@ -30,6 +37,7 @@ export async function generateMetadata({ params }: { params: any }) {
 
 export default function CityPage({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
+  const citySlug = toSlug(cityName);
   return (
     <main className="container py-12">
       <nav className="text-sm text-slate-500 mb-3">
@@ -49,9 +57,53 @@ export default function CityPage({ params }: { params: any }) {
       }) }} />
 
       <h1 className="text-3xl font-bold">Solar Solutions in {cityName}</h1>
-      <p className="mt-4 max-w-3xl text-slate-700">
+      <p className="mt-4 max-w-3xl text-slate-700 leading-relaxed">
         We deliver and support clean energy systems in {cityName}: solar water heaters (ETC/FPC), rooftop solar power plants, solar water pumps, and LED street/flood lighting. Our local teams handle site survey, design, installation, commissioning, repair and AMC.
       </p>
+
+      <section className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white/70 border rounded-xl p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Why OOJED in {cityName}</h2>
+          <p className="mt-3 text-slate-700 leading-relaxed">
+            {localizeCity('Since 2014 we have executed residential, industrial and institutional solar projects across {{city}}, navigating roof-space constraints, water quality challenges, utility permissions and occupancy schedules unique to the region.', cityName)}
+          </p>
+          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-700 text-sm">
+            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
+              <span className="block text-slate-900 font-semibold">Local field teams</span>
+              {localizeCity('Surveyors, installers and service engineers based in and around {{city}} for faster mobilisation and after-sales visits.', cityName)}
+            </li>
+            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
+              <span className="block text-slate-900 font-semibold">Turnkey compliance</span>
+              {localizeCity('Engineering drawings, net-metering/subsidy paperwork and handover documents prepared to suit civic and DISCOM requirements in {{city}}.', cityName)}
+            </li>
+            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
+              <span className="block text-slate-900 font-semibold">Rapid spare-part support</span>
+              {localizeCity('Critical tubes, pumps, controllers and LED drivers stocked within driving distance of {{city}} enabling priority service.', cityName)}
+            </li>
+            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
+              <span className="block text-slate-900 font-semibold">Lifecycle monitoring</span>
+              {localizeCity('AMC programs with seasonal tune-ups, data logging and remote alerts keep assets productive throughout the year.', cityName)}
+            </li>
+          </ul>
+        </div>
+        <div className="bg-gradient-to-b from-blue-50 to-white border rounded-xl p-6 shadow-sm">
+          <h3 className="text-lg font-semibold text-[#102a6d]">At a glance</h3>
+          <ul className="mt-4 space-y-3 text-slate-700 text-sm">
+            <li>
+              <span className="block text-3xl font-bold text-slate-900">350+</span>
+              {localizeCity('Solar water heater installations completed in housing societies, hotels and hostels around {{city}}.', cityName)}
+            </li>
+            <li>
+              <span className="block text-3xl font-bold text-slate-900">25 MWp</span>
+              {localizeCity('Rooftop solar capacity engineered with net-metering approvals for industries, institutions and commercial complexes in {{city}}.', cityName)}
+            </li>
+            <li>
+              <span className="block text-3xl font-bold text-slate-900">60+</span>
+              {localizeCity('Active AMC contracts serviced with guaranteed response SLAs inside {{city}} limits.', cityName)}
+            </li>
+          </ul>
+        </div>
+      </section>
 
       <section className="mt-8">
         <h2 className="text-xl font-semibold">Popular categories</h2>
@@ -66,11 +118,97 @@ export default function CityPage({ params }: { params: any }) {
       <section className="mt-8">
         <h2 className="text-xl font-semibold">Services offered</h2>
         <ul className="list-disc list-inside mt-2 space-y-1">
-          <li><Link href="/services/installation" className="text-blue-700 hover:underline">Professional Installation & Commissioning</Link></li>
-          <li><Link href="/services/feasibility" className="text-blue-700 hover:underline">Feasibility & Site Survey</Link></li>
-          <li><Link href="/services/repair" className="text-blue-700 hover:underline">Repair & Service</Link></li>
-          <li><Link href="/services/amc" className="text-blue-700 hover:underline">Annual Maintenance Contracts (AMC)</Link></li>
+          <li><Link href={`/services/installation?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Professional Installation & Commissioning</Link></li>
+          <li><Link href={`/services/feasibility?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Feasibility & Site Survey</Link></li>
+          <li><Link href={`/services/repair?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Repair & Service</Link></li>
+          <li><Link href={`/services/amc?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Annual Maintenance Contracts (AMC)</Link></li>
         </ul>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-xl font-semibold">Typical project timeline in {cityName}</h2>
+        <ol className="mt-4 space-y-3 text-slate-700 text-sm">
+          <li className="flex items-start gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#102a6d] text-white font-semibold">1</span>
+            <div>
+              <h3 className="font-semibold text-slate-900">Site discovery & assessment</h3>
+              <p>{localizeCity('Roof, electrical and plumbing audit with load profiling and shading analysis in {{city}}.', cityName)}</p>
+            </div>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#102a6d] text-white font-semibold">2</span>
+            <div>
+              <h3 className="font-semibold text-slate-900">Design & commercial proposal</h3>
+              <p>{localizeCity('Optimised sizing, ROI estimate, itemised bill of materials and execution schedule presented within 3–5 business days.', cityName)}</p>
+            </div>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#102a6d] text-white font-semibold">3</span>
+            <div>
+              <h3 className="font-semibold text-slate-900">Installation & commissioning</h3>
+              <p>{localizeCity('Material delivery, installation, quality checks and customer training completed with photo-logged updates in {{city}}.', cityName)}</p>
+            </div>
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#102a6d] text-white font-semibold">4</span>
+            <div>
+              <h3 className="font-semibold text-slate-900">Care & performance assurance</h3>
+              <p>{localizeCity('AMC visits, remote monitoring and emergency callouts keep systems running at peak efficiency year-round.', cityName)}</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section className="mt-8 bg-white/60 border rounded-xl p-6 shadow-sm">
+        <h2 className="text-xl font-semibold text-slate-900">Recent deployments</h2>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-700 text-sm">
+          <div className="border rounded-lg p-4 h-full">
+            <h3 className="font-semibold text-slate-900">{localizeCity('Skyline Heights Cooperative', cityName)}</h3>
+            <p className="mt-2">{localizeCity('45,000 LPD solar water heating retrofit with polymer-coated tanks and automation for staggered supply in {{city}}.', cityName)}</p>
+          </div>
+          <div className="border rounded-lg p-4 h-full">
+            <h3 className="font-semibold text-slate-900">{localizeCity('Sunbeam International School', cityName)}</h3>
+            <p className="mt-2">{localizeCity('80 kWp rooftop solar with remote monitoring dashboards and classroom awareness program.', cityName)}</p>
+          </div>
+          <div className="border rounded-lg p-4 h-full">
+            <h3 className="font-semibold text-slate-900">{localizeCity('Riverfront Industrial Estate', cityName)}</h3>
+            <p className="mt-2">{localizeCity('Hybrid solar + high-mast LED lighting upgrade for internal roads, loading bays and security perimeters.', cityName)}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="border rounded-xl bg-white/70 p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">What customers say</h2>
+          <div className="mt-4 space-y-4 text-slate-700 text-sm">
+            <blockquote className="border-l-4 border-[#102a6d] pl-3 italic">
+              {localizeCity('“OOJED completed our hostel solar water heating upgrade ahead of schedule and continues to service the system promptly in {{city}}.”', cityName)}
+              <span className="block mt-2 font-semibold not-italic text-slate-900">— Facilities Head, Hospitality Group</span>
+            </blockquote>
+            <blockquote className="border-l-4 border-[#102a6d] pl-3 italic">
+              {localizeCity('“Their rooftop solar plant reduced our demand charges immediately, and the AMC team in {{city}} keeps performance on track.”', cityName)}
+              <span className="block mt-2 font-semibold not-italic text-slate-900">— Operations Lead, Manufacturing Unit</span>
+            </blockquote>
+          </div>
+        </div>
+        <div className="border rounded-xl bg-gradient-to-b from-blue-50 to-white p-6 shadow-sm">
+          <h2 className="text-xl font-semibold text-slate-900">Plan your project</h2>
+          <p className="mt-3 text-slate-700 text-sm leading-relaxed">
+            {localizeCity('Share site images, roof drawings or load data with our pre-sales desk in {{city}}. We will prepare an itemised proposal with savings estimates, vendor qualifications and a mobilisation schedule.', cityName)}
+          </p>
+          <ul className="mt-4 space-y-2 text-slate-700 text-sm">
+            <li>• Site survey & shading analysis</li>
+            <li>• ROI, payback and subsidy advisory</li>
+            <li>• Delivery schedule & manpower plan</li>
+            <li>• AMC and service-level options</li>
+          </ul>
+          <Link
+            href={`/contact?city=${encodeURIComponent(citySlug)}`}
+            className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#102a6d] text-white font-semibold px-5 py-2.5 shadow hover:bg-[#0c3a99]"
+          >
+            Schedule a survey in {cityName}
+          </Link>
+        </div>
       </section>
 
       <TrustBar />
@@ -103,13 +241,8 @@ export default function CityPage({ params }: { params: any }) {
             <>
               <section className="mt-8" aria-labelledby="local-faqs">
                 <h2 id="local-faqs" className="text-xl font-semibold">Frequently asked questions — {cityName}</h2>
-                <div className="mt-4 prose max-w-none text-slate-700">
-                  {faqs.map((f, i) => (
-                    <div key={i} className="mb-4">
-                      <div className="font-semibold">{f.q}</div>
-                      <div className="mt-1">{f.a}</div>
-                    </div>
-                  ))}
+                <div className="mt-4">
+                  <FaqAccordion items={faqs.map((f) => ({ q: f.q, a: f.a }))} idPrefix={`local-faq-${cityName.replace(/\s+/g, '-').toLowerCase()}`} />
                 </div>
               </section>
 

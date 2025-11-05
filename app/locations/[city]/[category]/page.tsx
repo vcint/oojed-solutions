@@ -1,8 +1,10 @@
 import site from '@/data/site.json';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import TrustBar from '@/components/TrustBar';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
+import FaqAccordion from '@/components/FaqAccordion';
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -17,6 +19,7 @@ const findCityName = (slug: string) => {
 };
 
 const categories = Array.isArray((site as any).categories) ? (site as any).categories : [];
+const services = Array.isArray((site as any).services) ? (site as any).services : [];
 const findCategory = (slug: string) => categories.find((c: any) => toSlug(c?.slug || c?.name) === slug);
 
 const localizeText = (text: string | undefined, cityName: string) => {
@@ -91,8 +94,13 @@ export async function generateMetadata({ params }: { params: any }) {
 
 export default async function CityCategoryPage({ params }: { params: any }) {
   const cityName = findCityName(params.city);
-  const cat = findCategory(params.category);
+  const requestedSlug = toSlug(params.category);
+  const cat = findCategory(requestedSlug);
   if (!cat) {
+    const serviceMatch = services.find((svc: any) => toSlug(svc?.slug || svc?.name) === requestedSlug);
+    if (serviceMatch?.slug) {
+      redirect(`/services/${encodeURIComponent(serviceMatch.slug)}?city=${encodeURIComponent(params.city)}`);
+    }
     return (
       <main className="container py-12">
         <h1 className="text-2xl font-bold">Category not found</h1>
@@ -104,6 +112,46 @@ export default async function CityCategoryPage({ params }: { params: any }) {
   // server-side: fetch images for this category (product images folder)
   const slug = toSlug(cat.slug || cat.name);
   const images = await getImagesFor('products', slug);
+  const introCopy = localizeText(cat.metaDescription || cat.desc || cat.long || '', cityName);
+  const metaCopy = localizeText(cat.metaDescription || '', cityName);
+  const longCopy = localizeText(cat.long || '', cityName);
+  const showIntro = introCopy && introCopy.trim().length > 0;
+  const showMetaCopy = metaCopy && metaCopy !== introCopy;
+  const showLongCopy = longCopy && longCopy !== introCopy;
+
+  const rawFaqs: any[] = Array.isArray((cat as any).__optional?.faq)
+    ? (cat as any).__optional?.faq
+    : Array.isArray((cat as any).faqs)
+      ? (cat as any).faqs
+      : [];
+  const localizedFaqs = rawFaqs
+    .map((f: any) => ({
+      q: localizeText(f?.q, cityName),
+      a: localizeText(f?.a, cityName),
+    }))
+    .filter((f) => typeof f.q === 'string' && f.q.trim() && typeof f.a === 'string' && f.a.trim())
+    .map((f) => ({ q: String(f.q).trim(), a: String(f.a).trim() }));
+
+  const supplementalFaqs = [
+    {
+      q: localizeText(`Do you install ${cat.name.toLowerCase()} in ${cityName}?`, cityName),
+      a: localizeText(`Yes. We survey, supply and install ${cat.name.toLowerCase()} in ${cityName}, with repair and AMC options.`, cityName),
+    },
+    {
+      q: localizeText(`How soon can installation be scheduled in ${cityName}?`, cityName),
+      a: 'Installation typically happens within 2–7 business days after the site survey and material confirmation.',
+    },
+  ]
+    .filter((f) => typeof f.q === 'string' && f.q.trim() && typeof f.a === 'string' && f.a.trim())
+    .map((f) => ({ q: String(f.q).trim(), a: String(f.a).trim() }));
+
+  const combinedFaqs: { q: string; a: string }[] = [...localizedFaqs, ...supplementalFaqs];
+  const faqEntities = combinedFaqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  }));
+  const faqIdPrefix = `city-cat-faq-${toSlug(`${params.city}-${params.category}`)}`;
 
   return (
     <main className="container py-12">
@@ -134,12 +182,39 @@ export default async function CityCategoryPage({ params }: { params: any }) {
         </div>
       )}
       {/* We'll show the description and long copy, localized for the city */}
-      {cat.metaDescription && (
-        <p className="mt-4 text-lg text-slate-700">{localizeText(cat.metaDescription, cityName)} Available in {cityName}.</p>
+      {showIntro && (
+        <p className="mt-4 text-lg text-slate-700">
+          {introCopy} Available in {cityName}.
+        </p>
       )}
-      {cat.long && (
-        <div className="mt-6 text-slate-700 leading-relaxed">{localizeText(cat.long, cityName)}</div>
+      {showMetaCopy && (
+        <p className="mt-4 text-lg text-slate-700">{metaCopy}</p>
       )}
+      {showLongCopy && (
+        <div className="mt-6 text-slate-700 leading-relaxed">{longCopy}</div>
+      )}
+
+      <section className="mt-6 space-y-4 text-slate-700 leading-relaxed">
+        <p>
+          {localizeText(`OOJED engineers in {{city}} begin every ${cat.name.toLowerCase()} engagement with a detailed walk-through of your site, roof access, civil constraints and utility connections. This helps us tailor collector angles, structural supports, piping diameters and electrical protections so the installation lasts through monsoons and high-heat summers.`, cityName)}
+        </p>
+        <p>
+          {localizeText(`We assemble components from BIS and MNRE-compliant partners, then pre-test subsystems at our works before dispatch. On-site, our technicians coordinate with your facilities team or resident welfare association in {{city}} to schedule shutdowns, crane lifts and plumbing tie-ins with minimal disruption.`, cityName)}
+        </p>
+        <p>
+          {localizeText(`After commissioning, OOJED provides maintenance checklists, spares assurance and AMC plans dedicated to {{city}} customers. Our service desk tracks service-level commitments and ensures escalations are handled by technicians who understand the local water quality, pressure challenges and municipal compliance norms.`, cityName)}
+        </p>
+      </section>
+
+      <section className="mt-6 border rounded-lg bg-white/60 px-5 py-4">
+        <h2 className="text-xl font-semibold">What this includes for {cityName}</h2>
+        <ul className="list-disc list-inside mt-3 space-y-2 text-slate-700">
+          <li>{localizeText(`Project plan covering survey, design approval, material delivery and execution milestones matched to timelines in {{city}}.`, cityName)}</li>
+          <li>{localizeText(`Dedicated coordinator, photo-logged progress updates and a transparent escalation ladder while work is underway.`, cityName)}</li>
+          <li>{localizeText(`As-built drawings, warranty cards and subsidy/net-metering documentation bundled for your records in {{city}}.`, cityName)}</li>
+          <li>{localizeText(`Priority service response with trained technicians and genuine spares stocked close to {{city}}.`, cityName)}</li>
+        </ul>
+      </section>
 
       {/* Representative items (same as product page) */}
       {cat.items && cat.items.length > 0 && (
@@ -179,16 +254,25 @@ export default async function CityCategoryPage({ params }: { params: any }) {
         </section>
       )}
 
-      {/* Local intent FAQ JSON-LD combining category FAQs with local questions */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: [
-          ...(((cat as any).__optional?.faq || (cat as any).faqs || []).map((f: any) => ({ '@type': 'Question', name: localizeText(f.q, cityName), acceptedAnswer: { '@type': 'Answer', text: localizeText(f.a, cityName) } }))),
-          { '@type': 'Question', name: localizeText(`Do you install ${cat.name.toLowerCase()} in ${cityName}?`, cityName), acceptedAnswer: { '@type': 'Answer', text: localizeText(`Yes. We survey, supply and install ${cat.name.toLowerCase()} in ${cityName}, with repair and AMC options.`, cityName) } },
-          { '@type': 'Question', name: 'How soon can you schedule?', acceptedAnswer: { '@type': 'Answer', text: 'Installation typically within 2–7 days post survey and material readiness.' } },
-        ],
-      }) }} />
+      {combinedFaqs.length > 0 && (
+        <section className="mt-8" aria-labelledby="city-category-faqs">
+          <h2 id="city-category-faqs" className="text-xl font-semibold">Frequently asked questions — {cityName}</h2>
+          <div className="mt-4">
+            <FaqAccordion
+              items={combinedFaqs}
+              idPrefix={faqIdPrefix}
+            />
+          </div>
+        </section>
+      )}
+
+      {faqEntities.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqEntities,
+        }) }} />
+      )}
 
       {/* OfferCatalog JSON-LD describing the category and representative items (localized) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -213,9 +297,8 @@ export default async function CityCategoryPage({ params }: { params: any }) {
       <TrustBar />
 
       <div className="mt-8">
-        <Button href="/contact" variant="primary">Request {localizeText(cat.name, cityName)} quote in {cityName}</Button>
+        <Button href={`/contact?city=${encodeURIComponent(toSlug(cityName))}`} variant="primary">Request {localizeText(cat.name, cityName)} quote in {cityName}</Button>
       </div>
     </main>
   );
 }
-

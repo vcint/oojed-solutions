@@ -1,4 +1,6 @@
 // Nav is provided by the RootLayout
+import type { Metadata } from "next";
+import Link from "next/link";
 import HeroCarousel from "@/components/HeroCarousel";
 import HomeLocalizer from '@/components/HomeLocalizer';
 import Products from "@/components/Products";
@@ -7,34 +9,150 @@ import Contact from "@/components/Contact";
 // Footer is provided by the RootLayout
 import data from "@/data/site.json";
 
+const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const fallbackSiteUrl = 'https://oojed.com';
+const siteUrl = rawSiteUrl && /^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : fallbackSiteUrl;
+const heroImageAbsolute = `${siteUrl}/10.webp`;
+
+const baseKeywordSet = new Set<string>([
+  'OOJED',
+  'solar water heater Maharashtra',
+  'solar pump supplier Maharashtra',
+  'solar power plant EPC Maharashtra',
+  'LED street light manufacturer Pune',
+  'solar AMC service provider',
+  'solar energy solutions Pune',
+]);
+
+const addKeyword = (value?: string | null) => {
+  if (typeof value !== 'string') return;
+  const trimmed = value.trim();
+  if (trimmed) baseKeywordSet.add(trimmed);
+};
+
+if (Array.isArray((data as any).categories)) {
+  (data as any).categories.forEach((cat: any) => {
+    addKeyword(cat?.name);
+    if (Array.isArray(cat?.keywords)) cat.keywords.forEach(addKeyword);
+  });
+}
+if (Array.isArray((data as any).services)) {
+  (data as any).services.forEach((svc: any) => {
+    addKeyword(svc?.name);
+    if (Array.isArray(svc?.keywords)) svc.keywords.forEach(addKeyword);
+  });
+}
+
+const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
+
+const homeTitle = 'Solar Water Heaters, Solar Pumps & LED Lighting in Maharashtra';
+const homeDescription = 'OOJED supplies BIS-compliant solar water heaters, rooftop solar power plants, solar pumps and LED lighting with installation, repair and AMC support across Maharashtra.';
+
+export const generateMetadata = (): Metadata => ({
+  title: homeTitle,
+  description: homeDescription,
+  keywords: homeKeywords,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: homeTitle,
+    description: homeDescription,
+    url: siteUrl,
+    type: 'website',
+    images: [
+      {
+        url: heroImageAbsolute,
+        width: 1600,
+        height: 900,
+        alt: 'OOJED solar installation across Maharashtra',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: homeTitle,
+    description: homeDescription,
+    images: [heroImageAbsolute],
+  },
+});
+
+const primaryPhone = Array.isArray((data as any).contacts?.phones)
+  ? (data as any).contacts?.phones?.[0]
+  : (data as any).contacts?.phones;
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SolarEnergyService",
+  "@id": `${siteUrl}#local-business`,
+  name: "OOJED Solar Solutions",
+  image: heroImageAbsolute,
+  url: siteUrl,
+  description: homeDescription,
+  telephone: primaryPhone,
+  email: (data as any).contacts?.email,
+  serviceType: [
+    "Solar water heater installation",
+    "Rooftop solar power plant EPC",
+    "Solar pump sizing and supply",
+    "LED street and flood lighting projects",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: (data as any).contacts?.puneOffice || undefined,
+    addressLocality: "Pune",
+    addressRegion: "Maharashtra",
+    postalCode: "411033",
+    addressCountry: "IN",
+  },
+  areaServed: Array.isArray((data as any).cities)
+    ? (data as any).cities.slice(0, 12).map((city: string) => ({
+        "@type": "City",
+        name: city,
+      }))
+    : undefined,
+  sameAs: [
+    "https://www.justdial.com/Pune/OOJED-SOLAR-SOLUTIONS/020PXX20-XX20-170305105945-P6R6_BZDET",
+    "https://www.indiamart.com/oojed-solutions/profile.html",
+  ],
+};
+
+const webSiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}#website`,
+  name: "OOJED",
+  url: siteUrl,
+  inLanguage: "en-IN",
+  publisher: {
+    "@id": `${siteUrl}#organization`,
+  },
+  potentialAction: {
+    "@type": "ContactAction",
+    target: `${siteUrl}/contact`,
+    name: "Request a solar quote",
+  },
+};
+
 export default function HomePage() {
   return (
     <>
-      {/* SEO: Organization JSON-LD */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "OOJED",
-          "url": "https://oojed.com",
-          "logo": "https://oojed.com/oojed-logo.png",
-          "contactPoint": [{
-            "@type": "ContactPoint",
-            "telephone": data.contacts.phones?.[0],
-            "contactType": "customer service",
-            "areaServed": "IN",
-            "availableLanguage": ["English"]
-          }],
-          "sameAs": []
-        })}
-      </script>
-      
+      {/* SEO: Service-level structured data for richer local snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd, null, 2) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd, null, 2) }}
+      />
+
       <main>
         <section id="home" className="relative min-h-screen flex items-center">
           <HeroCarousel />
           <HomeLocalizer hero={data.hero} />
         </section>
-         <section id="about" className="section">
+        <section id="about" className="section">
           <div className="container">
             <div className="prose max-w-none">
               <h2 className="text-3xl md:text-4xl font-bold">About OOJED</h2>
@@ -47,9 +165,141 @@ export default function HomePage() {
               </ul>
               <p className="text-slate-600 mt-4">We design and manufacture to meet BIS standards where applicable, and provide end-to-end project support from site survey through commissioning and after-sales service.</p>
             </div>
-            
+
           </div>
         </section>
+
+        <section className="bg-slate-50 py-16">
+          <div className="container">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">End-to-end solar delivery you can rely on</h2>
+              <p className="mt-4 text-lg text-slate-700 leading-relaxed">
+                From discovery workshops to long-term AMC, OOJED runs a predictable process that keeps stakeholders informed and assets productive. We mix factory-tested assemblies with local engineering and transparent reporting so projects never feel rushed or under-specified.
+              </p>
+            </div>
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-slate-700">
+              {[
+                {
+                  title: '01 · Discover',
+                  body: 'Site survey, load assessment and constraint mapping with photo logs and shading analysis.',
+                },
+                {
+                  title: '02 · Design',
+                  body: 'Right-sized systems, detailed drawings, BoMs and ROI projections aligned to BIS/MNRE norms.',
+                },
+                {
+                  title: '03 · Deploy',
+                  body: 'Project managers coordinate logistics, statutory permissions, safety protocols and commissioning.',
+                },
+                {
+                  title: '04 · Support',
+                  body: 'AMC visits, remote monitoring, warranty coordination and emergency callouts across Maharashtra.',
+                },
+              ].map((step) => (
+                <div key={step.title} className="rounded-xl bg-white border border-slate-200 px-5 py-6 shadow-sm">
+                  <h3 className="text-base font-semibold text-slate-900">{step.title}</h3>
+                  <p className="mt-3 leading-relaxed">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="container py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Industries & environments we serve</h2>
+              <p className="mt-4 text-slate-700 leading-relaxed">
+                Whether you manage a cooperative housing society, manufacturing plant, hotel, campus or municipal infrastructure, our teams adapt systems to actual usage patterns, compliance regulations and budget expectations. Every proposal includes explainers for decision-makers who may be new to solar technologies.
+              </p>
+              <ul className="mt-6 space-y-3 text-slate-700 text-sm">
+                <li>• Residential societies, hostels and hospitals needing reliable hot water across seasons.</li>
+                <li>• MSME and industrial units chasing energy savings while meeting safety and audit requirements.</li>
+                <li>• Schools, colleges and corporate offices adopting rooftop solar with monitoring dashboards.</li>
+                <li>• Municipal corporations upgrading to LED street / high-mast lighting with AMC-backed uptime.</li>
+              </ul>
+            </div>
+            <div className="rounded-xl bg-white border border-slate-200 shadow-sm p-6">
+              <h3 className="text-xl font-semibold text-slate-900">Project snapshots</h3>
+              <dl className="mt-4 space-y-4 text-slate-700 text-sm">
+                <div>
+                  <dt className="font-semibold text-slate-900">45,000 LPD solar water heater retrofit</dt>
+                  <dd>Polymer-coated tanks, differential controllers and smart manifolds for a 320-apartment housing society in Pune, delivered in 28 days.</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-slate-900">80 kWp rooftop solar with net-metering</dt>
+                  <dd>Complete EPC for an educational campus including remote monitoring, student dashboards and subsidy documentation.</dd>
+                </div>
+                <div>
+                  <dt className="font-semibold text-slate-900">Hybrid LED street & high-mast lighting</dt>
+                  <dd>Photometric design, pole supply, trenching and AMC for 9 km of municipal roads with 24/7 service desk support.</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#0b3ea0] text-white py-16">
+          <div className="container">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  stat: '11+ years',
+                  body: 'Experience designing and maintaining solar + LED systems that withstand Indian climates.',
+                },
+                {
+                  stat: '25 MWp',
+                  body: 'Of rooftop solar capacity engineered with net-metering and export approvals.',
+                },
+                {
+                  stat: '400+ sites',
+                  body: 'Under service contracts across Maharashtra and neighbouring states.',
+                },
+              ].map((item) => (
+                <div key={item.stat} className="rounded-xl border border-white/20 bg-white/5 p-6 shadow-lg">
+                  <div className="text-4xl font-extrabold">{item.stat}</div>
+                  <p className="mt-3 text-sm leading-relaxed text-white/80">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="container py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">What partners say</h2>
+              <div className="mt-6 space-y-6 text-slate-700 text-sm">
+                <blockquote className="border-l-4 border-[#102a6d] pl-4 italic">
+                  “OOJED simplified our entire solar transition. Their team handled surveys, government paperwork and execution with regular updates — zero surprises.”
+                  <span className="mt-3 block font-semibold not-italic text-slate-900">Head of Admin, Industrial Supplier – Pune</span>
+                </blockquote>
+                <blockquote className="border-l-4 border-[#102a6d] pl-4 italic">
+                  “The LED high-mast upgrade has reduced downtime dramatically. AMC tickets are resolved quickly and field technicians know our layout well.”
+                  <span className="mt-3 block font-semibold not-italic text-slate-900">Electrical Engineer, Municipal Corporation</span>
+                </blockquote>
+              </div>
+            </div>
+            <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
+              <h3 className="text-xl font-semibold text-slate-900">Ready to start?</h3>
+              <p className="mt-3 text-slate-700 leading-relaxed">
+                Share your current energy spend, roof photos or lighting layouts. We will prepare an assessment within five working days including recommended capacities, subsidy eligibility and implementation timelines.
+              </p>
+              <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                <li>• Residential complexes: centralised hot water, rooftop solar, common-area LED upgrades.</li>
+                <li>• Institutions: hybrid power plants, classroom dashboards, hostel hot water systems.</li>
+                <li>• Industry: process heating support, pump automation, energy monitoring dashboards.</li>
+              </ul>
+              <Link
+                href="/contact"
+                className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#102a6d] text-white font-semibold px-5 py-2.5 shadow hover:bg-[#0c3a99]"
+              >
+                Book a consultation
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <Products />
         <Benefits />
         <Contact />

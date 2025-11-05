@@ -83,7 +83,7 @@ export default function Nav() {
     { id: '/about', label: 'About' },
     { id: '/products', label: 'Products' },
     { id: '/services', label: 'Services' },
-    { id: 'benefits', label: 'Why Us' },
+    { id: '/why-us', label: 'Why Us' },
     { id: '/contact', label: 'Contact' },
   ];
   return (

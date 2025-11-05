@@ -3,9 +3,27 @@ import { LazyMotionDiv, LazyAnimatePresence } from "./LazyMotion";
 import { useEffect, useState } from "react";
 
 const slides = [
-  { id: 1, img: "/2.webp", colorA: "#E6EEF8", colorB: "#F8FAFC" },
-  { id: 2, img: "/10.webp", colorA: "#F3F7FA", colorB: "#EEF6F3" },
-  { id: 3, img: "/13.webp", colorA: "#F7F9FC", colorB: "#F0F6FB" }
+  {
+    id: 1,
+    img: "/2.webp",
+    colorA: "#E6EEF8",
+    colorB: "#F8FAFC",
+    alt: "OOJED team installing a solar water heating system in Maharashtra",
+  },
+  {
+    id: 2,
+    img: "/10.webp",
+    colorA: "#F3F7FA",
+    colorB: "#EEF6F3",
+    alt: "Commissioned rooftop solar panels maintained by OOJED engineers",
+  },
+  {
+    id: 3,
+    img: "/13.webp",
+    colorA: "#F7F9FC",
+    colorB: "#F0F6FB",
+    alt: "LED street lighting project delivered by OOJED",
+  },
 ];
 
 export default function HeroCarousel({ interval = 6000 }: { interval?: number }) {
@@ -39,7 +57,7 @@ export default function HeroCarousel({ interval = 6000 }: { interval?: number })
           >
             <img
               src={s.img}
-              alt={`slide-${s.id}`}
+              alt={s.alt}
               className="w-full h-full object-cover"
               loading={i === 0 ? 'eager' : 'lazy'}
               decoding="async"

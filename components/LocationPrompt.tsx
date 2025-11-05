@@ -5,10 +5,22 @@ import { usePathname, useRouter } from "next/navigation";
 const STORAGE_DETECTED = 'oojed_detected_city';
 const STORAGE_OVERRIDE = 'oojed_city_override';
 const STORAGE_DISMISSED = 'oojed_prompt_dismissed';
+const CITY_COOKIE = 'oojed_city';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 180;
 
 const normalizeCity = (raw?: string) => {
   if (!raw) return '';
   return String(raw || '').trim();
+};
+
+const toSlug = (value: string) => value.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+
+const setCityCookie = (slug: string) => {
+  try {
+    document.cookie = `${CITY_COOKIE}=${encodeURIComponent(slug)}; path=/; max-age=${COOKIE_MAX_AGE}; sameSite=Lax`;
+  } catch (e) {
+    // ignore cookie errors
+  }
 };
 
 export default function LocationPrompt() {
@@ -47,7 +59,9 @@ export default function LocationPrompt() {
       if (always) window.localStorage.setItem(STORAGE_OVERRIDE, city);
     } catch (e) {}
     setVisible(false);
-    router.replace(`/locations/${encodeURIComponent(String(city).toLowerCase().replace(/\s+/g,'-'))}`);
+    const slug = toSlug(city);
+    setCityCookie(slug);
+    router.replace(`/locations/${encodeURIComponent(slug)}`);
   };
   const onKeep = () => {
     try { window.localStorage.setItem(STORAGE_DISMISSED, '1'); } catch (e) {}
