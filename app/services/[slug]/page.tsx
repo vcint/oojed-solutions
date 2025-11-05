@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
 import FaqAccordion from '@/components/FaqAccordion';
+import type { Metadata } from 'next';
 
 const DEFAULT_CITY = 'Pune';
 const CITY_COOKIE = 'oojed_city';
@@ -31,6 +32,8 @@ const fillCity = (text: any, city?: string) => {
 };
 
 type SearchParams = Record<string, string | string[] | undefined>;
+type ParamsPromise = Promise<{ slug: string }>;
+type SearchParamsPromise = Promise<SearchParams | undefined>;
 
 const normalizeCity = (value?: string | null) => {
   if (!value) return '';
@@ -59,9 +62,9 @@ const resolveCityFromParams = (searchParams?: SearchParams, cookieCity?: string 
 export async function generateStaticParams() {
   return data.services.map((s: any) => ({ slug: s.slug }));
 }
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const rawSlug = String(params?.slug || '');
-  const slug = rawSlug.toLowerCase();
+export async function generateMetadata({ params }: { params: ParamsPromise }): Promise<Metadata> {
+  const { slug: rawSlug } = await params;
+  const slug = String(rawSlug || '').toLowerCase();
   const svc = data.services.find((s: any) => String(s.slug || '').toLowerCase() === slug);
   if (!svc) return { title: 'Service' };
   // Ensure the brand name is present in page titles for consistent SEO
@@ -115,16 +118,16 @@ async function getImagesFor(base: 'products' | 'services', slug: string) {
   return [];
 }
 
-type PageProps = {
-  params: { slug: string };
-  searchParams?: SearchParams;
-};
-
-export default async function ServicePage({ params, searchParams }: PageProps) {
-  const resolvedParams = params;
-  const resolvedSearchParams = searchParams;
+// Do not declare an explicit PageProps type here — Next.js inserts a build-time
+// compatibility check that can be brittle across versions. Accept a generic
+// props object and resolve `params`/`searchParams` whether they're Promises
+// (as some Next.js runtimes provide) or plain objects.
+export default async function ServicePage(props: any) {
+  const { params, searchParams } = props || {};
+  const resolvedParams = params instanceof Promise ? await params : params;
+  const resolvedSearchParams = searchParams instanceof Promise ? await searchParams : searchParams;
   const slug = String(resolvedParams?.slug || '').toLowerCase();
-  const cookieStore = await cookies();
+  const cookieStore = await Promise.resolve(cookies());
   const cookieCity = cookieStore.get(CITY_COOKIE)?.value;
   const searchObj = resolvedSearchParams || {};
   const cityName = resolveCityFromParams(searchObj, cookieCity);
