@@ -127,7 +127,7 @@ export default async function ServicePage(props: any) {
   const resolvedParams = params instanceof Promise ? await params : params;
   const resolvedSearchParams = searchParams instanceof Promise ? await searchParams : searchParams;
   const slug = String(resolvedParams?.slug || '').toLowerCase();
-  const cookieStore = await Promise.resolve(cookies());
+  const cookieStore = await cookies();
   const cookieCity = cookieStore.get(CITY_COOKIE)?.value;
   const searchObj = resolvedSearchParams || {};
   const cityName = resolveCityFromParams(searchObj, cookieCity);
