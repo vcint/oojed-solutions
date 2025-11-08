@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useId, useRef, useState } from "react";
 import FaqAccordion from './FaqAccordion';
+import Button from "./Button";
 import { createPortal } from "react-dom";
 
 type Product = {
@@ -229,7 +230,7 @@ export default function ProductModal({
   if (!open || !product) return null;
   const modal = (
     <div
-      className="fixed inset-0 z-50 grid place-items-center modal-root"
+      className="fixed inset-0 z-50 grid place-items-center modal-root backdrop-blur-xl"
       aria-hidden={false}
     >
       <div
@@ -243,12 +244,12 @@ export default function ProductModal({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={product.desc ? descId : undefined}
-        className={`relative z-10 w-full max-w-6xl rounded-lg bg-surface shadow-xl ring-1 ring-black/5 transition-all duration-200 ${
+        className={`glass-panel relative z-10 w-full max-w-6xl transition-all duration-200 ${
           visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-1 scale-95"
-        } max-h-[85vh] flex flex-col`}
+        } max-h-[85vh] flex flex-col p-0`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-white/20 dark:border-[#5ea8ff]/20 px-6 py-4">
           <div className="min-w-0">
             <h3 id={titleId} className="truncate text-2xl font-semibold ui-text">
               {product.name}
@@ -263,7 +264,7 @@ export default function ProductModal({
             ref={closeBtnRef}
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md ui-text hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-slate-600 dark:text-white hover:bg-white/10 dark:hover:bg-[#5ea8ff]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f3fa6] focus-visible:ring-offset-2 focus-visible:ring-offset-white/30"
             aria-label="Close dialog"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
@@ -275,14 +276,14 @@ export default function ProductModal({
         <div className="px-6 py-5 overflow-y-auto">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="md:pr-2">
-              <div className="w-full overflow-hidden rounded-md bg-slate-50 relative">
+              <div className="glass-panel overflow-hidden relative p-2">
                 {/* arrows for desktop */}
                 {imageList && imageList.length > 1 && (
                   <>
                     <button
                       type="button"
                       onClick={onPrev}
-                      className="hidden md:inline-flex absolute left-2 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow"
+                      className="hidden md:inline-flex absolute left-3 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white/80 dark:bg-[#10233f]/80 shadow-lg shadow-black/20"
                       aria-label="Previous image"
                     >
                       ‹
@@ -290,12 +291,12 @@ export default function ProductModal({
                     <button
                       type="button"
                       onClick={onNext}
-                      className="hidden md:inline-flex absolute right-2 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow"
+                      className="hidden md:inline-flex absolute right-3 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white/80 dark:bg-[#10233f]/80 shadow-lg shadow-black/20"
                       aria-label="Next image"
                     >
                       ›
                     </button>
-                    <div className="absolute right-4 top-4 z-20 bg-white/80 px-3 py-1 rounded text-sm font-medium">
+                    <div className="absolute right-4 top-4 z-20 bg-white/85 dark:bg-[#10233f]/85 px-3 py-1 rounded-full text-xs font-semibold tracking-[0.3em] text-slate-700 dark:text-[#9bd1ff]">
                       {Math.min(activeImageIdx + 1, imageCount)} / {imageCount}
                     </div>
                   </>
@@ -336,7 +337,7 @@ export default function ProductModal({
                         setActiveImageIdx(idx);
                         scrollToIndex(idx);
                       }}
-                      className={`h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-blue-600 border-transparent" : "border-slate-200"}`}
+                      className={`glass-panel h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-[#0f3fa6] dark:ring-[#5ea8ff]" : "border-transparent"}`}
                       aria-label={`Show image ${idx + 1}`}
                     >
                         <img src={normalizeSrc(src)} alt={`${product.name} thumbnail ${idx + 1}`} loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
@@ -346,57 +347,61 @@ export default function ProductModal({
               )}
             </div>
 
-            <div className="md:pl-2">
+            <div className="md:pl-2 space-y-4">
               {product.long && (
-                <div>
-                  <div className="font-medium text-slate-900">About</div>
-                  <p className="mt-2 text-sm text-slate-700">{fillCity(product.long)}</p>
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">About</div>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-200 leading-relaxed whitespace-pre-line">{fillCity(product.long)}</p>
                 </div>
               )}
 
               {product.items && product.items.length > 0 && (
-                <div>
-                  <div className="font-medium text-slate-900">Items</div>
-                  <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">Items</div>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-600 dark:text-slate-200">
                     {product.items.map((it: string) => (
-                      <li key={it}>{it}</li>
+                      <li key={it} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#102a6d] dark:bg-[#5ea8ff]" />
+                        <span>{fillCity(it)}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
 
               {product.highlights && product.highlights.length > 0 && (
-                <div className="mt-4">
-                  <div className="font-medium text-slate-900">Highlights</div>
-                  <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">Highlights</div>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-600 dark:text-slate-200">
                     {product.highlights.map((h: string) => (
-                      <li key={h}>{h}</li>
+                      <li key={h} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#0f3fa6] dark:bg-[#5ea8ff]" />
+                        <span>{fillCity(h)}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
 
               {product.specs && product.specs.length > 0 && (
-                <div className="mt-4">
-                  <div className="font-medium text-slate-900">Technical Specs</div>
-                  <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">Technical Specs</div>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-600 dark:text-slate-200">
                     {product.specs.map((s: string) => (
-                      <li key={s}>{s}</li>
+                      <li key={s} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#0f3fa6] dark:bg-[#5ea8ff]" />
+                        <span>{fillCity(s)}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              {/* FAQs */}
               {(product as any).faqs && (product as any).faqs.length > 0 && (
-                <div className="mt-4">
-                  <div className="font-medium text-slate-900">Frequently Asked Questions</div>
-                  <div className="mt-2 text-sm text-slate-700">
-                    {/* ProductModal is a client component so we can use the FaqAccordion directly */}
-                    {/* eslint-disable-next-line @typescript-eslint/no-var-requires */}
-                    {/**/}
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">Frequently Asked Questions</div>
+                  <div className="mt-2 text-sm text-slate-600 dark:text-slate-200">
                     <React.Suspense fallback={<div className="mt-2">Loading FAQs…</div>}>
-                      {/* Lazy render: inline accordion */}
                       {/* @ts-ignore */}
                       <FaqAccordion items={(product as any).faqs.map((f: any) => ({ q: fillCity(f.q), a: fillCity(f.a) }))} idPrefix={`modal-faq`} />
                     </React.Suspense>
@@ -404,15 +409,14 @@ export default function ProductModal({
                 </div>
               )}
 
-              {/* Case studies / examples */}
               {(product as any).caseStudies && (product as any).caseStudies.length > 0 && (
-                <div className="mt-4">
-                  <div className="font-medium text-slate-900">Case studies</div>
-                  <ul className="mt-2 list-inside list-disc text-sm text-slate-700">
+                <div className="glass-panel p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-[#87a8d8]">Case studies</div>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-600 dark:text-slate-200">
                     {(product as any).caseStudies.map((c: any) => (
-                      <li key={c.title} className="mt-2">
-                        <div className="font-semibold">{c.title}</div>
-                        <div className="mt-1">{c.summary}</div>
+                      <li key={c.title} className="space-y-1">
+                        <div className="font-semibold text-slate-900 dark:text-white">{c.title}</div>
+                        <div className="text-sm text-slate-600 dark:text-slate-300">{c.summary}</div>
                       </li>
                     ))}
                   </ul>
@@ -420,31 +424,36 @@ export default function ProductModal({
               )}
 
               <div className="mt-6">
-                <button
-                  type="button"
+                <Button
                   onClick={() => {
                     try {
                       if (typeof window !== 'undefined') {
                         const path = window.location.pathname || '/';
                         if (path === '/' || path === '') {
-                          // same-page: close modal and dispatch event
                           onClose();
                           window.dispatchEvent(new Event('openContactForm'));
                         } else {
-                          // different page: set a session flag so Contact can open after navigation
-                          try { sessionStorage.setItem('openContactForm', '1'); } catch (e) { /* ignore */ }
-                          // navigate to the dedicated contact page — Contact will open on load
+                          try {
+                            sessionStorage.setItem('openContactForm', '1');
+                          } catch (e) {
+                            // ignore
+                          }
                           window.location.href = '/contact';
                         }
                       }
                     } catch (err) {
-                      try { window.location.href = '/contact'; } catch (e) { /* ignore */ }
+                      try {
+                        window.location.href = '/contact';
+                      } catch (e) {
+                        // ignore
+                      }
                     }
                   }}
-                  className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white text-[#102a6d] border-2 border-[#102a6d] font-semibold shadow-sm px-5 py-2.5 hover:shadow-md focus:outline-none focus:ring-4 focus:ring-blue-100 dark:bg-transparent dark:text-white dark:border-white/40"
+                  variant="gradient"
+                  className="w-full md:w-auto px-6 py-3 text-sm"
                 >
                   Request a Quote / Enquiry
-                </button>
+                </Button>
               </div>
 
               {/* JSON-LD for Product */}

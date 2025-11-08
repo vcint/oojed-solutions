@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ServicesPage() {
   return (
-    <main>
+    <main className="pt-28 pb-16 md:pt-36">
       <Services />
     </main>
   );

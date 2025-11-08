@@ -135,7 +135,7 @@ export default async function ServicePage(props: any) {
   const svc = data.services.find((s: any) => String(s.slug || '').toLowerCase() === slug);
   if (!svc) {
     return (
-      <main className="container py-12">
+      <main className="container py-12 pt-28 md:pt-36">
         <h1 className="text-2xl font-bold">Service not found</h1>
         <p className="mt-4">We couldn't find the requested service. <Link href="/">Return home</Link>.</p>
       </main>
@@ -153,12 +153,17 @@ export default async function ServicePage(props: any) {
   const showLongCopy = longCopy && longCopy !== introCopy;
 
   return (
-    <main className="container py-12">
-      <div className="max-w-3xl">
-        <nav className="text-sm text-slate-500 mb-3">
+    <main className="relative overflow-hidden pt-28 pb-16 md:pt-36">
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#eef4ff] to-white dark:from-[#040d1e] dark:via-[#08162c] dark:to-[#040b18] pointer-events-none" />
+      <div className="absolute -left-32 top-16 h-64 w-64 rounded-full bg-[#c9dcff]/45 blur-3xl dark:bg-[#123062]/45" />
+      <div className="absolute -right-40 bottom-10 h-72 w-72 rounded-full bg-[#b3efff]/35 blur-3xl dark:bg-[#0d2b52]/50" />
+
+      <div className="container relative py-16 text-slate-700 dark:text-slate-200">
+        <div className="max-w-3xl space-y-8">
+        <nav className="glass-panel inline-flex items-center gap-2 px-4 py-2 text-sm text-slate-600 dark:text-slate-300">
           <Link href="/services" className="hover:underline">Services</Link>
-          <span className="mx-2">/</span>
-          <span className="font-medium">{svc.name}</span>
+          <span className="opacity-60">/</span>
+          <span className="font-medium text-slate-900 dark:text-white">{svc.name}</span>
         </nav>
 
         {/* Breadcrumb JSON-LD for this service page */}
@@ -171,11 +176,21 @@ export default async function ServicePage(props: any) {
           ],
         }) }} />
 
-        <h1 className="text-3xl font-bold">{svc.name}</h1>
-        {/* SEO: keyword-rich intro to assist indexing */}
-        {introCopy && (
-          <p className="mt-3 text-lg text-slate-700">{introCopy}</p>
-        )}
+        <div className="glass-panel p-6 md:p-7 space-y-3">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">{svc.name}</h1>
+          {introCopy && (
+            <p className="text-base md:text-lg text-slate-600 dark:text-slate-200">
+              {introCopy}
+            </p>
+          )}
+          <div className="flex flex-wrap gap-2 text-xs uppercase tracking-[0.35em] text-slate-400 dark:text-slate-400">
+            <span>{cityName}</span>
+            <span className="opacity-50">|</span>
+            <span>Full lifecycle support</span>
+            <span className="opacity-50">|</span>
+            <span>Distributor backed</span>
+          </div>
+        </div>
         {images && images.length > 0 && (
           <div className="mt-6">
             <ImageGallery images={images} alt={svc.name} />
@@ -183,15 +198,17 @@ export default async function ServicePage(props: any) {
         )}
 
         {showMetaCopy && (
-          <p className="mt-4 text-lg text-slate-700">{metaCopy}</p>
+          <div className="glass-panel p-6 text-sm md:text-base leading-relaxed text-slate-600 dark:text-slate-200">
+            {metaCopy}
+          </div>
         )}
         {showLongCopy && (
-          <div className="mt-6 text-slate-700 leading-relaxed">
+          <div className="glass-panel p-6 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
             {longCopy}
           </div>
         )}
 
-        <section className="mt-6 space-y-4 text-slate-700 leading-relaxed">
+        <section className="glass-panel mt-6 p-6 space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
           <p>
             {fillCity(`Every ${svc.name.toLowerCase()} engagement in {{city}} starts with a collaborative workshop where we document constraints, energy targets and stakeholder expectations. This discovery phase enables our design desk to propose sizing, layouts and commercial models that achieve the desired payback without compromising reliability.`, cityName)}
           </p>
@@ -203,21 +220,17 @@ export default async function ServicePage(props: any) {
           </p>
         </section>
 
-        <section className="mt-6 border rounded-lg bg-white/60 px-5 py-4">
-          <h2 className="text-xl font-semibold">What you get with {svc.name.toLowerCase()}</h2>
-          <ul className="list-disc list-inside mt-3 space-y-2 text-slate-700">
-            <li>{fillCity(`Tailored engineering package covering drawings, single-line diagrams, data sheets and a transparent bill of materials ready for approvals in {{city}}.`, cityName)}</li>
-            <li>{fillCity(`Dedicated project manager, WhatsApp group and escalation matrix so decisions are never delayed during on-site execution in {{city}}.`, cityName)}</li>
-            <li>{fillCity(`Comprehensive documentation kit with warranty cards, service schedule and AMC options to keep your system compliant and efficient.`, cityName)}</li>
-            <li>{fillCity(`Priority service response, remote troubleshooting support and proactive performance audits scheduled across the year.`, cityName)}</li>
-          </ul>
-        </section>
-        {svc.highlights && (
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold">Highlights</h2>
-            <ul className="list-disc list-inside mt-2">
-              {svc.highlights.map((h: string) => (
-                <li key={h}>{fillCity(h, cityName)}</li>
+        {Array.isArray((svc as any).highlights) && (svc as any).highlights.length > 0 && (
+          <section className="glass-panel mt-6 p-6 space-y-3">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+              What you get with {svc.name.toLowerCase()}
+            </h2>
+            <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-200">
+              {(svc as any).highlights.map((h: string) => (
+                <li key={h} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#0f3fa6] dark:bg-[#5ea8ff]" />
+                  <span>{fillCity(h, cityName)}</span>
+                </li>
               ))}
             </ul>
           </section>
@@ -232,9 +245,9 @@ export default async function ServicePage(props: any) {
               mainEntity: (svc as any).faqs.map((f: any) => ({ '@type': 'Question', name: fillCity(f.q, cityName), acceptedAnswer: { '@type': 'Answer', text: fillCity(f.a, cityName) } })),
             }) }} />
 
-            <section className="mt-8" aria-labelledby="service-faqs">
-              <h2 id="service-faqs" className="text-xl font-semibold">Frequently asked questions</h2>
-              <div className="mt-4">
+            <section className="glass-panel mt-8 p-6 md:p-8" aria-labelledby="service-faqs">
+              <h2 id="service-faqs" className="text-xl font-semibold text-slate-900 dark:text-white">Frequently asked questions</h2>
+              <div className="mt-4 text-slate-700 dark:text-slate-200">
                 <FaqAccordion items={(svc as any).faqs.map((f: any) => ({ q: fillCity(f.q, cityName), a: fillCity(f.a, cityName) }))} idPrefix={`svc-faq-${slugForId}-${toCitySlug(cityName)}`} />
               </div>
             </section>
@@ -242,19 +255,21 @@ export default async function ServicePage(props: any) {
         )}
 
         {/* Related product categories with descriptive anchors */}
-        <section className="mt-8 border-t pt-6">
-          <h2 className="text-xl font-semibold">Related product categories</h2>
-          <ul className="list-disc list-inside mt-2 space-y-1">
-            <li><Link href={`/products/solar-water-heaters?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Solar Water Heaters — ETC/FPC systems with installation & AMC</Link></li>
-            <li><Link href={`/products/led-lighting?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">LED Street & Flood Lighting — IP65, surge protected</Link></li>
-            <li><Link href={`/products/solar-pumps?city=${encodeURIComponent(citySlug)}`} className="text-blue-700 hover:underline">Solar Water Pumps — correctly sized head/flow with MPPT/VFD</Link></li>
+        <section className="glass-panel mt-8 p-6 space-y-3">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Related product categories</h2>
+          <ul className="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
+            <li><Link href={`/products/solar-water-heaters?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Heaters — ETC/FPC systems with installation &amp; AMC</Link></li>
+            <li><Link href={`/products/led-lighting?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">LED Street &amp; Flood Lighting — IP65, surge protected</Link></li>
+            <li><Link href={`/products/solar-pumps?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Pumps — correctly sized head/flow with MPPT/VFD</Link></li>
           </ul>
         </section>
 
-        <div className="mt-8">
-          <Button href={`/contact?city=${encodeURIComponent(citySlug)}`} variant="primary">
+        <div className="glass-panel mt-8 flex flex-wrap items-center gap-3 p-6 text-sm text-slate-700 dark:text-slate-200">
+          <span>Ready to mobilise in {cityName}? Our delivery desk will share timelines, documentation checklists and a costed proposal.</span>
+          <Button href={`/contact?city=${encodeURIComponent(citySlug)}`} variant="gradient">
             Request this service in {cityName}
           </Button>
+        </div>
         </div>
       </div>
     </main>
