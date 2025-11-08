@@ -25,7 +25,7 @@ const differentiators = [
 
 export default function WhyUsPage() {
   return (
-    <main className="bg-white">
+    <main className="bg-white dark:bg-[#01030c]">
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <img src="/4.webp" alt="OOJED project montage" className="w-full h-full object-cover" />
@@ -41,10 +41,10 @@ export default function WhyUsPage() {
               11+ years of solar & LED projects
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1">
-              25 MWp rooftop solar delivered
+              2+ MW rooftop solar delivered
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1">
-              400+ sites under active AMC
+              80+ sites under active AMC
             </span>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default function WhyUsPage() {
 
       <section className="container py-16 grid gap-8 md:grid-cols-3 text-slate-700 dark:text-slate-300">
         {differentiators.map((item) => (
-          <div key={item.title} className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm p-6">
+          <div key={item.title} className="rounded-2xl glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15">
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">{item.title}</h2>
             <p className="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
           </div>
@@ -68,7 +68,7 @@ export default function WhyUsPage() {
             {data?.about}
           </p>
         </div>
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm p-6 text-sm text-slate-700 dark:text-slate-300 space-y-4">
+        <div className="rounded-2xl glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15 space-y-4">
           <div>
             <div className="text-slate-900 dark:text-white font-semibold">Service excellence</div>
             <p className="mt-1">Daily progress reports, escalation ladders, safety compliance and training for on-site operations teams.</p>

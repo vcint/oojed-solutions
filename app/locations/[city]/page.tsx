@@ -1,4 +1,4 @@
-import site from '@/data/site.json';
+﻿import site from '@/data/site.json';
 import Link from 'next/link';
 import TrustBar from '@/components/TrustBar';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -39,8 +39,8 @@ export default function CityPage({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
   const citySlug = toSlug(cityName);
   return (
-    <main className="container py-12">
-      <nav className="text-sm text-slate-500 mb-3">
+    <main className="container py-12 text-slate-800 dark:text-slate-100">
+      <nav className="mb-3 text-sm text-slate-500 dark:text-slate-300">
         <Link href="/locations" className="hover:underline">Service Areas</Link>
         <span className="mx-2">/</span>
         <span className="font-medium">{cityName}</span>
@@ -56,39 +56,39 @@ export default function CityPage({ params }: { params: any }) {
         ],
       }) }} />
 
-      <h1 className="text-3xl font-bold">Solar Solutions in {cityName}</h1>
-      <p className="mt-4 max-w-3xl text-slate-700 leading-relaxed">
+      <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Solar Solutions in {cityName}</h1>
+      <p className="mt-4 max-w-3xl text-slate-700 leading-relaxed dark:text-slate-200">
         We deliver and support clean energy systems in {cityName}: solar water heaters (ETC/FPC), rooftop solar power plants, solar water pumps, and LED street/flood lighting. Our local teams handle site survey, design, installation, commissioning, repair and AMC.
       </p>
 
       <section className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white/70 border rounded-xl p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">Why OOJED in {cityName}</h2>
-          <p className="mt-3 text-slate-700 leading-relaxed">
+        <div className="lg:col-span-2 rounded-xl border bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36] dark:shadow-[0_18px_45px_rgba(0,0,0,0.55)]">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why OOJED in {cityName}</h2>
+          <p className="mt-3 text-slate-700 leading-relaxed dark:text-slate-200">
             {localizeCity('Since 2014 we have executed residential, industrial and institutional solar projects across {{city}}, navigating roof-space constraints, water quality challenges, utility permissions and occupancy schedules unique to the region.', cityName)}
           </p>
-          <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-700 text-sm">
-            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
-              <span className="block text-slate-900 font-semibold">Local field teams</span>
+          <ul className="mt-4 grid grid-cols-1 gap-3 text-sm text-slate-700 dark:text-slate-200 sm:grid-cols-2">
+            <li className="rounded-lg border bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+              <span className="block font-semibold text-slate-900 dark:text-white">Local field teams</span>
               {localizeCity('Surveyors, installers and service engineers based in and around {{city}} for faster mobilisation and after-sales visits.', cityName)}
             </li>
-            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
-              <span className="block text-slate-900 font-semibold">Turnkey compliance</span>
+            <li className="rounded-lg border bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+              <span className="block font-semibold text-slate-900 dark:text-white">Turnkey compliance</span>
               {localizeCity('Engineering drawings, net-metering/subsidy paperwork and handover documents prepared to suit civic and DISCOM requirements in {{city}}.', cityName)}
             </li>
-            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
-              <span className="block text-slate-900 font-semibold">Rapid spare-part support</span>
+            <li className="rounded-lg border bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+              <span className="block font-semibold text-slate-900 dark:text-white">Rapid spare-part support</span>
               {localizeCity('Critical tubes, pumps, controllers and LED drivers stocked within driving distance of {{city}} enabling priority service.', cityName)}
             </li>
-            <li className="p-3 bg-slate-50 border rounded-lg shadow-sm">
-              <span className="block text-slate-900 font-semibold">Lifecycle monitoring</span>
+            <li className="rounded-lg border bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/5">
+              <span className="block font-semibold text-slate-900 dark:text-white">Lifecycle monitoring</span>
               {localizeCity('AMC programs with seasonal tune-ups, data logging and remote alerts keep assets productive throughout the year.', cityName)}
             </li>
           </ul>
         </div>
-        <div className="bg-gradient-to-b from-blue-50 to-white border rounded-xl p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#102a6d]">At a glance</h3>
-          <ul className="mt-4 space-y-3 text-slate-700 text-sm">
+        <div className="rounded-xl border bg-gradient-to-b from-blue-50 to-white p-6 shadow-sm dark:border-white/10 dark:from-[#102a6d]/40 dark:to-[#0b1729]">
+          <h3 className="text-lg font-semibold text-[#102a6d] dark:text-[#8bb8ff]">At a glance</h3>
+          <ul className="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-200">
             <li>
               <span className="block text-3xl font-bold text-slate-900">350+</span>
               {localizeCity('Solar water heater installations completed in housing societies, hotels and hostels around {{city}}.', cityName)}
@@ -159,18 +159,18 @@ export default function CityPage({ params }: { params: any }) {
         </ol>
       </section>
 
-      <section className="mt-8 bg-white/60 border rounded-xl p-6 shadow-sm">
+      <section className="mt-8 rounded-xl border bg-white/60 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36]">
         <h2 className="text-xl font-semibold text-slate-900">Recent deployments</h2>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-slate-700 text-sm">
-          <div className="border rounded-lg p-4 h-full">
+        <div className="mt-4 grid grid-cols-1 gap-4 text-sm text-slate-700 dark:text-slate-200 md:grid-cols-3">
+          <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
             <h3 className="font-semibold text-slate-900">{localizeCity('Skyline Heights Cooperative', cityName)}</h3>
             <p className="mt-2">{localizeCity('45,000 LPD solar water heating retrofit with polymer-coated tanks and automation for staggered supply in {{city}}.', cityName)}</p>
           </div>
-          <div className="border rounded-lg p-4 h-full">
+          <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
             <h3 className="font-semibold text-slate-900">{localizeCity('Sunbeam International School', cityName)}</h3>
             <p className="mt-2">{localizeCity('80 kWp rooftop solar with remote monitoring dashboards and classroom awareness program.', cityName)}</p>
           </div>
-          <div className="border rounded-lg p-4 h-full">
+          <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
             <h3 className="font-semibold text-slate-900">{localizeCity('Riverfront Industrial Estate', cityName)}</h3>
             <p className="mt-2">{localizeCity('Hybrid solar + high-mast LED lighting upgrade for internal roads, loading bays and security perimeters.', cityName)}</p>
           </div>
@@ -178,25 +178,25 @@ export default function CityPage({ params }: { params: any }) {
       </section>
 
       <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="border rounded-xl bg-white/70 p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">What customers say</h2>
-          <div className="mt-4 space-y-4 text-slate-700 text-sm">
-            <blockquote className="border-l-4 border-[#102a6d] pl-3 italic">
+        <div className="rounded-xl border bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36]">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">What customers say</h2>
+          <div className="mt-4 space-y-4 text-sm text-slate-700 dark:text-slate-200">
+            <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-3 italic">
               {localizeCity('“OOJED completed our hostel solar water heating upgrade ahead of schedule and continues to service the system promptly in {{city}}.”', cityName)}
-              <span className="block mt-2 font-semibold not-italic text-slate-900">— Facilities Head, Hospitality Group</span>
+              <span className="block mt-2 font-semibold not-italic text-slate-900 dark:text-white">— Facilities Head, Hospitality Group</span>
             </blockquote>
-            <blockquote className="border-l-4 border-[#102a6d] pl-3 italic">
+            <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-3 italic">
               {localizeCity('“Their rooftop solar plant reduced our demand charges immediately, and the AMC team in {{city}} keeps performance on track.”', cityName)}
-              <span className="block mt-2 font-semibold not-italic text-slate-900">— Operations Lead, Manufacturing Unit</span>
+              <span className="block mt-2 font-semibold not-italic text-slate-900 dark:text-white">— Operations Lead, Manufacturing Unit</span>
             </blockquote>
           </div>
         </div>
-        <div className="border rounded-xl bg-gradient-to-b from-blue-50 to-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-slate-900">Plan your project</h2>
-          <p className="mt-3 text-slate-700 text-sm leading-relaxed">
+        <div className="border rounded-xl bg-gradient-to-b from-blue-50 to-white p-6 shadow-sm dark:border-white/10 dark:from-[#102a6d]/40 dark:to-[#0b1729]">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Plan your project</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
             {localizeCity('Share site images, roof drawings or load data with our pre-sales desk in {{city}}. We will prepare an itemised proposal with savings estimates, vendor qualifications and a mobilisation schedule.', cityName)}
           </p>
-          <ul className="mt-4 space-y-2 text-slate-700 text-sm">
+          <ul className="mt-4 space-y-2 text-sm text-slate-700 dark:text-slate-200">
             <li>• Site survey & shading analysis</li>
             <li>• ROI, payback and subsidy advisory</li>
             <li>• Delivery schedule & manpower plan</li>

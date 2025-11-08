@@ -92,18 +92,8 @@ export default function Nav() {
   return (
     <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[94%] sm:w-[92%] md:w-[90%] lg:w-[82%] pointer-events-none">
       <div className="glass-panel pointer-events-auto flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3 shadow-[0_18px_45px_rgba(7,17,38,0.18)]">
-        <Link
-          href="/"
-          aria-label="OOJED home"
-          className="pointer-events-auto group inline-flex items-center rounded-full border border-white/70 bg-white/95 px-3 py-1 shadow-[0_18px_45px_rgba(7,17,38,0.18)] dark:border-white/20 dark:bg-white/15"
-        >
-          <span className="relative isolate flex h-14 w-[6.5rem] items-center justify-center">
-            <span className="absolute inset-0 rounded-[1.4rem] bg-gradient-to-br from-white/95 via-white/40 to-transparent dark:from-[#6fb6ff]/30 dark:via-transparent dark:to-transparent blur-sm" />
-            <span className="absolute -inset-2 rounded-[1.8rem] bg-gradient-to-r from-[#96c8ff]/40 via-white/25 to-[#a5b4fc]/30 dark:from-[#2d7bff]/45 dark:via-[#0a2146]/35 dark:to-[#37d7ff]/35 blur-[28px] opacity-90" aria-hidden="true" />
-            <span className="relative flex h-12 w-full items-center justify-center rounded-[1.2rem] bg-white shadow-[0_18px_45px_rgba(11,33,90,0.35)] transition-shadow duration-300 group-hover:shadow-[0_22px_55px_rgba(11,33,90,0.45)]">
-              <img src="/oojed-logo.png" alt="OOJED logo" className="h-10 w-auto object-contain" />
-            </span>
-          </span>
+        <Link href="/" aria-label="OOJED home" className="pointer-events-auto inline-flex items-center">
+          <img src="/oojed-logo.png" alt="OOJED logo" className="h-12 w-auto object-contain drop-shadow-[0_6px_18px_rgba(8,15,35,0.45)] contrast-125 brightness-110" />
         </Link>
 
         <div className="pointer-events-auto flex items-center gap-3">
@@ -122,6 +112,10 @@ export default function Nav() {
               </svg>
             )}
           </button>
+
+          <div className="md:hidden">
+            <ThemeToggle />
+          </div>
 
           <div className="hidden md:flex items-center gap-2 xl:gap-4">
             {sections.map(({ id, label }) => link(id, label))}
@@ -153,7 +147,7 @@ export default function Nav() {
                 </Button>
               )}
               <div className="ml-3">
-                <ThemeToggle />
+                
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ const metadataBaseUrl = (() => {
 })();
 const siteOrigin = metadataBaseUrl.origin;
 const defaultTitle = 'OOJED | Solar & LED Specialists';
-const defaultDescription = 'OOJED designs, manufactures and installs solar water heaters, rooftop solar plants, solar pumps and LED lighting projects across Maharashtra.';
+const defaultDescription = 'OOJED sources, supplies and installs solar water heaters, rooftop solar plants, solar pumps and LED lighting projects across Maharashtra, with in-house fabrication limited to spare parts and BOS assemblies.';
 const ogImageUrl = new URL('/10.webp', metadataBaseUrl).toString();
 
 const keywordSet = new Set<string>();
@@ -35,7 +35,7 @@ const addKeyword = (value?: string | null) => {
   'OOJED',
   'solar solutions Maharashtra',
   'solar water heater supplier',
-  'solar lighting manufacturer',
+  'solar lighting supplier',
   'solar pumps installer',
   'LED street lighting Maharashtra',
   'solar AMC services',
@@ -147,8 +147,28 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={inter.className} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  try {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = stored || (prefersDark ? 'dark' : 'light');
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.removeAttribute('data-theme');
+    }
+  } catch (e) {}
+})();
+`,
+          }}
+        />
         {/* Performance & SEO: preload hero image(s) */}
         {/* preload primary hero image for LCP improvement */}
         <link rel="preload" as="image" href="/2.webp" />
@@ -158,7 +178,52 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="viewport" content="width=device-width,initial-scale=1" />
 
   {/* Critical CSS: inline small, high-priority rules to speed first paint/LCP */}
-  <style dangerouslySetInnerHTML={{ __html: `:root{--radius:.375rem;--accent:#102a6d;--bg:#fff;--muted:#94a3b8;--text:#0f172a;--card:#fff}html,body{height:100%;scroll-behavior:smooth}body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;color:var(--text);background-color:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;margin:0} .container{max-width:72rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem} .section{padding-top:4rem;padding-bottom:4rem} .gradient-hero{background:linear-gradient(120deg,#e9ecef 0%,#f8fafc 100%)} ` }} />
+  <style
+    dangerouslySetInnerHTML={{
+      __html: `
+:root{
+  --radius:.375rem;
+  --accent:#0f3fa6;
+  --accent-soft:rgba(15, 63, 166, 0.08);
+  --bg:#f8fafc;
+  --bg-muted:#edf2fb;
+  --muted:#5b6b84;
+  --text:#0f172a;
+  --card:rgba(255,255,255,0.88);
+  --glass-border:rgba(15, 23, 42, 0.08);
+  --glass-highlight:rgba(255,255,255,0.45);
+  --shadow-soft:0 16px 48px rgba(15, 23, 42, 0.08);
+  --shadow-strong:0 24px 60px rgba(15, 23, 42, 0.12);
+}
+html.dark {
+  --bg:#030b1a;
+  --bg-muted:#071226;
+  --muted:#9ab7da;
+  --text:#f1f5ff;
+  --card:rgba(12, 27, 52, 0.78);
+  --accent:#5ea8ff;
+  --accent-soft:rgba(94, 168, 255, 0.12);
+  --glass-border:rgba(94, 168, 255, 0.3);
+  --glass-highlight:rgba(94, 168, 255, 0.25);
+  --shadow-soft:0 20px 60px rgba(6, 16, 35, 0.55);
+  --shadow-strong:0 28px 70px rgba(10, 24, 52, 0.7);
+}
+html,body{height:100%;scroll-behavior:smooth}
+body{
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  color:var(--text);
+  background:radial-gradient(circle at 12% 20%, var(--bg-muted) 0%, var(--bg) 52%, var(--bg) 100%);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  margin:0;
+  transition: background-color .18s ease,color .18s ease;
+}
+.container{max-width:74rem;margin-left:auto;margin-right:auto;padding-left:1.25rem;padding-right:1.25rem}
+.section{padding-top:4rem;padding-bottom:4rem}
+.gradient-hero{background:linear-gradient(120deg,#e9ecef 0%,#f8fafc 100%)}
+`,
+    }}
+  />
 
   {/* Runtime helper: convert Next-generated stylesheet links to preload early to reduce blocking (best-effort) */}
   <script dangerouslySetInnerHTML={{ __html: `(function(){try{var links=document.querySelectorAll('link[rel="stylesheet"]');for(var i=0;i<links.length;i++){var l=links[i];if(l.href && l.href.indexOf('/_next/static/css/')!==-1){l.rel='preload';l.as='style';l.onload=function(){this.rel='stylesheet';};}}}catch(e){}})();` }} />
@@ -167,11 +232,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Organization JSON-LD for better local/brand SEO */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd, null, 2) }} />
       </head>
-    <body className="selection:bg-brand-300/40">
+    <body className="selection:bg-brand-300/40 bg-[#f5f7ff] text-slate-900 transition-colors duration-200 dark:bg-[#030614] dark:text-slate-100">
   {/* Run location detection early on the client. It only redirects if user previously set an override. */}
   <LocationDetector />
       <Nav />
-      <main>
+      <main className="min-h-screen bg-[#f5f7ff] transition-colors duration-200 dark:bg-[#030614]">
         {children}
       </main>
 

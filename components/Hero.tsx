@@ -116,7 +116,7 @@ export default function Hero() {
           <div className="space-y-8">
             <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-lg shadow-blue-900/10 backdrop-blur-md dark:bg-white/15 dark:text-slate-100 dark:shadow-blue-900/30">
               <FiShield className="h-3.5 w-3.5" />
-              Since 2014 | Distributor & service partner
+              Since 2014
             </span>
 
             <div className="space-y-6">
@@ -133,7 +133,7 @@ export default function Hero() {
               </Button>
               <Button
                 href={data.hero.ctaSecondary?.href || "/products"}
-                variant="outline"
+                variant="surface"
                 className="px-6 py-3 md:px-8 md:py-3.5 border-slate-200/80 text-slate-900 dark:border-white/40 dark:text-white dark:hover:bg-white/10"
               >
                 {ctaSecondaryLabel}

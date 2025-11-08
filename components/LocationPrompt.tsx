@@ -69,17 +69,27 @@ export default function LocationPrompt() {
   };
 
   return (
-    <div className="fixed right-4 bottom-6 z-50 max-w-sm w-full bg-white shadow-lg rounded-md p-3 border border-slate-100">
+    <div className="fixed right-4 bottom-6 z-50 w-full max-w-sm rounded-md border border-slate-100 bg-white p-3 shadow-lg dark:border-white/15 dark:bg-[#0b1628]">
       <div className="flex items-start gap-3">
         <div className="flex-1">
-          <div className="text-sm font-semibold">Looks like you're in {city}</div>
-          <div className="text-xs text-slate-600 mt-1">Would you like to view our {city} page for local pricing, availability and surveys?</div>
+          <div className="text-sm font-semibold text-slate-900 dark:text-white">Looks like you're in {city}</div>
+          <div className="mt-1 text-xs text-slate-600 dark:text-slate-300">Would you like to view our {city} page for local pricing, availability and surveys?</div>
           <div className="mt-3 flex items-center gap-2">
-            <button onClick={onGo} className="inline-flex items-center gap-2 rounded-full bg-blue-600 text-white px-3 py-1 text-sm">Go to {city}</button>
-            <button onClick={onKeep} className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm">Keep browsing</button>
+            <button
+              onClick={onGo}
+              className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-3 py-1 text-sm font-semibold text-white shadow hover:bg-blue-500"
+            >
+              Go to {city}
+            </button>
+            <button
+              onClick={onKeep}
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-1 text-sm text-slate-700 hover:bg-slate-50 dark:border-white/30 dark:text-white dark:hover:bg-white/10"
+            >
+              Keep browsing
+            </button>
           </div>
-          <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600">
-            <input type="checkbox" checked={always} onChange={(e) => setAlways(e.target.checked)} /> Always use this city
+          <label className="mt-2 inline-flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+            <input type="checkbox" checked={always} onChange={(e) => setAlways(e.target.checked)} className="rounded border-slate-300 text-blue-600 focus:ring-blue-400" /> Always use this city
           </label>
         </div>
       </div>

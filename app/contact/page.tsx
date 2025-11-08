@@ -10,8 +10,8 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <main className="container py-12 pt-28 md:pt-32">
-      <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Contact</h1>
-      <div className="mt-6 max-w-4xl text-slate-700 dark:text-slate-300">
+      <h1 className="text-3xl font-bold text-black">Contact</h1>
+      <div className="mt-6 max-w-4xl text-black ">
         <p>For sales and service enquiries, tell us about your requirement and we'll respond with a tailored solution.</p>
       </div>
 

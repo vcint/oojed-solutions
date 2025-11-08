@@ -124,17 +124,16 @@ const verticals = [
 
 export default function AboutPage() {
   return (
-    <main className="relative overflow-hidden bg-white dark:bg-[#000209]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(15,63,166,0.08),transparent_42%),radial-gradient(circle_at_88%_12%,rgba(0,168,255,0.1),transparent_46%),linear-gradient(140deg,#f4f7ff_0%,#ffffff_45%,#eef4ff_100%)] dark:bg-none" />
-      <div className="pointer-events-none absolute inset-0 hidden dark:block bg-[radial-gradient(circle_at_50%_-10%,rgba(18,64,154,0.32),transparent_55%),radial-gradient(circle_at_10%_35%,rgba(7,33,90,0.35),transparent_48%),linear-gradient(180deg,#01030a_0%,#01030f_40%,#000307_100%)]" />
-      <div className="pointer-events-none absolute -left-32 top-32 h-72 w-72 rounded-full bg-[#cddcff]/40 blur-3xl dark:bg-[#11315f]/40" />
-      <div className="pointer-events-none absolute bottom-12 -right-24 h-80 w-80 rounded-full bg-[#b6f0ff]/40 blur-3xl dark:bg-[#0d3d64]/40" />
+    <main className="relative overflow-hidden bg-[#f5f7ff] dark:bg-[#030614]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(15,63,166,0.08),transparent_42%),radial-gradient(circle_at_88%_12%,rgba(0,168,255,0.1),transparent_46%),linear-gradient(140deg,#f4f7ff_0%,#ffffff_45%,#eef4ff_100%)] dark:bg-[radial-gradient(circle_at_18%_10%,rgba(35,88,190,0.18),transparent_55%),radial-gradient(circle_at_78%_0%,rgba(18,53,120,0.32),transparent_60%),linear-gradient(165deg,#02040d_0%,#040b19_52%,#010207_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/30 dark:from-[#030710]/50 dark:via-transparent dark:to-[#010309]/70" />
+      <div className="pointer-events-none absolute -left-32 top-32 h-72 w-72 rounded-full bg-[#cddcff]/40 blur-3xl dark:bg-[#0f2350]/35" />
+      <div className="pointer-events-none absolute bottom-12 -right-24 h-80 w-80 rounded-full bg-[#b6f0ff]/40 blur-3xl dark:bg-[#091c33]/45" />
 
       <section className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-36">
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.96) 0%,rgba(232,237,252,0.78) 42%,transparent 72%),radial-gradient(circle_at_85%_8%,rgba(214,233,255,0.6) 0%,transparent 58%),linear-gradient(135deg,#f7f9ff 0%,#edf2ff 50%,#f7faff 100%)] dark:hidden" />
-          <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_20%_12%,rgba(94,168,255,0.28) 0%,rgba(8,20,44,0.82) 46%,transparent 72%),radial-gradient(circle_at_82%_12%,rgba(40,126,255,0.22) 0%,rgba(3,11,26,0.85) 64%),linear-gradient(150deg,#030915 0%,#04152d 48%,#020812 100%)] dark:block" />
-          <div className="absolute inset-0 bg-white/70 mix-blend-soft-light dark:bg-white/5" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.96) 0%,rgba(232,237,252,0.78) 42%,transparent 72%),radial-gradient(circle_at_85%_8%,rgba(214,233,255,0.6) 0%,transparent 58%),linear-gradient(135deg,#f7f9ff 0%,#edf2ff 50%,#f7faff 100%)] dark:bg-[radial-gradient(circle_at_20%_12%,rgba(48,112,220,0.25) 0%,rgba(6,16,38,0.9) 50%,transparent 80%),radial-gradient(circle_at_80%_8%,rgba(15,69,182,0.2) 0%,rgba(3,8,20,0.92) 65%),linear-gradient(155deg,#050b17 0%,#030812 55%,#010307 100%)]" />
+          <div className="absolute inset-0 bg-white/70 mix-blend-soft-light dark:bg-[#02030b]/60" />
         </div>
 
         <div className="container relative px-4 text-slate-800 dark:text-slate-100 sm:px-6 lg:px-8">
@@ -157,7 +156,7 @@ export default function AboutPage() {
                 {positioningStatements.map((item) => (
                   <div
                     key={item}
-                    className="rounded-2xl border border-white/70 bg-white/90 p-5 text-sm leading-relaxed text-slate-800 shadow-[0_18px_50px_rgba(15,63,166,0.12)] backdrop-blur dark:border-white/15 dark:bg-white/10 dark:text-slate-200"
+                    className="rounded-2xl border glass-panel p-5 dark:bg-white/5 dark:border-white/15 shadow-[0_18px_50px_rgba(15,63,166,0.12)] backdrop-blur dark:text-slate-200"
                   >
                     {item}
                   </div>
@@ -167,7 +166,7 @@ export default function AboutPage() {
                 <Button href="/contact" variant="gradient" className="px-6 py-2.5">
                   Speak with our specialists
                 </Button>
-                <Button href="/services" variant="outline" className="px-6 py-2.5">
+                <Button href="/services" variant="surface" className="px-6 py-2.5 text-slate-900 dark:text-white">
                   Explore services
                 </Button>
               </div>
@@ -181,10 +180,10 @@ export default function AboutPage() {
                 {heroMetrics.map((item) => (
                   <div
                     key={item.label}
-                    className="flex items-center justify-between rounded-2xl border border-white/70 bg-white px-5 py-4 text-slate-800 shadow-[0_18px_45px_rgba(15,63,166,0.12)] backdrop-blur dark:border-white/15 dark:bg-white/10 dark:text-slate-100"
+                    className="flex items-center justify-between rounded-2xl border border-white/70 px-5 py-4 glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15"
                   >
                     <span className="text-sm uppercase tracking-[0.35em] text-slate-600 dark:text-slate-300">{item.label}</span>
-                    <span className="text-xl font-semibold text-[#0f3fa6] dark:text-[#84c2ff]">{item.value}</span>
+                    <span className="text-xl font-semibold text-[#00dd60] dark:text-[#00e85d]">{item.value}</span>
                   </div>
                 ))}
               </div>
@@ -201,12 +200,12 @@ export default function AboutPage() {
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,243,255,0.95)_0%,rgba(227,235,255,0.72)_42%,rgba(218,229,255,0.48)_100%)] dark:bg-[linear-gradient(180deg,rgba(3,11,26,0.92)_0%,rgba(5,24,46,0.88)_42%,rgba(6,32,58,0.82)_100%)]" />
         <div className="container relative space-y-12 text-slate-800 dark:text-slate-100">
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.8fr)]">
-            <div className="glass-panel space-y-6 p-6 md:p-8">
+            <div className="glass-panel space-y-6 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">
-                A retailer’s agility with an engineer’s discipline
+                A retailer's agility with an engineer's discipline
               </h2>
-              <p className="text-base leading-relaxed text-slate-800 dark:text-slate-100">{data.about}</p>
-              <p className="text-base leading-relaxed text-slate-800 dark:text-slate-100">
+              <p className="text-base leading-relaxed text-slate-800 dark:text-white">{data.about}</p>
+              <p className="text-base leading-relaxed text-slate-800 dark:text-white">
                 We are not manufacturing panels or water heaters. Our role is to curate proven OEM hardware, fabricate the
                 spares that matter, and orchestrate design, deployment and long-term support through one accountable partner.
               </p>
@@ -214,7 +213,7 @@ export default function AboutPage() {
             </div>
 
             <aside className="space-y-6">
-              <div className="glass-panel space-y-4 p-6 md:p-7">
+            <div className="glass-panel space-y-4 p-6 md:p-7 dark:bg-white/5 dark:border-white/15">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Mission</h3>
                 <p className="text-sm leading-relaxed text-slate-800 dark:text-slate-100">
                   {data.mission ||
@@ -230,7 +229,7 @@ export default function AboutPage() {
                 </ul>
               </div>
 
-              <div className="glass-panel space-y-4 p-6 md:p-7">
+              <div className="glass-panel space-y-4 p-6 md:p-7 dark:bg-white/5 dark:border-white/15">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Regional coverage</h3>
                 <div className="space-y-3 text-sm leading-relaxed text-slate-800 dark:text-slate-100">
                   {coverageHighlights.map((item) => (
@@ -244,7 +243,7 @@ export default function AboutPage() {
             </aside>
           </div>
 
-          <div className="glass-panel space-y-6 p-6 md:p-8">
+          <div className="glass-panel space-y-6 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <h3 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">
@@ -255,14 +254,14 @@ export default function AboutPage() {
                   milestone.
                 </p>
               </div>
-              <Button href="/services" variant="outline" className="px-6 py-2.5">
+              <Button href="/services" variant="surface" className="px-6 py-2.5 text-slate-900 dark:text-white">
                 View delivery playbooks
               </Button>
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {lifecyclePillars.map((item) => (
-                <div key={item.title} className="glass-panel p-5 shadow-none">
+                <div key={item.title} className="glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15">
                   <h4 className="text-base font-semibold text-slate-900 dark:text-white">{item.title}</h4>
                   <p className="mt-2 text-sm leading-relaxed text-slate-800 dark:text-slate-200">{item.detail}</p>
                 </div>
@@ -274,7 +273,7 @@ export default function AboutPage() {
 
       <section className="relative py-16 md:py-20">
         <div className="container relative text-slate-800 dark:text-slate-100">
-          <div className="glass-panel space-y-10 p-6 md:p-8">
+          <div className="glass-panel space-y-10 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">How we work with you</h2>
@@ -286,7 +285,7 @@ export default function AboutPage() {
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {deliveryStages.map((stage) => (
-                <div key={stage.step} className="glass-panel p-5 shadow-none">
+                <div key={stage.step} className="glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15">
                   <div className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">
                     {stage.step}
                   </div>
@@ -301,7 +300,7 @@ export default function AboutPage() {
 
       <section className="relative py-16 md:py-20">
         <div className="container relative text-slate-800 dark:text-slate-100">
-          <div className="glass-panel space-y-8 p-6 md:p-8">
+          <div className="glass-panel space-y-8 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">Milestones we are proud of</h2>
@@ -309,14 +308,14 @@ export default function AboutPage() {
                   A decade-long journey shaped by engineering discipline, retail reliability and client trust.
                 </p>
               </div>
-              <Button href="/services" variant="outline" className="px-6 py-2.5">
+              <Button href="/services" variant="surface" className="px-6 py-2.5 text-slate-900 dark:text-white">
                 Explore case studies
               </Button>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {milestones.map((item) => (
-                <div key={item.year} className="glass-panel p-6 space-y-3">
+                <div key={item.year} className="glass-panel p-6 space-y-3 dark:bg-white/5 dark:border-white/15">
                   <div className="text-sm uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">{item.year}</div>
                   <p className="text-sm leading-relaxed text-slate-800 dark:text-slate-100">{item.detail}</p>
                 </div>
@@ -328,7 +327,7 @@ export default function AboutPage() {
 
       <section className="relative pb-20 pt-10 md:pb-24 md:pt-12">
         <div className="container relative space-y-10 text-slate-800 dark:text-slate-100">
-          <div className="glass-panel space-y-6 p-6 md:p-8">
+          <div className="glass-panel space-y-6 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">
@@ -344,9 +343,9 @@ export default function AboutPage() {
               </Button>
             </div>
 
-              <div className="grid gap-4 text-sm leading-relaxed md:grid-cols-2 lg:grid-cols-4">
-                {verticals.map((item) => (
-                <div key={item.title} className="glass-panel p-5 text-slate-800 shadow-none dark:text-slate-100">
+            <div className="grid gap-4 text-sm leading-relaxed md:grid-cols-2 lg:grid-cols-4">
+              {verticals.map((item) => (
+                <div key={item.title} className="glass-panel p-5 text-slate-800 shadow-none dark:bg-white/5 dark:border-white/15 dark:text-slate-100">
                   <h3 className="text-base font-semibold text-slate-900 dark:text-white">{item.title}</h3>
                   <p className="mt-2">{item.copy}</p>
                 </div>
@@ -354,16 +353,16 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="glass-panel overflow-hidden p-6 md:p-8">
-            <div className="relative isolate rounded-[2rem] border border-white/40 bg-gradient-to-br from-[#f4f4f4] via-[#dee4ee] to-[#d9effa] px-6 py-10 text-grey/80 shadow-[0_24px_70px_rgba(15,91,216,0.35)] dark:border-white/10 dark:bg-gradient-to-br from-[#6b7b87] via-[#a9bfe2] to-[#85aac4] px-6 py-10 text-grey/80 shadow-[0_24px_70px_rgba(15,91,216,0.35)] ">
-              <div className="pointer-events-none absolute -top-20 right-10 h-40 w-40 rounded-full bg-white/20 blur-3xl" />
-              <div className="pointer-events-none absolute bottom-0 left-6 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+          <div className="glass-panel overflow-hidden p-6 md:p-8 dark:bg-black dark:border-white/15">
+            <div className="relative isolate rounded-[2rem] border  px-6 py-10 text-slate-800 dark:text-white">
+              <div className="pointer-events-none absolute -top-20 right-10 h-40 w-40 rounded-full bg-grey/80 blur-3xl" />
+              <div className="pointer-events-none absolute bottom-0 left-6 h-32 w-32 rounded-full bg-slate/70 blur-2xl" />
               <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
                 <div className="max-w-2xl space-y-3">
                   <h2 className="text-2xl font-semibold md:text-3xl">
-                    Let’s blueprint your next solar or lighting rollout
+                    Let's blueprint your next solar or lighting rollout
                   </h2>
-                  <p className="text-sm leading-relaxed text-slate-700 md:text-base">
+                  <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-400 md:text-base">
                     Share your site brief and our specialists will map the right OEM hardware, fabrication support and AMC coverage
                     for a smooth launch.
                   </p>
@@ -374,8 +373,8 @@ export default function AboutPage() {
                   </Button>
                   <Button
                     href="tel:+919511229430"
-                    variant="outline"
-                    className="px-6 py-2.5 !text-slate-800 dark:border-white/60 dark:!bg-slate-800 dark:hover:bg-slate/10"
+                    variant="surface"
+                    className="px-6 py-2.5"
                   >
                     Call +91 95112 29430
                   </Button>

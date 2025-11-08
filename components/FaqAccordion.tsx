@@ -26,20 +26,20 @@ export default function FaqAccordion({
   };
 
   return (
-    <div className="mt-4 divide-y divide-slate-100 border border-slate-100 rounded-lg overflow-hidden">
+    <div className="mt-4 divide-y divide-slate-100 border border-slate-100 rounded-lg overflow-hidden dark:divide-white/10 dark:border-white/15">
       {items.map((it, i) => {
         const headingId = `${idPrefix}-q-${i}`;
         const panelId = `${idPrefix}-a-${i}`;
         const isOpen = !!open[i];
         return (
-          <div key={i} className="bg-white">
+          <div key={i} className="bg-white dark:bg-[#0b1729]">
             <h3>
               <button
                 id={headingId}
                 aria-controls={panelId}
                 aria-expanded={isOpen}
                 onClick={() => toggle(i)}
-                className="w-full flex items-center justify-between px-4 py-3 text-left text-sm md:text-base font-medium text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                className="w-full flex items-center justify-between px-4 py-3 text-left text-sm md:text-base font-medium text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-200 dark:text-white dark:hover:bg-white/5 dark:focus:ring-[#5ea8ff]/40"
               >
                 <span>{it.q}</span>
                 <svg
@@ -57,7 +57,7 @@ export default function FaqAccordion({
               id={panelId}
               role="region"
               aria-labelledby={headingId}
-              className={`px-4 pb-4 text-sm md:text-base text-slate-700 ${isOpen ? 'block' : 'hidden'}`}
+              className={`px-4 pb-4 text-sm md:text-base text-slate-700 dark:text-slate-200 ${isOpen ? 'block' : 'hidden'}`}
             >
               <div className="pt-2">{it.a}</div>
             </div>
