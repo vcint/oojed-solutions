@@ -12,18 +12,18 @@ type Props = {
 
 export default function Button({ href, onClick, children, variant = 'primary', className = '', ...rest }: Props) {
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-full border font-semibold transition-all duration-200 px-4 py-2 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0';
+    'inline-flex items-center justify-center gap-2 rounded-full border font-semibold transition-all duration-200 px-4 py-2 md:px-5 md:py-2.5 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0 disabled:opacity-50 disabled:pointer-events-none ring-offset-background';
   const variants: Record<string, string> = {
     primary:
-      'bg-[#0f2c73] text-white border-transparent shadow-[0_14px_40px_rgba(16,42,109,0.32)] hover:bg-[#0b3ea0] focus-visible:ring-blue-200/60 dark:bg-[#123676] dark:hover:bg-[#0f4cb0] dark:focus-visible:ring-[#5ea8ff]/40',
+      'bg-primary text-primary-foreground border-transparent hover:bg-primary/90 focus-visible:ring-ring/30',
     outline:
-      'bg-white/95 text-slate-900 border border-slate-200/70 shadow-[0_10px_28px_rgba(15,23,42,0.09)] hover:bg-white focus-visible:ring-[#0f3fa6]/25 dark:bg-white/10 dark:text-white dark:border-white/35 dark:hover:bg-white/18 dark:shadow-[0_16px_40px_rgba(0,0,0,0.45)] dark:focus-visible:ring-white/30',
+      'bg-background text-foreground border-border hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/30',
     ghost:
-      'bg-transparent text-[#102a6d] border border-transparent hover:bg-[#102a6d]/10 focus-visible:ring-[#102a6d]/25 dark:text-white dark:hover:bg-white/10 dark:border-white/10 dark:focus-visible:ring-white/25',
+      'bg-transparent text-foreground border-transparent hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring/30',
     gradient:
-      'bg-gradient-to-r from-[#1b3f92] via-[#0f5bd8] to-[#00a8ff] text-white border-transparent shadow-[0_18px_55px_rgba(15,91,216,0.4)] hover:opacity-95 focus-visible:ring-[#5ea8ff]/40',
-   surface:
-     'bg-gradient-to-r from-[#92aece] via-[#7593b5] to-[#8eb6e3] text-white-700  border-transparent shadow-[0_18px_55px_rgba(15,91,216,0.4)] hover:opacity-95 focus-visible:ring-[#5ea8ff]/40',
+      'bg-gradient-to-r from-primary to-blue-600 text-primary-foreground border-transparent shadow-lg shadow-primary/25 hover:opacity-90 focus-visible:ring-ring/30',
+    surface:
+      'bg-secondary text-secondary-foreground border-transparent hover:bg-secondary/80 focus-visible:ring-ring/30',
   };
 
   const classes = `${base} ${variants[variant]} ${className}`;

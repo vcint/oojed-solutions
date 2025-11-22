@@ -1,5 +1,6 @@
 ﻿import site from '@/data/site.json';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import TrustBar from '@/components/TrustBar';
 import FaqAccordion from '@/components/FaqAccordion';
 
@@ -7,14 +8,14 @@ const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-')
 const fromSlug = (slug: string) => {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
   const match = cities.find((c) => toSlug(c) === slug);
-  return match || slug;
+  return match; // return undefined if not found
 };
 
 const localizeCity = (text: string, cityName: string) =>
   String(text || '')
     .replace(/Pune,\s*Maharashtra/gi, `${cityName}, Maharashtra`)
     .replace(/\bPune\b/gi, cityName)
-    .replace(/{{\s*city\s*}}/gi, cityName);
+    .replace(/\{\{\s*city\s*\}\}/gi, cityName);
 
 export async function generateStaticParams() {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
@@ -23,6 +24,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
+  if (!cityName) return { title: 'City Not Found | OOJED' };
+
   const title = `Solar Solutions in ${cityName} — Heaters, Pumps, LED Lighting | OOJED`;
   const description = `OOJED serves ${cityName} with solar water heaters (ETC/FPC), rooftop solar, solar pumps, LED street/flood lighting, installation, repair and AMC.`;
   const url = `https://oojed.com/locations/${encodeURIComponent(params.city)}`;
@@ -37,6 +40,12 @@ export async function generateMetadata({ params }: { params: any }) {
 
 export default function CityPage({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
+
+  // If city is not in our service areas list, show 404
+  if (!cityName) {
+    notFound();
+  }
+
   const citySlug = toSlug(cityName);
   return (
     <main className="container py-12 text-slate-800 dark:text-slate-100">
@@ -47,14 +56,16 @@ export default function CityPage({ params }: { params: any }) {
       </nav>
 
       {/* Breadcrumb JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Service Areas', item: 'https://oojed.com/locations' },
-          { '@type': 'ListItem', position: 2, name: cityName, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}` },
-        ],
-      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Service Areas', item: 'https://oojed.com/locations' },
+            { '@type': 'ListItem', position: 2, name: cityName, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}` },
+          ],
+        })
+      }} />
 
       <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Solar Solutions in {cityName}</h1>
       <p className="mt-4 max-w-3xl text-slate-700 leading-relaxed dark:text-slate-200">
@@ -246,11 +257,13 @@ export default function CityPage({ params }: { params: any }) {
                 </div>
               </section>
 
-              <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'FAQPage',
-                mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-              }) }} />
+              <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'FAQPage',
+                  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+                })
+              }} />
             </>
           );
         })()

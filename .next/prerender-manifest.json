@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "39ea0b775469f91b28c0dac0382fd283",
-    "previewModeSigningKey": "c26d489defa9ccbf7adf3557ddb6e9520033ea4baa388f22b33e635696270fce",
-    "previewModeEncryptionKey": "855836f63a2e4f3807c636da7534f5d90ba0034510e9914a445a96f37ff06d2e"
-  }
-}
+{"version":4,"routes":{"/products/solar-water-heaters":{},"/products/solar-power-plants":{},"/products/solar-pumps":{},"/products/led-lighting":{},"/products/poles-masts":{},"/products/solar-power-plant-bos-material":{},"/products/solar-water-heater-spare-parts":{}},"dynamicRoutes":{"/products/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/products/[slug]","routeRegex":"^\\/products\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"8a666707a8674b67806fcf3b9c467647","previewModeSigningKey":"d636a7119db188b4ecb66931e43bdda41a3d62bd91db289c690dc15f75486fa1","previewModeEncryptionKey":"8b0e9518b24c1ec7bcab563998140c12b3ad24a5c47c403a4d9d431b8cc1e0a7"}}

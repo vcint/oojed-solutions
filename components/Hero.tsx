@@ -62,21 +62,26 @@ export default function Hero() {
               // no-op
             }
             try {
+              const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+              if (prefersReducedMotion) {
+                (gsapMod as any).gsap.set([".hero-head", ".hero-sub", ".hero-cta"], { y: 0, opacity: 1 });
+                return;
+              }
               ctx = (gsapMod as any).gsap.context(() => {
                 (gsapMod as any).gsap.fromTo(
                   ".hero-head",
                   { y: 12, opacity: 0 },
-                  { y: 0, opacity: 1, duration: 0.7, delay: 0.1, ease: "power2.out" },
+                  { y: 0, opacity: 1, duration: 0.4, delay: 0, ease: "power2.out" },
                 );
                 (gsapMod as any).gsap.fromTo(
                   ".hero-sub",
-                  { y: 18, opacity: 0 },
-                  { y: 0, opacity: 1, duration: 0.9, delay: 0.25, ease: "power2.out" },
+                  { y: 12, opacity: 0 },
+                  { y: 0, opacity: 1, duration: 0.5, delay: 0.1, ease: "power2.out" },
                 );
                 (gsapMod as any).gsap.fromTo(
                   ".hero-cta",
-                  { y: 16, opacity: 0 },
-                  { y: 0, opacity: 1, duration: 0.9, delay: 0.4, ease: "power2.out" },
+                  { y: 12, opacity: 0 },
+                  { y: 0, opacity: 1, duration: 0.5, delay: 0.15, ease: "power2.out" },
                 );
               }, ref);
             } catch (error) {
@@ -102,56 +107,58 @@ export default function Hero() {
   const ctaSecondaryLabel = fillCity(data.hero.ctaSecondary?.label, city) || "Our Products";
 
   return (
-    <section ref={ref} id="home" className="hero relative overflow-hidden pt-28 text-slate-900 dark:text-slate-100 md:pt-32">
-      <div className="absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.95),transparent_60%),radial-gradient(circle_at_82%_4%,rgba(219,233,255,0.65),transparent_50%),linear-gradient(135deg,#dbe3f6 0%,#f5f7ff 55%,#e7edf9 100%)] dark:hidden" />
-        <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_20%_8%,rgba(83,139,255,0.25),transparent_58%),radial-gradient(circle_at_88%_18%,rgba(24,88,184,0.32),transparent_60%),linear-gradient(140deg,#02060f 0%,#041027 55%,#030918 100%)] dark:block" />
-        <div className="absolute inset-0 bg-white/60 mix-blend-soft-light dark:bg-white/5" />
+    <section ref={ref} id="home" className="section hero relative overflow-hidden text-foreground pt-32 md:pt-40 lg:pt-48">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-background" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/5 rounded-full blur-3xl opacity-50 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-accent/10 rounded-full blur-3xl opacity-30 pointer-events-none" />
       </div>
-      <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#75b1ff]/25 blur-3xl dark:bg-[#1f3f7a]/45" aria-hidden="true" />
-      <div className="pointer-events-none absolute -top-28 -right-20 h-64 w-64 rounded-full bg-[#4d8cf7]/30 blur-3xl dark:bg-[#112649]/55" aria-hidden="true" />
 
-      <div className="container relative pb-20 pt-8 md:pb-24">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_460px] items-center">
+      <div className="container relative">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_460px]">
           <div className="space-y-8">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-lg shadow-blue-900/10 backdrop-blur-md dark:bg-white/15 dark:text-slate-100 dark:shadow-blue-900/30">
+            <span className="inline-flex items-center gap-2 rounded-full bg-secondary/50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-secondary-foreground backdrop-blur-md border border-border">
               <FiShield className="h-3.5 w-3.5" />
               Since 2014
             </span>
 
             <div className="space-y-6">
-              <h1 className="hero-head text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-white md:text-6xl">{headline}</h1>
-              <p className="hero-sub max-w-2xl text-base leading-relaxed text-slate-700 dark:text-slate-200 sm:text-lg md:text-xl">
+              <h1 className="hero-head text-4xl font-black leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl">{headline}</h1>
+              <p className="hero-sub max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl">
                 {subtitle}
               </p>
             </div>
 
-            <div className="hero-cta flex flex-wrap gap-3">
-              <Button href={data.hero.ctaPrimary?.href || "/contact"} variant="gradient" className="px-6 py-3 md:px-8 md:py-3.5 shadow-lg shadow-blue-900/40">
+            <div className="hero-cta flex flex-col gap-4 sm:flex-row">
+              <Button
+                href={data.hero.ctaPrimary?.href || "/contact"}
+                variant="gradient"
+                className="w-full px-6 py-3 sm:w-auto md:px-8 md:py-3.5 shadow-lg shadow-primary/20 rounded-full glow-on-hover"
+              >
                 {ctaPrimaryLabel}
                 <FiArrowRight className="h-4 w-4" />
               </Button>
               <Button
                 href={data.hero.ctaSecondary?.href || "/products"}
                 variant="surface"
-                className="px-6 py-3 md:px-8 md:py-3.5 border-slate-200/80 text-slate-900 dark:border-white/40 dark:text-white dark:hover:bg-white/10"
+                className="w-full px-6 py-3 sm:w-auto md:px-8 md:py-3.5 border-border text-foreground hover:bg-secondary/50 rounded-full glow-on-hover"
               >
                 {ctaSecondaryLabel}
               </Button>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
               {heroStats.map((stat) => (
-                <div key={stat.label} className="glass-panel px-5 py-6 bg-white/80 text-slate-900 dark:bg-slate-900/40 dark:text-white">
+                <div key={stat.label} className="glass px-5 py-6 rounded-xl text-foreground">
                   <div className="text-xl font-semibold sm:text-2xl">{stat.value}</div>
-                  <div className="mt-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-500 dark:text-slate-300">{stat.label}</div>
+                  <div className="mt-2 text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="glass-panel overflow-hidden relative">
+            <div className="glass glass-hover elevated ambient-light relative overflow-hidden rounded-2xl">
               <HeroCarousel
                 variant="panel"
                 className="h-[260px] sm:h-[320px] md:h-[360px] lg:h-[420px]"
@@ -160,10 +167,10 @@ export default function Hero() {
                 Swipe to view
               </span>
             </div>
-            <ul className="space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+            <ul className="space-y-4 text-sm leading-relaxed text-muted-foreground">
               {heroHighlights.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/65 text-slate-900 shadow-lg shadow-blue-950/15 backdrop-blur dark:bg-white/15 dark:text-white">
+                  <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
                     <FiArrowRight className="h-3.5 w-3.5" />
                   </span>
                   <span>{item}</span>

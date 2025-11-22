@@ -1,353 +1,193 @@
-/* stylelint: disable at-rule-no-unknown for Tailwind directives */
-/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* stylelint-enable at-rule-no-unknown */
 
-:root {
-  --radius: 0.375rem;
-  --accent: #0f3fa6;
-  --accent-soft: rgba(15, 63, 166, 0.08);
-  --bg: #f8fafc;
-  --bg-muted: #edf2fb;
-  --muted: #5b6b84;
-  --text: #0f172a;
-  --card: rgba(255,255,255,0.88);
-  --glass-border: rgba(15, 23, 42, 0.08);
-  --glass-highlight: rgba(255,255,255,0.45);
-  --shadow-soft: 0 16px 48px rgba(15, 23, 42, 0.08);
-  --shadow-strong: 0 24px 60px rgba(15, 23, 42, 0.12);
-}
-
-:root.dark {
-  --bg: #030b1a;
-  --bg-muted: #071226;
-  --muted: #9ab7da;
-  --text: #f1f5ff;
-  --card: rgba(12, 27, 52, 0.78);
-  --accent: #5ea8ff;
-  --accent-soft: rgba(94, 168, 255, 0.12);
-  --glass-border: rgba(94, 168, 255, 0.3);
-  --glass-highlight: rgba(94, 168, 255, 0.25);
-  --shadow-soft: 0 20px 60px rgba(6, 16, 35, 0.55);
-  --shadow-strong: 0 28px 70px rgba(10, 24, 52, 0.7);
-}
-
-/* semantic helpers for consistent theming */
-.ui-text { color: var(--text); }
-.muted { color: var(--muted); }
-.bg-surface { background-color: var(--card); }
-.icon-bg { background-color: rgba(255,255,255,0.06); border-radius: 0.5rem; padding: 0.35rem; display: inline-flex; align-items: center; justify-content: center; }
-
-html, body { height: 100%; scroll-behavior: smooth; }
-
-.gradient-hero {
-  background: linear-gradient(120deg, #e9ecef 0%, #f8fafc 100%);
-}
- 
-.card {
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-soft);
-  border: 1px solid var(--glass-border);
-  background: var(--card);
-  backdrop-filter: blur(22px);
-  overflow: hidden;
-}
-.section { padding-top: 4rem; padding-bottom: 4rem; }
-
-/* Ensure anchored targets are visible below the fixed navbar by adding scroll-margin-top.
-  Adjust the value if your navbar height changes. 5.5rem matches a ~88px nav height. */
-:where(section[id]) { scroll-margin-top: 5.5rem; }
-.container { max-width: 74rem; margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; }
-.badge { display: inline-flex; align-items: center; gap: .45rem; border-radius: .375rem; background-color: rgba(241,245,249,0.95); color: #0f172a; padding: .25rem .6rem; font-size: .75rem; font-weight: 500; }
-.dark .badge { background-color: rgba(30,41,59,0.65); color: #e2e8f0; }
-
-/* Responsive button sizing handled via Tailwind utility classes used directly in components. */
-.nav a.active { color: #102a6d; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-
-/* selection color (button highlight you shared) */
-::selection { background: #153e75; color: #fff; }
-
-/* don't apply the selection highlight to nav links (prevents the blue pill on click/selection) */
-.nav, .nav * { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
-.nav *::selection, .nav::selection, .nav a::selection { background: transparent; color: inherit; }
-
-/* Icon and interaction utilities (plain CSS to avoid @apply issues) */
-.icon {
-  display: inline-block;
-  color: var(--accent);
-}
-.icon svg { width: 1.25rem; height: 1.25rem; display: inline-block; }
-.hover-raise { transition: transform .2s ease, box-shadow .2s ease; }
-.hover-raise:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(2,6,23,0.08); }
-
-/* subtle pulse used for floating action buttons (WhatsApp) */
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.18); }
-  50% { box-shadow: 0 0 0 14px rgba(16,185,129,0.02); }
-  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
-}
-.whatsapp-pulse {
-  position: relative;
-  display: inline-block;
-}
-.whatsapp-pulse::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  border-radius: 9999px;
-  pointer-events: none;
-  z-index: 0;
-  animation: pulse-ring 2.4s infinite ease-out;
-}
-/* ensure the clickable anchor is above the pulse */
-.whatsapp-pulse > a { position: relative; z-index: 10; }
-
-/* stronger glassmorphic navbar styles */
-.nav-glass {
-  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.45));
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 14px 44px rgba(15, 23, 42, 0.12);
-  border-radius: 1rem;
-}
-
-.nav-panel {
-  background: linear-gradient(160deg, rgba(255,255,255,0.75), rgba(248,251,255,0.45));
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
-  border-radius: 1rem;
-}
-
-/* Typography */
 @layer base {
-  body {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: var(--text);
-    background: radial-gradient(circle at 12% 20%, var(--bg-muted) 0%, var(--bg) 52%, var(--bg) 100%);
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    position: relative;
-    overflow-x: hidden;
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.5rem;
   }
-  .card { background-color: var(--card); }
-  h1,h2,h3,h4 { color: var(--text); }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
 }
 
-/* smooth color transitions */
-html, body, .card, .nav-glass, .nav-panel, .btn, .btn-primary, .badge, .glass-panel {
-  transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
 
-/* dark-mode overrides for common Tailwind utility classes used across components
-   We use variables where possible to avoid editing each component. Use !important
-   to ensure these overrides take precedence over Tailwind utilities. */
-:where(.dark, [data-theme="dark"]) .bg-white { background-color: rgba(8,19,40,0.82) !important; }
-:where(.dark, [data-theme="dark"]) .bg-slate-50 { background-color: rgba(15,27,52,0.6) !important; }
-:where(.dark, [data-theme="dark"]) .text-slate-800, :where(.dark, [data-theme="dark"]) .text-slate-900 { color: var(--text) !important; }
-:where(.dark, [data-theme="dark"]) .text-slate-700 { color: #dce4f5 !important; }
-:where(.dark, [data-theme="dark"]) .border-slate-200 { border-color: rgba(255,255,255,0.06) !important; }
-:where(.dark, [data-theme="dark"]) .ring-slate-200 { box-shadow: 0 0 0 6px rgba(59,130,246,0.06) !important; }
-:where(.dark, [data-theme="dark"]) .shadow-sm { box-shadow: 0 18px 46px rgba(6,12,30,0.45) !important; }
-:where(.dark, [data-theme="dark"]) .btn-primary { background-color: #153e75 !important; }
-:where(.dark, [data-theme="dark"]) .text-white { color: #f8fafc !important; }
-:where(.dark, [data-theme="dark"]) .hover\:bg-slate-100:hover { background-color: rgba(255,255,255,0.02) !important; }
+/* Custom utilities for glassmorphism - High-Fidelity "Liquid Glass" with Professional Lighting */
+@layer utilities {
 
-/* additional text shades */
-:where(.dark, [data-theme="dark"]) .text-slate-600 { color: #cfd7e8 !important; }
-:where(.dark, [data-theme="dark"]) .text-slate-500 { color: #b5c1d7 !important; }
-:where(.dark, [data-theme="dark"]) .text-slate-400 { color: #9fadc9 !important; }
-:where(.dark, [data-theme="dark"]) body {
-  background: radial-gradient(circle at 15% 20%, rgba(37,76,126,0.35), rgba(3,11,26,0.95) 60%), linear-gradient(180deg, rgba(3,11,26,1) 0%, rgba(2,8,20,1) 100%) !important;
+  /* Enhanced glass effect with multi-layered shadows and inner lighting */
+  .glass {
+    @apply bg-gradient-to-br from-white/60 via-white/20 to-white/5 dark:from-slate-900/60 dark:via-slate-900/40 dark:to-slate-900/20 backdrop-blur-3xl backdrop-saturate-[180%] border border-white/40 dark:border-white/10 ring-1 ring-white/30 dark:ring-white/5;
+    /* Multi-layered shadow for depth - light mode */
+    box-shadow:
+      0 1px 2px 0 rgba(0, 0, 0, 0.05),
+      0 4px 12px 0 rgba(31, 38, 135, 0.08),
+      0 12px 40px 0 rgba(31, 38, 135, 0.12),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .dark .glass {
+    /* Enhanced shadow with subtle glow in dark mode */
+    box-shadow:
+      0 1px 2px 0 rgba(0, 0, 0, 0.3),
+      0 4px 12px 0 rgba(0, 0, 0, 0.25),
+      0 12px 40px 0 rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+      0 0 0 1px rgba(147, 197, 253, 0.05);
+  }
+
+  /* Hover state with elevated lighting effect */
+  .glass-hover {
+    @apply hover:from-white/70 hover:via-white/30 hover:to-white/10 dark:hover:from-slate-900/70 dark:hover:via-slate-900/50 dark:hover:to-slate-900/30 transition-all duration-500 hover:scale-[1.01] hover:ring-white/50;
+    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .glass-hover:hover {
+    /* Elevated shadow as if lifted toward light source */
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.06),
+      0 8px 20px 0 rgba(31, 38, 135, 0.12),
+      0 20px 60px 0 rgba(31, 38, 135, 0.18),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .dark .glass-hover:hover {
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.4),
+      0 8px 20px 0 rgba(0, 0, 0, 0.35),
+      0 20px 60px 0 rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+      0 0 0 1px rgba(147, 197, 253, 0.1);
+  }
+
+  /* Elevated surface with stronger depth */
+  .elevated {
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.06),
+      0 8px 24px 0 rgba(31, 38, 135, 0.1),
+      0 16px 48px 0 rgba(31, 38, 135, 0.15);
+  }
+
+  .dark .elevated {
+    box-shadow:
+      0 2px 4px 0 rgba(0, 0, 0, 0.4),
+      0 8px 24px 0 rgba(0, 0, 0, 0.3),
+      0 16px 48px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  /* Soft glow effect for interactive elements */
+  .glow-on-hover {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .glow-on-hover:hover {
+    box-shadow:
+      0 0 20px 0 rgba(94, 168, 255, 0.3),
+      0 0 40px 0 rgba(94, 168, 255, 0.15),
+      0 8px 24px 0 rgba(31, 38, 135, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .dark .glow-on-hover:hover {
+    box-shadow:
+      0 0 20px 0 rgba(94, 168, 255, 0.25),
+      0 0 40px 0 rgba(94, 168, 255, 0.12),
+      0 8px 24px 0 rgba(0, 0, 0, 0.35);
+  }
+
+  /* Inner shadow for inset effect */
+  .inset-shadow {
+    box-shadow: inset 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  }
+
+  .dark .inset-shadow {
+    box-shadow: inset 0 2px 8px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* Ambient light overlay */
+  .ambient-light {
+    position: relative;
+  }
+
+  .ambient-light::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(94, 168, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .dark .ambient-light::before {
+    background: radial-gradient(circle at center, rgba(94, 168, 255, 0.06) 0%, transparent 70%);
+    opacity: 0.3;
+  }
 }
-
-/* handle bg-white with opacity utilities (bg-white/10, bg-white/50, bg-white/80) */
-:where(.dark, [data-theme="dark"]) .bg-white\/10 { background-color: rgba(255,255,255,0.03) !important; }
-:where(.dark, [data-theme="dark"]) .bg-white\/20 { background-color: rgba(94,168,255,0.12) !important; }
-:where(.dark, [data-theme="dark"]) .bg-white\/50 { background-color: rgba(94,168,255,0.18) !important; }
-:where(.dark, [data-theme="dark"]) .bg-white\/80 { background-color: rgba(12,27,52,0.72) !important; }
-:where(.dark, [data-theme="dark"]) .bg-white\/90 { background-color: rgba(12,27,52,0.82) !important; }
-:where(.dark, [data-theme="dark"]) .bg-white\/80 { background-color: rgba(255,255,255,0.06) !important; }
-
-/* slate backgrounds */
-:where(.dark, [data-theme="dark"]) .bg-slate-100 { background-color: rgba(255,255,255,0.03) !important; }
-
-/* Outline button dark-mode handled by component-level classes */
-
-/* badges */
-:where(.dark, [data-theme="dark"]) .badge { background-color: rgba(255,255,255,0.03) !important; color: var(--text) !important; }
-
-/* modal & gallery specific adjustments */
-:where(.dark, [data-theme="dark"]) .bg-slate-50 { background-color: rgba(255,255,255,0.02) !important; }
-:where(.dark, [data-theme="dark"]) .gallery-slide img { filter: none !important; }
-
-/* ensure footer/hero contrast */
-:where(.dark, [data-theme="dark"]) .hero-sub, :where(.dark, [data-theme="dark"]) .hero-lead { color: #b8cff0 !important; }
-:where(.dark, [data-theme="dark"]) footer { background: linear-gradient(180deg, rgba(6,16,35,0.94), rgba(2,8,20,0.98)) !important; }
-
-/* targeted element fixes */
-:where(.dark, [data-theme="dark"]) .product-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.64), rgba(0,0,0,0.18)) !important; }
-:where(.dark, [data-theme="dark"]) .modal-root .bg-white { background-color: var(--card) !important; }
-:where(.dark, [data-theme="dark"]) .modal-root .text-slate-600 { color: var(--muted) !important; }
-:where(.dark, [data-theme="dark"]) .hero-sub { color: var(--muted) !important; }
-
-/* stronger component-level mapping to avoid scattered white remnants */
-:where(.dark, [data-theme="dark"]) .card {
-  background-color: var(--card) !important;
-  color: var(--text) !important;
-  border-color: rgba(255,255,255,0.04) !important;
-}
-:where(.dark, [data-theme="dark"]) .card p, :where(.dark, [data-theme="dark"]) .card .text-slate-600 {
-  /* increase contrast for paragraph / muted text inside cards */
-  color: #a9c3dd !important;
-}
-
-/* nav active link should be clearly visible in dark mode */
-:where(.dark, [data-theme="dark"]) .nav a.active { color: #fff !important; }
-:where(.dark, [data-theme="dark"]) .hero .card { background-color: rgba(10,20,38,0.72) !important; border-color: rgba(94,168,255,0.25) !important; }
-
-/* Ensure contact form renders correctly in explicit light mode as well */
-.contact-card { background-color: #ffffff; color: #0f172a; }
-.contact-card input, .contact-card textarea { background-color: #ffffff !important; color: #0f172a !important; border-color: rgba(15,23,42,0.06) !important; }
-.contact-card .btn-primary, .contact-card .btn-outline { background: transparent; }
-
-.glass-panel {
-  position: relative;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.78), rgba(255,255,255,0.52));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-soft);
-  -webkit-backdrop-filter: blur(22px);
-  backdrop-filter: blur(22px);
-}
-.glass-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(140deg, rgba(255,255,255,0.32), rgba(255,255,255,0.06));
-  opacity: 0.9;
-  pointer-events: none;
-}
-:where(.dark, [data-theme="dark"]) .glass-panel {
-  background: linear-gradient(162deg, rgba(24,39,74,0.7), rgba(9,24,52,0.62));
-  border-color: rgba(142,193,255,0.28);
-  box-shadow: 0 34px 90px rgba(2,9,24,0.55);
-  backdrop-filter: blur(26px);
-}
-:where(.dark, [data-theme="dark"]) .glass-panel::before {
-  background: linear-gradient(160deg, rgba(142,193,255,0.22), rgba(12,31,62,0.48));
-}
-
-/* Strong explicit light-mode overrides: when the root html is NOT marked dark, force readable light styles
-   This helps cover cases where a dark rule may be leaking or a browser/theme mismatch causes the contact
-   card to remain dark on mobile after switching to light. Use !important and a root-scoped selector to
-   ensure these styles take precedence when not in dark mode. */
-:where(html:not(.dark):not([data-theme="dark"])) .contact-card,
-:where(:root:not(.dark):not([data-theme="dark"])) .contact-card {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-}
-:where(html:not(.dark):not([data-theme="dark"])) .contact-card input,
-:where(html:not(.dark):not([data-theme="dark"])) .contact-card textarea,
-:where(:root:not(.dark):not([data-theme="dark"])) .contact-card input,
-:where(:root:not(.dark):not([data-theme="dark"])) .contact-card textarea {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-  border-color: rgba(15,23,42,0.06) !important;
-}
-
-/* Ensure dark-mode still applies when the site is marked dark */
-:where(.dark, [data-theme="dark"]) .contact-card {
-  background-color: var(--card) !important;
-  color: var(--text) !important;
-}
-:where(.dark, [data-theme="dark"]) .contact-card input,
-:where(.dark, [data-theme="dark"]) .contact-card textarea {
-  background-color: #0b1220 !important;
-  color: var(--text) !important;
-  border-color: rgba(255,255,255,0.06) !important;
-}
-
-/* Targeted button styles inside contact card to ensure accessible contrast */
-/* Primary submit button keeps the gradient and white text */
-:where(html:not(.dark):not([data-theme="dark"])) .contact-card .btn-submit,
-:where(:root:not(.dark):not([data-theme="dark"])) .contact-card .btn-submit {
-  background-image: linear-gradient(to bottom, #102a6d 0%, #0b4bd6 100%) !important;
-  color: #ffffff !important;
-  border-color: transparent !important;
-  box-shadow: 0 8px 24px rgba(11,75,214,0.18) !important;
-}
-
-/* Reset/secondary button: use solid navy background with white text for sufficient contrast */
-:where(html:not(.dark):not([data-theme="dark"])) .contact-card .btn-reset,
-:where(:root:not(.dark):not([data-theme="dark"])) .contact-card .btn-reset {
-  background-color: #102a6d !important; /* navy */
-  color: #ffffff !important;
-  border-color: #102a6d !important;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.08) !important;
-}
-
-/* Dark-mode variants keep lighter/transparent look but remain readable */
-:where(.dark, [data-theme="dark"]) .contact-card .btn-submit {
-  background-image: linear-gradient(to bottom, #153e75 0%, #2563eb 100%) !important;
-  color: #ffffff !important;
-}
-:where(.dark, [data-theme="dark"]) .contact-card .btn-reset {
-  background-color: transparent !important;
-  color: var(--text) !important;
-  border-color: rgba(255,255,255,0.14) !important;
-}
-
-/* Ensure product 'Learn more' CTA is visible in light mode on small viewports */
-.learn-more-btn {
-  /* default (light mode) styles reinforced */
-  background-color: #ffffff !important;
-  color: #102a6d !important;
-  border-color: #102a6d !important;
-}
-
-:where(html:not(.dark):not([data-theme="dark"])) .learn-more-btn {
-  background-color: #ffffff !important;
-  color: #102a6d !important;
-  border-color: #102a6d !important;
-}
-
-/* dark mode appearance: keep transparent background and white text/border */
-:where(.dark, [data-theme="dark"]) .learn-more-btn {
-  background-color: transparent !important;
-  color: #ffffff !important;
-  border-color: rgba(255,255,255,0.18) !important;
-}
-
-:where(.dark, [data-theme="dark"]) .btn:hover { background-color: rgba(255,255,255,0.02) !important; }
-
-:where(.dark, [data-theme="dark"]) .hero .card .text-slate-600 { color: var(--muted) !important; }
-
-/* modal backdrop should be darker in dark mode */
-:where(.dark, [data-theme="dark"]) .modal-root > .absolute.inset-0 { background-color: rgba(2,6,23,0.6) !important; }
-
-/* footer contrast */
-:where(.dark, [data-theme="dark"]) footer { color: var(--muted) !important; border-top-color: rgba(255,255,255,0.04) !important; }
-
-/* nav glass tweaks in dark */
-.dark .nav-glass {
-  background: linear-gradient(180deg, rgba(7,10,18,0.6), rgba(7,10,18,0.48));
-  border: 1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
-}
-.dark .nav-panel {
-  background: linear-gradient(180deg, rgba(7,10,18,0.8), rgba(7,10,18,0.6));
-  border: 1px solid rgba(255,255,255,0.04);
-}
-
-/* floating whatsapp/button contrast */
-.dark .whatsapp-pulse::after { box-shadow: 0 0 0 14px rgba(16,185,129,0.02); }

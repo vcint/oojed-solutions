@@ -7,6 +7,7 @@ import Benefits from "@/components/Benefits";
 import Contact from "@/components/Contact";
 // Footer is provided by the RootLayout
 import data from "@/data/site.json";
+import Button from "@/components/Button";
 
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const fallbackSiteUrl = 'https://oojed.com';
@@ -44,8 +45,8 @@ if (Array.isArray((data as any).services)) {
 
 const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
 
-const homeTitle = 'Solar Water Heaters, Solar Pumps & LED Lighting in Maharashtra';
-const homeDescription = 'OOJED supplies BIS-compliant solar water heaters, rooftop solar power plants, solar pumps and LED lighting with installation, repair and AMC support across Maharashtra.';
+const homeTitle = 'Solar Solutions That Actually Work | 11+ Years Serving Maharashtra | OOJED';
+const homeDescription = 'Real solar solutions from a team that cares. Since 2014, we\'ve helped 500+ Maharashtra homes and businesses cut bills with solar water heaters, rooftop power plants, and LED lighting that simply works. Fair pricing, honest advice, solid results.';
 
 export const generateMetadata = (): Metadata => ({
   title: homeTitle,
@@ -106,9 +107,9 @@ const localBusinessJsonLd = {
   },
   areaServed: Array.isArray((data as any).cities)
     ? (data as any).cities.slice(0, 12).map((city: string) => ({
-        "@type": "City",
-        name: city,
-      }))
+      "@type": "City",
+      name: city,
+    }))
     : undefined,
   sameAs: [
     "https://www.justdial.com/Pune/OOJED-SOLAR-SOLUTIONS/020PXX20-XX20-170305105945-P6R6_BZDET",
@@ -133,6 +134,45 @@ const webSiteJsonLd = {
   },
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Do solar water heaters work during monsoon in Maharashtra?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. We size systems specifically for Maharashtra's climate. Even on cloudy monsoon days, insulated storage tanks ensure you have usable hot water. Our polymer-coated tanks also handle the region's hard water without scaling issues."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "How long does solar installation take in Pune?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Most residential solar water heater installations are completed within 4-6 hours after the survey. Small rooftop solar power systems typically take 1-2 days, depending on site readiness and permissions."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "What is the actual payback period for solar in Maharashtra?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Solar water heaters typically pay back in 1.5-3 years. Rooftop solar power plants with net-metering usually achieve payback in 3-5 years, depending on your electricity tariff and system size."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Does OOJED provide AMC services across Maharashtra?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. We offer Annual Maintenance Contracts with scheduled preventive visits, performance checks, and priority breakdown support across Maharashtra and Goa. Our local teams understand regional challenges like hard water and grid instability."
+      }
+    }
+  ]
+};
+
 export default function HomePage() {
   return (
     <>
@@ -145,57 +185,68 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd, null, 2) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd, null, 2) }}
+      />
 
-      <main className="bg-white dark:bg-slate-900">
+      <main className="bg-background text-foreground">
         <Hero />
         <section id="about" className="section">
           <div className="container">
             <div className="prose max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">About OOJED</h2>
-              <p className="text-slate-700 dark:text-slate-300 mt-2">{data.about}</p>
-              <p className="text-slate-600 dark:text-slate-400 mt-4">Our core strengths include:</p>
-              <ul className="list-disc ml-6 text-slate-700 dark:text-slate-300 mt-2">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Why we started OOJED</h2>
+              <p className="text-muted-foreground mt-2">
+                Back in 2014, solar in Maharashtra was full of big promises and disappointing results. Families paid good money for systems that leaked, failed during monsoon, or needed constant repairs. That didn't sit right with us.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                OOJED was born from a simple belief: Maharashtrians deserve solar solutions that actually work through monsoon rains, hard water, and unreliable grid power. We're here to deliver solar water heaters, rooftop power plants, pumps, and LED lighting that you can count on, year after year.
+              </p>
+              <p className="text-muted-foreground mt-4"><strong>What makes us different:</strong></p>
+              <ul className="list-disc ml-6 text-muted-foreground mt-2">
                 {data.values.map((v) => (
                   <li key={v} className="font-semibold">{v}</li>
                 ))}
               </ul>
-              <p className="text-slate-600 dark:text-slate-400 mt-4">We engineer configurations with trusted OEM hardware, fabricate select spare parts and BOS assemblies in-house, and provide end-to-end project support from site survey through commissioning and after-sales service.</p>
+              <p className="text-muted-foreground mt-4">
+                We fabricate critical spares and BOS components in-house, so you're never waiting weeks for a replacement tube or bracket. From the first survey to years of AMC visits, our local teams stick with you.
+              </p>
             </div>
 
           </div>
         </section>
 
         <section className="relative py-16 overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/70 via-transparent to-transparent dark:from-[#0a1d3b]/45 pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background via-transparent to-transparent pointer-events-none" />
           <div className="container relative">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">End-to-end solar delivery you can rely on</h2>
-              <p className="mt-4 text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-                From discovery workshops to long-term AMC, OOJED runs a predictable process that keeps stakeholders informed and assets productive. We mix factory-tested assemblies with local engineering and transparent reporting so projects never feel rushed or under-specified.
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Solar that works. No jargon, no hassles.</h2>
+              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                We follow a straightforward process that keeps you informed, your roof safe, and your solar system performing exactly as promised.
               </p>
             </div>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-slate-700 dark:text-slate-300">
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-muted-foreground">
               {[
                 {
                   title: '01 · Discover',
-                  body: 'Site survey, load assessment and constraint mapping with photo logs and shading analysis.',
+                  body: 'Site survey, load assessment, shading analysis and photo logs.',
                 },
                 {
                   title: '02 · Design',
-                  body: 'Right-sized systems, detailed drawings, BoMs and ROI projections aligned to BIS/MNRE norms.',
+                  body: 'Right-sized systems, drawings, BOMs and ROI aligned to BIS/MNRE.',
                 },
                 {
                   title: '03 · Deploy',
-                  body: 'Project managers coordinate logistics, statutory permissions, safety protocols and commissioning.',
+                  body: 'Project managers handle logistics, permissions, safety protocols and commissioning.',
                 },
                 {
                   title: '04 · Support',
-                  body: 'AMC visits, remote monitoring, warranty coordination and emergency callouts across Maharashtra.',
+                  body: 'AMC visits, monitoring, warranty coordination and emergency callouts across Maharashtra.',
                 },
               ].map((step) => (
-                <div key={step.title} className="glass-panel px-5 py-6">
-                  <h3 className="text-base font-semibold text-slate-900 dark:text-white">{step.title}</h3>
-                  <p className="mt-3 leading-relaxed text-slate-700 dark:text-slate-300">{step.body}</p>
+                <div key={step.title} className="glass px-5 py-6 rounded-xl">
+                  <h3 className="text-xl md:text-2xl font-semibold text-foreground">{step.title}</h3>
+                  <p className="mt-3 leading-relaxed text-muted-foreground">{step.body}</p>
                 </div>
               ))}
             </div>
@@ -205,57 +256,57 @@ export default function HomePage() {
         <section className="container py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Industries & environments we serve</h2>
-              <p className="mt-4 text-slate-700 dark:text-slate-300 leading-relaxed">
-                Whether you manage a cooperative housing society, manufacturing plant, hotel, campus or municipal infrastructure, our teams adapt systems to actual usage patterns, compliance regulations and budget expectations. Every proposal includes explainers for decision-makers who may be new to solar technologies.
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Industries we serve</h2>
+              <p className="mt-4 text-muted-foreground leading-relaxed">
+                We adapt systems for housing societies, manufacturers, hospitality, campuses and municipal sites with proposals tuned to usage patterns, compliance needs and budgets for teams new to solar.
               </p>
-              <ul className="mt-6 space-y-3 text-slate-700 dark:text-slate-300 text-sm">
-                <li>• Residential societies, hostels and hospitals needing reliable hot water across seasons.</li>
-                <li>• MSME and industrial units chasing energy savings while meeting safety and audit requirements.</li>
-                <li>• Schools, colleges and corporate offices adopting rooftop solar with monitoring dashboards.</li>
-                <li>• Municipal corporations upgrading to LED street / high-mast lighting with AMC-backed uptime.</li>
+              <ul className="mt-6 space-y-3 text-muted-foreground text-sm">
+                <li>Residential societies, hostels and hospitals needing reliable hot water.</li>
+                <li>MSME and industrial units cutting energy use while meeting safety norms.</li>
+                <li>Schools, colleges and offices adopting rooftop solar with monitoring.</li>
+                <li>Municipal corporations adopting LED street and high-mast lighting with AMC.</li>
               </ul>
             </div>
-            <div className="glass-panel p-6">
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Project snapshots</h3>
-              <dl className="mt-4 space-y-4 text-slate-700 dark:text-slate-300 text-sm">
+            <div className="glass p-6 rounded-xl">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Some of our proudest moments</h3>
+              <dl className="mt-4 space-y-4 text-muted-foreground text-sm">
                 <div>
-                  <dt className="font-semibold text-slate-900 dark:text-white">45,000 LPD solar water heater retrofit</dt>
-                  <dd className="text-slate-600 dark:text-slate-400">Polymer-coated tanks, differential controllers and smart manifolds for a 320-apartment housing society in Pune, delivered in 28 days.</dd>
+                  <dt className="font-semibold text-foreground">45,000 LPD solar water heater retrofit</dt>
+                  <dd className="text-muted-foreground">Polymer-coated tanks, controllers and smart manifolds for a 320-apartment society in Pune.</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-slate-900 dark:text-white">80+ rooftop solar with net-metering</dt>
-                  <dd className="text-slate-600 dark:text-slate-400">Complete EPC for an educational campus including remote monitoring, student dashboards and subsidy documentation.</dd>
+                  <dt className="font-semibold text-foreground">80+ rooftop solar with net-metering</dt>
+                  <dd className="text-muted-foreground">Campus EPC with remote monitoring, student dashboards and subsidy documentation.</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-slate-900 dark:text-white">Hybrid LED street & high-mast lighting</dt>
-                  <dd className="text-slate-600 dark:text-slate-400">Photometric design, pole supply, trenching and AMC for 9 km of municipal roads with 24/7 service desk support.</dd>
+                  <dt className="font-semibold text-foreground">Hybrid LED street & high-mast lighting</dt>
+                  <dd className="text-muted-foreground">Photometric design, poles, trenching and AMC for 9 km of municipal roads.</dd>
                 </div>
               </dl>
             </div>
           </div>
         </section>
 
-        <section className="bg-white dark:bg-slate-900">
-          <div className="container">
+        <section className="bg-secondary/10">
+          <div className="container py-16">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   stat: '11+ years',
-                  body: 'Experience designing and maintaining solar + LED systems that withstand Indian climates.',
+                  body: 'Designing and maintaining solar + LED systems for Indian climates.',
                 },
                 {
                   stat: '2+ MW',
-                  body: 'Of rooftop solar capacity engineered with net-metering and export approvals.',
+                  body: 'Rooftop solar capacity with net-metering and export approvals.',
                 },
                 {
                   stat: '80+ sites',
-                  body: 'Under service contracts across Maharashtra and neighbouring states.',
+                  body: 'Service contracts across Maharashtra and nearby states.',
                 },
               ].map((item) => (
-                <div key={item.stat} className="rounded-xl border border-white/20 dark:border-white/10 bg-white/5 dark:bg-white/5 p-6 shadow-lg">
-                  <div className="text-4xl font-extrabold text-slate-900 dark:text-white">{item.stat}</div>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">{item.body}</p>
+                <div key={item.stat} className="rounded-xl border border-border bg-card p-6 shadow-lg">
+                  <div className="text-4xl font-extrabold text-primary">{item.stat}</div>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
                 </div>
               ))}
             </div>
@@ -265,34 +316,31 @@ export default function HomePage() {
         <section className="container py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">What partners say</h2>
-              <div className="mt-6 space-y-6 text-slate-700 dark:text-slate-300 text-sm">
-                <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-4 italic">
-                  "OOJED simplified our entire solar transition. Their team handled surveys, government paperwork and execution with regular updates — zero surprises."
-                  <span className="mt-3 block font-semibold not-italic text-slate-900 dark:text-white">Head of Admin, Industrial Supplier – Pune</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Client feedback</h2>
+              <div className="mt-6 space-y-6 text-muted-foreground text-sm">
+                <blockquote className="border-l-4 border-primary pl-4 italic">
+                  "Simplified our solar transition with surveys, paperwork and execution. Regular updates, zero surprises."
+                  <span className="mt-3 block font-semibold not-italic text-foreground">Head of Admin, Industrial Supplier - Pune</span>
                 </blockquote>
-                <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-4 italic">
-                  "The LED high-mast upgrade has reduced downtime dramatically. AMC tickets are resolved quickly and field technicians know our layout well."
-                  <span className="mt-3 block font-semibold not-italic text-slate-900 dark:text-white">Electrical Engineer, Municipal Corporation</span>
+                <blockquote className="border-l-4 border-primary pl-4 italic">
+                  "LED upgrade reduced downtime. AMC tickets resolved quickly by technicians who know our layout."
+                  <span className="mt-3 block font-semibold not-italic text-foreground">Electrical Engineer, Municipal Corporation</span>
                 </blockquote>
               </div>
             </div>
-            <div className="rounded-xl border glass-panel p-5 shadow-none dark:bg-white/5 dark:border-white/15">
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Ready to start?</h3>
-              <p className="mt-3 text-slate-700 dark:text-slate-300 leading-relaxed">
-                Share your current energy spend, roof photos or lighting layouts. We will prepare an assessment within five working days including recommended capacities, subsidy eligibility and implementation timelines.
+            <div className="rounded-xl border border-border glass p-5 shadow-none">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Ready to start?</h3>
+              <p className="mt-3 text-muted-foreground leading-relaxed">
+                Share your energy spend, roof photos or lighting layouts. We will prepare an assessment within five working days with capacities, subsidy eligibility and timelines.
               </p>
-              <ul className="mt-4 space-y-2 text-sm text-slate-700 dark:text-slate-300">
-                <li>• Residential complexes: centralised hot water, rooftop solar, common-area LED upgrades.</li>
-                <li>• Institutions: hybrid power plants, classroom dashboards, hostel hot water systems.</li>
-                <li>• Industry: process heating support, pump automation, energy monitoring dashboards.</li>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                <li>Residential: hot water, rooftop solar, LED upgrades.</li>
+                <li>Institutions: hybrid plants, dashboards, hostel hot water.</li>
+                <li>Industry: process heating, pump automation, energy dashboards.</li>
               </ul>
-              <Link
-                href="/contact"
-                className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[#102a6d] text-white font-semibold px-5 py-2.5 shadow hover:bg-[#0c3a99]"
-              >
-                Book a consultation
-              </Link>
+              <Button href="/contact" variant="gradient" className="mt-6 w-full sm:w-auto">
+                Let's Talk Solar
+              </Button>
             </div>
           </div>
         </section>
@@ -301,7 +349,7 @@ export default function HomePage() {
         <Benefits />
         <Contact />
       </main>
-  {/* contact-badge is loaded globally by RootLayout */}
+      {/* contact-badge is loaded globally by RootLayout */}
       {/* @ts-expect-error - custom element
       <contact-badge email={data.contacts.email} phone={data.contacts.phones[0]} /> */}
     </>

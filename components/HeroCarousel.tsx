@@ -1,6 +1,7 @@
 "use client";
 import { LazyMotionDiv, LazyAnimatePresence } from "./LazyMotion";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 type HeroCarouselVariant = "background" | "panel";
 
@@ -16,21 +17,21 @@ const slides = [
     img: "/2.webp",
     colorA: "#E6EEF8",
     colorB: "#F8FAFC",
-    alt: "OOJED team installing a solar water heating system in Maharashtra",
+    alt: "OOJED team installing solar water heating system on rooftop in Pune, Maharashtra",
   },
   {
     id: 2,
     img: "/10.webp",
     colorA: "#F3F7FA",
     colorB: "#EEF6F3",
-    alt: "Commissioned rooftop solar panels maintained by OOJED engineers",
+    alt: "Rooftop solar panel installation by OOJED engineers in Maharashtra with net-metering setup",
   },
   {
     id: 3,
     img: "/13.webp",
     colorA: "#F7F9FC",
     colorB: "#F0F6FB",
-    alt: "LED street lighting project delivered by OOJED",
+    alt: "LED street lighting project installed by OOJED for municipal roads in Maharashtra",
   },
 ];
 
@@ -60,10 +61,8 @@ export default function HeroCarousel({
   // preload images to avoid flashes during transitions
   useEffect(() => {
     if (typeof window === "undefined") return;
-    slides.forEach((s) => {
-      const img = new window.Image();
-      img.src = s.img;
-    });
+    // next/image handles preloading, but we can keep this for smoother transitions if needed
+    // actually next/image with priority is better
   }, []);
 
   const baseClass =
@@ -117,17 +116,22 @@ export default function HeroCarousel({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}
-                className={variant === "background" ? "absolute inset-0" : "absolute inset-0"}
+                className={variant === "background" ? "absolute inset-0" : "absolute inset-0 rounded-[28px] overflow-hidden"}
                 style={{ background: `linear-gradient(180deg, ${s.colorA}, ${s.colorB})` }}
               >
-                <img
+                <Image
                   src={s.img}
                   alt={s.alt}
-                  className="h-full w-full object-cover"
-                  loading={i === 0 ? "eager" : "lazy"}
-                  decoding="async"
+                  fill
+                  priority={i === 0}
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
                   style={{ backgroundColor: s.colorA }}
-                  {...(i === 0 ? { width: 1600, height: 900 } : {})}
+                  placeholder="blur"
+                  blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
+                    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="${s.colorA}"/></svg>`
+                  ).toString('base64')}`}
                 />
               </LazyMotionDiv>
             ),

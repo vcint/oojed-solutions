@@ -6,16 +6,39 @@ type AnyProps = React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode
 
 let cached: any = null;
 
+export function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return false;
+    try {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.matchMedia) return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPrefersReducedMotion(media.matches);
+    handleChange();
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
 function useMotionModule() {
   const [m, setM] = useState<any>(cached);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
   useEffect(() => {
-    if (m) return;
+    if (prefersReducedMotion || m) return;
     let mounted = true;
-    // Only load framer-motion on larger screens (desktop/tablet) to avoid mobile JS cost
+    // Only load framer-motion on larger screens (desktop/tablet) and when motion is allowed to avoid unnecessary JS cost
     try {
-      if (typeof window === 'undefined') return;
-      const shouldLoad = window.innerWidth > 900;
-      if (!shouldLoad) return; // skip loading on small screens
+      if (typeof window === "undefined") return;
+      if (window.innerWidth <= 900) return; // skip loading on small screens
     } catch (e) {
       // fallback to not loading
       return;
@@ -32,8 +55,8 @@ function useMotionModule() {
     return () => {
       mounted = false;
     };
-  }, []);
-  return m;
+  }, [m, prefersReducedMotion]);
+  return prefersReducedMotion ? null : m;
 }
 
 // common motion-only prop names to strip when falling back to a plain DOM element

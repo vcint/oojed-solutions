@@ -2,10 +2,11 @@
 import data from "@/data/site.json";
 import Link from "next/link";
 import Button from "./Button";
-import { LazyMotionDiv } from "./LazyMotion";
+import { LazyMotionDiv, usePrefersReducedMotion } from "./LazyMotion";
 import { useState, useEffect } from "react";
 import { getCache, setCache } from "@/lib/cache";
 import ProductModal from "./ProductModal";
+import Image from "next/image";
 import { FiBox as Product, FiSun as Solar, FiZap as Lightbulb } from "react-icons/fi";
 
 const DEFAULT_CITY = "Pune";
@@ -20,20 +21,20 @@ const fallbackImages = [
 ];
 
 const productHighlights = [
-  { title: "Curated OEM portfolio", description: "Solar water heaters, PV kits, pumps and lighting sourced from BIS-certified manufacturers with transparent pricing." },
-  { title: "Spare parts & BOS fabrication", description: "Critical solar water heater spares and BOS components are built in-house to keep replacements fast and reliable." },
-  { title: "Lifecycle coordination", description: "Design, installation, monitoring, spares and AMC coordinated by a single distributor and service team." },
+  { title: "Curated OEM portfolio", description: "Solar water heaters, PV kits, pumps and lighting from BIS-certified manufacturers." },
+  { title: "Spare parts & BOS fabrication", description: "Critical spares and BOS components built in-house for fast replacements." },
+  { title: "Lifecycle coordination", description: "Design, installation, monitoring, and AMC by a single team." },
 ];
 
 const portfolioSignals = [
   {
     label: "OOJED vs national EPCs",
-    ours: "Residential, industrial and civic SKUs with direct OEM relationships plus in-house BOS/spare-part capability.",
+    ours: "Residential, industrial and civic SKUs with direct OEM relationships and in-house BOS.",
     baseline: "Residential rooftop focus with third-party hardware sourcing.",
   },
   {
     label: "Beyond rooftop solar",
-    ours: "Solar heaters, hybrid power packs, pumps, LED street and high-mast lighting with smart controls.",
+    ours: "Heaters, hybrid power packs, pumps, LED street and high-mast lighting with smart controls.",
     baseline: "Limited lighting or hot water options offered by aggregator EPC peers.",
   },
 ];
@@ -75,6 +76,7 @@ export default function Products() {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<any | null>(null);
   const [previews, setPreviews] = useState<Record<string, string>>({});
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     data.categories.forEach(async (cat: any) => {
@@ -160,58 +162,58 @@ export default function Products() {
   };
 
   return (
-    <section id="products" className="section relative overflow-hidden bg-transparent dark:bg-gradient-to-bl from-black via-slate-900 to-slate-600">
-      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#f2f6ff] via-white/50 to-transparent dark:from-[#0b1938]/35 pointer-events-none" />
-      <div className="absolute -right-36 top-12 w-72 h-72 bg-[#e3f1ff] dark:bg-[#163056]/45 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute -left-32 bottom-0 w-80 h-80 bg-[#f5faff] dark:bg-[#10243f]/50 blur-3xl rounded-full pointer-events-none" />
+    <section id="products" className="section relative overflow-hidden bg-background">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary/20 to-background" />
+      </div>
 
-      <div className="container relative dark:bg-slate-400">
+      <div className="container relative">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,360px)] gap-12">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#102a6d] text-white px-4 py-1 text-xs font-semibold uppercase tracking-widest shadow-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-4 py-1 text-xs font-semibold uppercase tracking-widest shadow-sm">
               <Solar className="w-3.5 h-3.5" />
               Product portfolio
             </span>
-            <h2 className="mt-5 text-3xl md:text-4xl font-bold !text-black leading-tight">
-              Product catalogue engineered beyond standard rooftop playbooks
+            <h2 className="mt-5 text-3xl md:text-4xl font-bold text-foreground leading-tight">
+              Everything you need for clean energy, not just rooftop solar
             </h2>
-            <p className="mt-4 text-base md:text-lg !text-black  leading-relaxed">
-              We pair homeowner-style communication with distributor reach. Discover ready-to-deploy solutions for housing societies, institutions, industries and civic agencies, all delivered with the polish of top national solar brands.
+            <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed">
+              From hot water to street lights, we supply reliable systems for Maharashtra homes, businesses, and civic projects. Built to handle local conditions and backed by real support.
             </p>
-            <div className="mt-8 grid sm:grid-cols-2 gap-5">
+            <div className="mt-8 grid gap-5 sm:grid-cols-2">
               {productHighlights.map((item) => (
                 <div
                   key={item.title}
-                  className="glass-panel px-5 py-6 text-slate-700 dark:text-white/85"
+                  className="glass px-5 py-6 rounded-xl"
                 >
-                  <div className="text-xs font-semibold text-[#9fcfff] dark:text-[#7bf4ff] uppercase tracking-[0.25em]">
+                  <div className="text-xs font-semibold text-primary uppercase tracking-[0.25em]">
                     {item.title}
                   </div>
-                  <p className="mt-2 text-sm text-slate-600 dark:text-white leading-relaxed">{item.description}</p>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className=" p-6 md:p-7 glass-panel shadow-none dark:bg-white/5 dark:border-white/15">
-            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">
+          <div className="glass p-6 md:p-7 rounded-xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
               How we compare
             </div>
-            <p className="mt-3 text-sm text-slate-600 dark:text-white leading-relaxed">
-              Rooftop-focused players optimise the homeowner journey. OOJED extends the same UX while combining deep OEM partnerships with in-house BOS and spare-part fabrication to support heavier commercial loads.
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+              We combine warm, personal service with trusted OEM hardware and the ability to build critical parts in-house when you need them fast.
             </p>
             <div className="mt-6 space-y-4">
               {portfolioSignals.map((row) => (
-                <div key={row.label} className="glass-panel p-4 space-y-3">
-                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 dark:text-slate-300">{row.label}</div>
-                  <div className="grid gap-3">
-                    <div className="glass-panel p-3">
-                      <div className="text-xs font-semibold text-[#acd2fb] uppercase tracking-[0.25em]">OOJED</div>
-                      <p className="mt-2 text-sm text-slate-600 dark:text-white leading-relaxed">{row.ours}</p>
+                <div key={row.label} className="space-y-3 rounded-xl border border-border bg-card/50 p-4">
+                  <div className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">{row.label}</div>
+                  <div className="space-y-3">
+                    <div className="rounded-lg border border-primary/20 bg-primary/5 p-3">
+                      <div className="text-xs font-semibold text-primary uppercase tracking-[0.25em]">OOJED</div>
+                      <p className="mt-2 text-sm text-foreground leading-relaxed">{row.ours}</p>
                     </div>
-                    <div className="glass-panel p-3">
-                      <div className="text-xs font-semibold text-slate-500 dark:text-[#dfe9ff] uppercase tracking-[0.25em]">Market baseline</div>
-                      <p className="mt-2 text-sm text-slate-600 dark:text-slate-200 leading-relaxed">{row.baseline}</p>
+                    <div className="rounded-lg border border-border bg-card p-3">
+                      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.25em]">Market baseline</div>
+                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{row.baseline}</p>
                     </div>
                   </div>
                 </div>
@@ -220,7 +222,7 @@ export default function Products() {
           </div>
         </div>
 
-        <div className="mt-14 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="mt-14 grid gap-5 md:gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {data.categories.map((cat: any, i: number) => {
             const slug = String((cat && cat.slug ? cat.slug : cat.name) || "")
               .trim()
@@ -246,40 +248,45 @@ export default function Products() {
               return text.length > max ? `${text.slice(0, max).trim()}...` : text;
             })();
 
+            const cardMotionProps = prefersReducedMotion
+              ? { initial: { opacity: 1, y: 0 } }
+              : {
+                initial: { opacity: 0, y: 12 },
+                whileInView: { opacity: 1, y: 0 },
+                transition: { duration: 0.3, delay: i * 0.03 },
+                viewport: { once: true, margin: "-40px" },
+              };
+
             return (
               <LazyMotionDiv
                 key={cat.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: i * 0.05 }}
-                viewport={{ once: true, margin: "-40px" }}
-                className="group"
+                {...cardMotionProps}
+                className="h-full"
               >
-                <div className="glass-panel flex h-full flex-col overflow-hidden transition duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl">
+                <div className="glass glass-hover group flex h-full flex-col overflow-hidden rounded-xl">
                   <div
-                    className="relative h-52 cursor-pointer"
+                    className="relative h-52 cursor-pointer overflow-hidden"
                     onClick={() => openProduct(cat, i)}
                   >
-                    <img
+                    <Image
                       src={previewImage}
                       alt={cat.name}
-                      loading="lazy"
-                      decoding="async"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.02]"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = "/oojed-logo.png";
+                        // Fallback logic handled by src or ignored
                       }}
-                      className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                     <div className="absolute left-4 right-4 top-4 flex items-center justify-between gap-3 text-white">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] dark:bg-white/10 dark:text-white">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] backdrop-blur-sm">
                         {icon}
                         {cat.name}
                       </span>
                       <button
                         type="button"
-                      
-                        className="text-xs font-semibold uppercase tracking-[0.25em] text-black/80 bg-slate-400 hover:text-white"
+                        className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-900 shadow-sm transition hover:bg-slate-100"
                         onClick={() => openProduct(cat, i)}
                       >
                         Preview
@@ -291,17 +298,17 @@ export default function Products() {
                   </div>
 
                   <div className="p-6 flex flex-col gap-4 flex-1">
-                  <div className="text-xs font-semibold text-slate-500 dark:text-[#87a8d8] uppercase tracking-[0.3em]">
-                    Category overview
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-200 leading-relaxed flex-1">{teaser}</p>
+                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.3em]">
+                      Category overview
+                    </div>
+                    <p className="text-sm text-foreground leading-relaxed flex-1">{teaser}</p>
 
-                  {Array.isArray(cat.items) && cat.items.length > 0 && (
+                    {Array.isArray(cat.items) && cat.items.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {cat.items.slice(0, 3).map((it: string) => (
                           <span
                             key={it}
-                            className="inline-flex items-center rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-slate-200"
+                            className="inline-flex items-center rounded-full border border-border bg-secondary/50 px-3 py-1 text-xs font-semibold text-muted-foreground"
                           >
                             {fillCity(it, DEFAULT_CITY)}
                           </span>
@@ -309,7 +316,7 @@ export default function Products() {
                       </div>
                     )}
 
-                    <div className="mt-auto pt-4 border-t border-slate-200/80 dark:border-white/15 flex items-center justify-between gap-3">
+                    <div className="mt-auto pt-4 border-t border-border flex items-center justify-between gap-3">
                       <Button
                         href={`/products/${slug}`}
                         variant="surface"
@@ -320,7 +327,7 @@ export default function Products() {
                       <button
                         type="button"
                         onClick={() => openProduct(cat, i)}
-                        className="text-xs font-semibold uppercase tracking-[0.25em] text-[#102a6d] hover:text-[#0c3a99] dark:text-[#9cbcff]"
+                        className="text-xs font-semibold uppercase tracking-[0.25em] text-primary hover:text-primary/80"
                       >
                         Quick view
                       </button>

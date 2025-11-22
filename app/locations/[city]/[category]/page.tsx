@@ -1,6 +1,6 @@
 import site from '@/data/site.json';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
 import TrustBar from '@/components/TrustBar';
 import ImageGallery from '@/components/ImageGallery';
 import Button from '@/components/Button';
@@ -15,7 +15,7 @@ const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-')
 
 const findCityName = (slug: string) => {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
-  return cities.find((c) => toSlug(c) === slug) || slug;
+  return cities.find((c) => toSlug(c) === slug); // return undefined if not found
 };
 
 const categories = Array.isArray((site as any).categories) ? (site as any).categories : [];
@@ -77,6 +77,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: any }) {
   const cityName = findCityName(params.city);
+  if (!cityName) return { title: 'City Not Found | OOJED' };
+
   const cat = findCategory(params.category);
   const catName = cat?.name || 'Category';
   const title = `${catName} in ${cityName} — Installation, Repair, AMC | OOJED`;
@@ -94,6 +96,12 @@ export async function generateMetadata({ params }: { params: any }) {
 
 export default async function CityCategoryPage({ params }: { params: any }) {
   const cityName = findCityName(params.city);
+
+  // If city is not in our service areas list, show 404
+  if (!cityName) {
+    notFound();
+  }
+
   const requestedSlug = toSlug(params.category);
   const cat = findCategory(requestedSlug);
   if (!cat) {
@@ -104,7 +112,7 @@ export default async function CityCategoryPage({ params }: { params: any }) {
     return (
       <main className="container py-12">
         <h1 className="text-2xl font-bold">Category not found</h1>
-        <p className="mt-4">We couldn’t find that category for {cityName}. <Link href={`/locations/${params.city}`} className="underline">Browse city page</Link>.</p>
+        <p className="mt-4">We couldn't find that category for {cityName}. <Link href={`/locations/${params.city}`} className="underline">Browse city page</Link>.</p>
       </main>
     );
   }
@@ -164,15 +172,17 @@ export default async function CityCategoryPage({ params }: { params: any }) {
       </nav>
 
       {/* Breadcrumb JSON-LD */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Service Areas', item: 'https://oojed.com/locations' },
-          { '@type': 'ListItem', position: 2, name: cityName, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}` },
-          { '@type': 'ListItem', position: 3, name: cat.name, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}/${encodeURIComponent(params.category)}` },
-        ],
-      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Service Areas', item: 'https://oojed.com/locations' },
+            { '@type': 'ListItem', position: 2, name: cityName, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}` },
+            { '@type': 'ListItem', position: 3, name: cat.name, item: `https://oojed.com/locations/${encodeURIComponent(params.city)}/${encodeURIComponent(params.category)}` },
+          ],
+        })
+      }} />
 
       <h1 className="text-3xl font-bold">{cat.name} in {cityName}</h1>
       {/* server-side image lookup for this category (same UX as product pages) */}
@@ -267,22 +277,26 @@ export default async function CityCategoryPage({ params }: { params: any }) {
       )}
 
       {faqEntities.length > 0 && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: faqEntities,
-        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faqEntities,
+          })
+        }} />
       )}
 
       {/* OfferCatalog JSON-LD describing the category and representative items (localized) */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'OfferCatalog',
-        name: localizeText(cat.name, cityName),
-        description: localizeText(cat.metaDescription || cat.desc || undefined, cityName),
-        url: `https://oojed.com/locations/${encodeURIComponent(params.city)}/${encodeURIComponent(params.category)}`,
-        itemListElement: Array.isArray(cat.items) ? cat.items.map((label: string, idx: number) => ({ '@type': 'OfferCatalog', name: localizeText(label, cityName), position: idx + 1 })) : undefined,
-      }) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'OfferCatalog',
+          name: localizeText(cat.name, cityName),
+          description: localizeText(cat.metaDescription || cat.desc || undefined, cityName),
+          url: `https://oojed.com/locations/${encodeURIComponent(params.city)}/${encodeURIComponent(params.category)}`,
+          itemListElement: Array.isArray(cat.items) ? cat.items.map((label: string, idx: number) => ({ '@type': 'OfferCatalog', name: localizeText(label, cityName), position: idx + 1 })) : undefined,
+        })
+      }} />
 
       {/* Related services with descriptive anchors (same appearance as product page) */}
       <section className="mt-8 border-t pt-6">
