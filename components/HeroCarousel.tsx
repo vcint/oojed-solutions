@@ -1,5 +1,4 @@
 "use client";
-import { LazyMotionDiv, LazyAnimatePresence } from "./LazyMotion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
@@ -48,51 +47,26 @@ export default function HeroCarousel({
   const goToNext = () => setIndex((prev) => (prev + 1) % slides.length);
   const goToPrev = () => setIndex((prev) => (prev - 1 + slides.length) % slides.length);
 
-  // advance slides unless user prefers reduced motion
   useEffect(() => {
-    if (slides.length <= 1) return;
-    if (typeof window === "undefined") return;
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (media.matches) return;
-    const timer = window.setInterval(() => setIndex((i) => (i + 1) % slides.length), interval);
-    return () => window.clearInterval(timer);
-  }, [interval]);
+    if (!hasMultipleSlides || interval <= 0) return;
+    const id = setInterval(goToNext, interval);
+    return () => clearInterval(id);
+  }, [hasMultipleSlides, interval]);
 
-  // preload images to avoid flashes during transitions
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    // next/image handles preloading, but we can keep this for smoother transitions if needed
-    // actually next/image with priority is better
-  }, []);
-
-  const baseClass =
-    variant === "background"
-      ? "absolute inset-0 -z-10 overflow-hidden"
-      : "relative overflow-hidden rounded-[28px] border border-white/20 bg-white/10 dark:bg-slate-900/40 backdrop-blur-xl shadow-xl";
-
-  const containerClass = `${baseClass} ${className}`.trim();
-
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (!hasMultipleSlides) return;
-    touchStartX.current = event.touches[0].clientX;
-    touchCurrentX.current = null;
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
   };
 
-  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (!hasMultipleSlides) return;
-    touchCurrentX.current = event.touches[0].clientX;
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchCurrentX.current = e.touches[0].clientX;
   };
 
   const handleTouchEnd = () => {
-    if (!hasMultipleSlides) return;
-    if (touchStartX.current == null || touchCurrentX.current == null) return;
-    const delta = touchStartX.current - touchCurrentX.current;
-    const threshold = 40;
-    if (Math.abs(delta) < threshold) return;
-    if (delta > 0) {
-      goToNext();
-    } else {
-      goToPrev();
+    if (touchStartX.current === null || touchCurrentX.current === null) return;
+    const diff = touchStartX.current - touchCurrentX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goToNext();
+      else goToPrev();
     }
     touchStartX.current = null;
     touchCurrentX.current = null;
@@ -100,59 +74,69 @@ export default function HeroCarousel({
 
   return (
     <div
-      className={containerClass}
+      className={`relative w-full h-full ${className}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       aria-live="polite"
     >
-      <LazyAnimatePresence>
-        {slides.map(
-          (s, i) =>
-            i === index && (
-              <LazyMotionDiv
-                key={s.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8 }}
-                className={variant === "background" ? "absolute inset-0" : "absolute inset-0 rounded-[28px] overflow-hidden"}
-                style={{ background: `linear-gradient(180deg, ${s.colorA}, ${s.colorB})` }}
-              >
-                <Image
-                  src={s.img}
-                  alt={s.alt}
-                  fill
-                  priority={i === 0}
-                  quality={85}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover"
-                  style={{ backgroundColor: s.colorA }}
-                  placeholder="blur"
-                  blurDataURL={`data:image/svg+xml;base64,${Buffer.from(
-                    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="${s.colorA}"/></svg>`
-                  ).toString('base64')}`}
-                />
-              </LazyMotionDiv>
-            ),
-        )}
-      </LazyAnimatePresence>
+      {/* Render all slides, only show current one */}
+      {slides.map((slide, i) => (
+        <div
+          key={slide.id}
+          className={variant === "background" ? "absolute inset-0" : "absolute inset-0 rounded-[28px] overflow-hidden"}
+          style={{
+            opacity: i === index ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out',
+            pointerEvents: i === index ? 'auto' : 'none',
+            background: `linear-gradient(180deg, ${slide.colorA}, ${slide.colorB})`,
+          }}
+        >
+          <Image
+            src={slide.img}
+            alt={slide.alt}
+            fill
+            className="object-cover"
+            priority={i < 2} // Eagerly load first 2 images
+            quality={90}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ backgroundColor: slide.colorA }}
+          />
+        </div>
+      ))}
 
-      {variant === "background" ? (
-        <div className="absolute inset-0 bg-[#031024]/55 mix-blend-normal" aria-hidden="true" />
-      ) : (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#020b1f]/85 via-transparent to-transparent" />
+      {/* Navigation arrows */}
+      {hasMultipleSlides && (
+        <>
+          <button
+            onClick={goToPrev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-gray-700 dark:text-white hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-gray-700 dark:text-white hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
+            aria-label="Next slide"
+          >
+            ›
+          </button>
+        </>
       )}
 
-      {variant === "panel" && (
-        <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2">
-          {slides.map((s, idx) => (
+      {/* Dots */}
+      {hasMultipleSlides && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {slides.map((s, i) => (
             <button
               key={s.id}
-              type="button"
-              onClick={() => setIndex(idx)}
-              className={`h-2.5 w-2.5 rounded-full transition ${idx === index ? "bg-white dark:bg-[#5ea8ff]" : "bg-white/45 hover:bg-white/80 dark:bg-[#5ea8ff]/30 dark:hover:bg-[#5ea8ff]/60"}`}
-              aria-label={`Show slide ${idx + 1}`}
+              onClick={() => setIndex(i)}
+              className={`h-2 rounded-full transition-all ${i === index
+                  ? "w-6 bg-primary dark:bg-white"
+                  : "w-2 bg-gray-400 dark:bg-gray-500 hover:bg-gray-600 dark:hover:bg-gray-400"
+                }`}
+              aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>

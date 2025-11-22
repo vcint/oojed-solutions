@@ -68,6 +68,7 @@ export default function Nav() {
       href={
         id.startsWith('/') ? id : (id === 'home' ? '/' : `/#${id}`)
       }
+      prefetch={true}
       onClick={() => { if (onClick) onClick(); }}
       className={
         "relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-colors " +

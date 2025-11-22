@@ -227,7 +227,7 @@ export default function Contact() {
                 {loading ? "Sending..." : "Send enquiry"}
               </button>
               <p className="text-xs text-muted-foreground">
-                We reply within one business day with next steps, documentation checklist and scheduling options.
+                As soon as we recive request we reply with next steps, documentation checklist and scheduling options.
               </p>
             </div>
           </form>
