@@ -77,7 +77,7 @@ export default function ProductModal({
       closeBtnRef.current?.focus();
       setVisible(true);
     }, 0);
-  setActiveImageIdx(0);
+    setActiveImageIdx(0);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
@@ -144,7 +144,7 @@ export default function ProductModal({
     if (slideRefs.current[target]) scrollToIndex(target); else scrollToIndexFallback(target);
   };
   const onNext = () => {
-  const maxIdx = Math.max(0, imageCount - 1);
+    const maxIdx = Math.max(0, imageCount - 1);
     const target = Math.min(maxIdx, activeImageIdx + 1);
     setActiveImageIdx(target);
     if (slideRefs.current[target]) scrollToIndex(target); else scrollToIndexFallback(target);
@@ -244,23 +244,22 @@ export default function ProductModal({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={product.desc ? descId : undefined}
-        className={`glass-panel relative z-10 w-full max-w-6xl transition-all duration-200 ${
-          visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-1 scale-95"
-        } max-h-[85vh] flex flex-col p-0`}
+        className={`relative z-10 w-full max-w-6xl rounded-2xl transition-all duration-200 ${visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-1 scale-95"
+          } max-h-[85vh] flex flex-col p-0 shadow-2xl border border-white/20 dark:border-white/10 backdrop-blur-2xl bg-white/90 dark:bg-slate-900/90`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-white/20 dark:border-[#5ea8ff]/20 px-6 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-white/20 dark:border-white/10 px-6 py-4">
           <div className="min-w-0">
-            <h3 id={titleId} className="truncate text-2xl font-semibold ui-text">
+            <h3 id={titleId} className="truncate text-2xl font-semibold text-foreground">
               {product.name}
             </h3>
             {product.desc && (
-              <p id={descId} className="mt-1 text-sm muted">
+              <p id={descId} className="mt-1 text-sm text-muted-foreground">
                 {fillCity(product.desc)}
               </p>
             )}
           </div>
-            <button
+          <button
             ref={closeBtnRef}
             type="button"
             onClick={onClose}
@@ -340,7 +339,7 @@ export default function ProductModal({
                       className={`glass-panel h-16 w-20 overflow-hidden rounded border ${idx === activeImageIdx ? "ring-2 ring-[#0f3fa6] dark:ring-[#5ea8ff]" : "border-transparent"}`}
                       aria-label={`Show image ${idx + 1}`}
                     >
-                        <img src={normalizeSrc(src)} alt={`${product.name} thumbnail ${idx + 1}`} loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
+                      <img src={normalizeSrc(src)} alt={`${product.name} thumbnail ${idx + 1}`} loading="lazy" decoding="async" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/oojed-logo.png'; }} className="h-full w-full object-cover" />
                     </button>
                   ))}
                 </div>
@@ -469,10 +468,10 @@ export default function ProductModal({
                     image: (product as any)?.images && (product as any).images.length > 0
                       ? (product as any).images.map((p: string) => (typeof window !== "undefined" ? window.location.origin + p : p))
                       : product.image
-                      ? typeof window !== "undefined"
-                        ? window.location.origin + product.image
-                        : product.image
-                      : undefined,
+                        ? typeof window !== "undefined"
+                          ? window.location.origin + product.image
+                          : product.image
+                        : undefined,
                     additionalProperty: (product.highlights || []).map((h: string) => ({
                       "@type": "PropertyValue",
                       name: "highlight",

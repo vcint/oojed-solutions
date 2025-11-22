@@ -110,14 +110,14 @@ export default function HeroCarousel({
         <>
           <button
             onClick={goToPrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-gray-700 dark:text-white hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-foreground hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
             aria-label="Previous slide"
           >
             ‹
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-gray-700 dark:text-white hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full bg-white/80 dark:bg-black/60 flex items-center justify-center text-foreground hover:bg-white dark:hover:bg-black/80 transition-colors shadow-md"
             aria-label="Next slide"
           >
             ›
@@ -133,8 +133,8 @@ export default function HeroCarousel({
               key={s.id}
               onClick={() => setIndex(i)}
               className={`h-2 rounded-full transition-all ${i === index
-                  ? "w-6 bg-primary dark:bg-white"
-                  : "w-2 bg-gray-400 dark:bg-gray-500 hover:bg-gray-600 dark:hover:bg-gray-400"
+                ? "w-6 bg-primary dark:bg-white"
+                : "w-2 bg-gray-400 dark:bg-gray-500 hover:bg-gray-600 dark:hover:bg-gray-400"
                 }`}
               aria-label={`Go to slide ${i + 1}`}
             />
