@@ -63,13 +63,15 @@ export default function Hero() {
               <span className="font-medium">SINCE 2014</span>
             </div>
 
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              {headline}
-            </h1>
+            <div className="min-h-[160px] sm:min-h-[140px] flex flex-col justify-center">
+              <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                {headline}
+              </h1>
 
-            <p className="max-w-[600px] text-lg text-muted-foreground md:text-xl leading-relaxed">
-              {sub}
-            </p>
+              <p className="mt-4 max-w-[600px] text-lg text-muted-foreground md:text-xl leading-relaxed">
+                {sub}
+              </p>
+            </div>
 
             <div className="hero-cta flex flex-col gap-4 sm:flex-row">
               <Button

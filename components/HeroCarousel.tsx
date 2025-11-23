@@ -98,7 +98,7 @@ export default function HeroCarousel({
             fill
             className="object-cover"
             priority={i === 0} // Eagerly load only the first image for LCP
-            quality={90}
+            quality={80}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             style={{ backgroundColor: slide.colorA }}
           />

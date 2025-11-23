@@ -8,7 +8,7 @@ import data from "@/data/site.json";
 import Button from "@/components/Button";
 import dynamic from 'next/dynamic';
 
-const BrandMarquee = dynamic(() => import("@/components/BrandMarquee"));
+const BrandMarquee = dynamic(() => import("@/components/BrandMarquee"), { loading: () => <div className="h-24 w-full bg-secondary/10" /> });
 const Products = dynamic(() => import("@/components/Products"), { loading: () => <div className="h-96" /> });
 const Benefits = dynamic(() => import("@/components/Benefits"));
 const Contact = dynamic(() => import("@/components/Contact"));

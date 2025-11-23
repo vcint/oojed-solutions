@@ -146,7 +146,13 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap', weight: ['300', '400', '600', '700', '800'] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  weight: ['300', '400', '600', '700', '800'],
+  adjustFontFallback: true,
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
