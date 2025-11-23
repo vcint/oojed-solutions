@@ -32,7 +32,7 @@ export default function HomeFAQ() {
         <section className="container py-12 md:py-16">
             <div className="grid lg:grid-cols-[1fr_1.5fr] gap-10 items-start">
                 <div>
-                    <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary mb-4">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-foreground mb-4">
                         <FiHelpCircle />
                         Common Questions
                     </div>
@@ -61,8 +61,8 @@ export default function HomeFAQ() {
                         <div
                             key={i}
                             className={`rounded-xl border transition-all duration-200 ${openIndex === i
-                                    ? "bg-card border-primary/30 shadow-lg"
-                                    : "bg-card/50 border-border hover:border-primary/30"
+                                ? "bg-card border-primary/30 shadow-lg"
+                                : "bg-card/50 border-border hover:border-primary/30"
                                 }`}
                         >
                             <button

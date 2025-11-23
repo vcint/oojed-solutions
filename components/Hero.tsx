@@ -57,7 +57,7 @@ export default function Hero() {
 
       <div className="container relative z-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8 items-center">
-          <div className="space-y-8 animate-in slide-in-from-left duration-700 fade-in">
+          <div className="space-y-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-border bg-secondary/50 px-3 py-1 text-sm backdrop-blur">
               <FiShield className="h-4 w-4 text-primary" />
               <span className="font-medium">SINCE 2014</span>
@@ -99,7 +99,7 @@ export default function Hero() {
             <TrustBadges />
           </div>
 
-          <div className="space-y-6 animate-in slide-in-from-right duration-700 fade-in">
+          <div className="space-y-6">
             <div className="glass glass-hover elevated ambient-light relative overflow-hidden rounded-2xl">
               <HeroCarousel
                 variant="panel"
