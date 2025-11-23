@@ -70,6 +70,7 @@ export default function Nav() {
       }
       prefetch={true}
       onClick={() => { if (onClick) onClick(); }}
+      title={`Navigate to ${label}`}
       className={
         "relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-colors " +
         (active === id.replace(/^\/+/, '')
@@ -98,7 +99,7 @@ export default function Nav() {
   ];
 
   return (
-    <nav className="fixed top-3 md:top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[92%] md:w-[90%] lg:w-[82%] pointer-events-none">
+    <nav className="fixed top-3 md:top-5 left-1/2 -translate-x-1/2 z-50 w-[96%] sm:w-[94%] md:w-[92%] lg:w-[96%] max-w-7xl pointer-events-none">
       <div className="glass pointer-events-auto flex items-center justify-between px-3 py-2 md:px-6 md:py-3 rounded-2xl shadow-sm border-white/20 dark:border-white/10">
         <Link href="/" aria-label="OOJED home" className="pointer-events-auto inline-flex items-center">
           <div className="relative h-10 w-32">
@@ -106,11 +107,15 @@ export default function Nav() {
               src="/oojed-logo.png"
               alt="OOJED logo"
               fill
+              sizes="(max-width: 768px) 100px, 128px"
               className="object-contain object-left"
               priority
             />
           </div>
         </Link>
+
+        {/* Click-to-call phone number - visible on desktop */}
+
 
         <div className="pointer-events-auto flex items-center gap-3">
           <button
@@ -138,8 +143,18 @@ export default function Nav() {
           </div>
 
           <div className="hidden md:flex items-center gap-3 pl-4 border-l border-border">
+            <a
+              href="tel:+919511229430"
+              className="hidden lg:flex items-center gap-2 glass px-3 py-2 rounded-full text-sm font-semibold text-primary hover:bg-primary/10 transition-colors"
+              title="Call us for solar solutions"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>+91 95112 29430</span>
+            </a>
             {!hideQuote && (
-              <Button href="/contact" variant="gradient" className="px-4 py-2 text-xs md:text-sm rounded-full">
+              <Button href="/contact" variant="gradient" className="px-4 py-2 text-xs md:text-sm rounded-full" title="Get a free solar quote">
                 Get a Quote
               </Button>
             )}
@@ -164,7 +179,7 @@ export default function Nav() {
               </div>
               <div className="flex items-center justify-between pt-3 border-t border-border">
                 {!hideQuote && (
-                  <Button href="/contact" variant="gradient" className="w-full justify-center rounded-full" onClick={() => setMobileOpen(false)}>
+                  <Button href="/contact" variant="gradient" className="w-full justify-center rounded-full" title="Get a free solar quote" onClick={() => setMobileOpen(false)}>
                     Get a Quote
                   </Button>
                 )}

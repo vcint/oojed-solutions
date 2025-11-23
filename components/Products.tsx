@@ -318,19 +318,21 @@ export default function Products() {
 
                     <div className="mt-auto pt-4 border-t border-border flex items-center justify-between gap-3">
                       <Button
+                        href={`/contact#quote-${slug}`}
+                        variant="gradient"
+                        className="rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:shadow-lg"
+                        title={`Get a quote for ${cat.name}`}
+                      >
+                        Get Quote
+                      </Button>
+                      <Button
                         href={`/products/${slug}`}
                         variant="surface"
                         className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]"
+                        title={`View details for ${cat.name}`}
                       >
                         Learn more
                       </Button>
-                      <button
-                        type="button"
-                        onClick={() => openProduct(cat, i)}
-                        className="text-xs font-semibold uppercase tracking-[0.25em] text-primary hover:text-primary/80"
-                      >
-                        Quick view
-                      </button>
                     </div>
                   </div>
                 </div>

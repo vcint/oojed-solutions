@@ -1,10 +1,15 @@
 // Nav is provided by the RootLayout
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Hero from "@/components/Hero";
 import Products from "@/components/Products";
 import Benefits from "@/components/Benefits";
 import Contact from "@/components/Contact";
+import Testimonials from "@/components/Testimonials";
+import QuickLeadForm from "@/components/QuickLeadForm";
+import HomeFAQ from "@/components/HomeFAQ";
+import BrandMarquee from "@/components/BrandMarquee";
 // Footer is provided by the RootLayout
 import data from "@/data/site.json";
 import Button from "@/components/Button";
@@ -46,7 +51,7 @@ if (Array.isArray((data as any).services)) {
 const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
 
 const homeTitle = 'Solar Solutions That Actually Work | 11+ Years Serving Maharashtra | OOJED';
-const homeDescription = 'Real solar solutions from a team that cares. Since 2014, we\'ve helped 500+ Maharashtra homes and businesses cut bills with solar water heaters, rooftop power plants, and LED lighting that simply works. Fair pricing, honest advice, solid results.';
+const homeDescription = 'Simple, smart, and reliable solar solutions for Maharashtra. Since 2014, OOJED has delivered 100+ solar water heater, rooftop power, and LED projects. Fair pricing, honest service.';
 
 export const generateMetadata = (): Metadata => ({
   title: homeTitle,
@@ -192,31 +197,7 @@ export default function HomePage() {
 
       <main className="bg-background text-foreground">
         <Hero />
-        <section id="about" className="section">
-          <div className="container">
-            <div className="prose max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Why we started OOJED</h2>
-              <p className="text-muted-foreground mt-2">
-                Back in 2014, solar in Maharashtra was full of big promises and disappointing results. Families paid good money for systems that leaked, failed during monsoon, or needed constant repairs. That didn't sit right with us.
-              </p>
-              <p className="text-muted-foreground mt-4">
-                OOJED was born from a simple belief: Maharashtrians deserve solar solutions that actually work through monsoon rains, hard water, and unreliable grid power. We're here to deliver solar water heaters, rooftop power plants, pumps, and LED lighting that you can count on, year after year.
-              </p>
-              <p className="text-muted-foreground mt-4"><strong>What makes us different:</strong></p>
-              <ul className="list-disc ml-6 text-muted-foreground mt-2">
-                {data.values.map((v) => (
-                  <li key={v} className="font-semibold">{v}</li>
-                ))}
-              </ul>
-              <p className="text-muted-foreground mt-4">
-                We fabricate critical spares and BOS components in-house, so you're never waiting weeks for a replacement tube or bracket. From the first survey to years of AMC visits, our local teams stick with you.
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        <section className="relative py-16 overflow-hidden">
+        <section className="relative py-12 overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background via-transparent to-transparent pointer-events-none" />
           <div className="container relative">
             <div className="max-w-4xl mx-auto text-center">
@@ -253,7 +234,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="container py-16">
+        <section className="container py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">Industries we serve</h2>
@@ -287,8 +268,21 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section className="relative overflow-hidden py-12 bg-background">
+          <div className="container">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-8">Trusted Brands We Work With</h2>
+            <div className="relative">
+              {/* Gradient overlays for smooth edge fade */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+
+              <BrandMarquee />
+            </div>
+          </div>
+        </section>
+
         <section className="bg-secondary/10">
-          <div className="container py-16">
+          <div className="container py-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
@@ -300,8 +294,8 @@ export default function HomePage() {
                   body: 'Rooftop solar capacity with net-metering and export approvals.',
                 },
                 {
-                  stat: '80+ sites',
-                  body: 'Service contracts across Maharashtra and nearby states.',
+                  stat: '100+ sites',
+                  body: 'Completed across Maharashtra and nearby states.',
                 },
               ].map((item) => (
                 <div key={item.stat} className="rounded-xl border border-border bg-card p-6 shadow-lg">
@@ -313,7 +307,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="container py-16">
+        <section className="container py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">Client feedback</h2>
@@ -347,7 +341,42 @@ export default function HomePage() {
 
         <Products />
         <Benefits />
-        <Contact />
+        <section className="container py-12 md:py-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to switch to solar?</h2>
+              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
+                Join hundreds of satisfied customers in Maharashtra who are saving money and energy every day.
+                Whether it's a simple water heater or a complete rooftop power plant, we make the process easy.
+              </p>
+              <ul className="mt-8 space-y-4">
+                {[
+                  "Free site survey and consultation",
+                  "Transparent pricing with no hidden costs",
+                  "Genuine components and warranty support",
+                  "Local team for quick service"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-foreground">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="lg:pl-10">
+              <QuickLeadForm />
+            </div>
+          </div>
+        </section>
+
+        <Testimonials />
+
+        <HomeFAQ />
+
       </main>
       {/* contact-badge is loaded globally by RootLayout */}
       {/* @ts-expect-error - custom element

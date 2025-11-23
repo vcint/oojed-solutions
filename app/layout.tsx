@@ -6,6 +6,8 @@ import { Inter } from 'next/font/google';
 import WhatsAppButton from "../components/WhatsAppButton";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import FloatingCTA from "../components/FloatingCTA";
+import ExitIntentPopup from "../components/ExitIntentPopup";
 // client-side location detection and redirect helper
 import LocationDetector from '@/components/LocationDetector';
 import CitySelector from '@/components/CitySelector';
@@ -197,6 +199,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* floating WhatsApp connect button (site-wide) */}
         <WhatsAppButton />
+
+        {/* floating CTA bar (appears on scroll) */}
+        <FloatingCTA />
+
+        {/* exit intent popup (lead capture) */}
+        <ExitIntentPopup />
 
         {/* City selector (shows only when IP detection fails) */}
         <CitySelector />

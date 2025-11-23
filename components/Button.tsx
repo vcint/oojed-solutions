@@ -8,9 +8,10 @@ type Props = {
   children: React.ReactNode;
   variant?: 'primary' | 'outline' | 'ghost' | 'gradient' | 'surface';
   className?: string;
+  title?: string;
 } & ComponentProps<'button'>;
 
-export default function Button({ href, onClick, children, variant = 'primary', className = '', ...rest }: Props) {
+export default function Button({ href, onClick, children, variant = 'primary', className = '', title, ...rest }: Props) {
   const base =
     'inline-flex items-center justify-center gap-2 rounded-full border font-semibold transition-all duration-200 px-4 py-2 md:px-5 md:py-2.5 focus:outline-none focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-offset-0 disabled:opacity-50 disabled:pointer-events-none ring-offset-background';
   const variants: Record<string, string> = {
@@ -30,14 +31,14 @@ export default function Button({ href, onClick, children, variant = 'primary', c
 
   if (href) {
     return (
-      <Link href={href} className={classes} {...(rest as any)} onClick={onClick}>
+      <Link href={href} className={classes} title={title} {...(rest as any)} onClick={onClick}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type="button" onClick={onClick} className={classes} {...rest}>
+    <button type="button" onClick={onClick} className={classes} title={title} {...rest}>
       {children}
     </button>
   );

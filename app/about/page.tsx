@@ -10,8 +10,8 @@ export const metadata = {
 
 const heroMetrics = [
   { value: '11+', label: 'Years in clean energy' },
-  { value: '100+', label: 'Active AMC sites' },
-  { value: '2+ MW', label: 'Projects delivered' },
+  { value: '80+', label: 'Active AMC sites' },
+  { value: '2MW+', label: 'Power generated' },
 ];
 
 const positioningStatements = [
@@ -130,7 +130,7 @@ export default function AboutPage() {
       <div className="pointer-events-none absolute -left-32 top-32 h-72 w-72 rounded-full bg-[#cddcff]/40 blur-3xl dark:bg-[#0f2350]/35" />
       <div className="pointer-events-none absolute bottom-12 -right-24 h-80 w-80 rounded-full bg-[#b6f0ff]/40 blur-3xl dark:bg-[#091c33]/45" />
 
-      <section className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-36">
+      <section className="relative overflow-hidden pb-20 pt-24 md:pb-28 md:pt-32">
         <div className="absolute inset-0" aria-hidden="true">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.96) 0%,rgba(232,237,252,0.78) 42%,transparent 72%),radial-gradient(circle_at_85%_8%,rgba(214,233,255,0.6) 0%,transparent 58%),linear-gradient(135deg,#f7f9ff 0%,#edf2ff 50%,#f7faff 100%)] dark:bg-[radial-gradient(circle_at_20%_12%,rgba(48,112,220,0.25) 0%,rgba(6,16,38,0.9) 50%,transparent 80%),radial-gradient(circle_at_80%_8%,rgba(15,69,182,0.2) 0%,rgba(3,8,20,0.92) 65%),linear-gradient(155deg,#050b17 0%,#030812 55%,#010307 100%)]" />
           <div className="absolute inset-0 bg-white/70 mix-blend-soft-light dark:bg-[#02030b]/60" />
@@ -198,6 +198,30 @@ export default function AboutPage() {
 
       <section className="relative overflow-hidden py-16 md:py-20">
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,243,255,0.95)_0%,rgba(227,235,255,0.72)_42%,rgba(218,229,255,0.48)_100%)] dark:bg-[linear-gradient(180deg,rgba(3,11,26,0.92)_0%,rgba(5,24,46,0.88)_42%,rgba(6,32,58,0.82)_100%)]" />
+        <div className="container relative">
+          <div className="glass-panel space-y-6 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">Why we started OOJED</h2>
+            <p className="text-base leading-relaxed text-slate-800 dark:text-slate-200">
+              Back in 2014, solar in Maharashtra was full of big promises and disappointing results. Families paid good money for systems that leaked, failed during monsoon, or needed constant repairs. That didn't sit right with us.
+            </p>
+            <p className="text-base leading-relaxed text-slate-800 dark:text-slate-200">
+              OOJED was born from a simple belief: Maharashtrians deserve solar solutions that actually work through monsoon rains, hard water, and unreliable grid power. We're here to deliver solar water heaters, rooftop power plants, pumps, and LED lighting that you can count on, year after year.
+            </p>
+            <p className="text-base leading-relaxed text-slate-800 dark:text-slate-200"><strong>What makes us different:</strong></p>
+            <ul className="list-disc ml-6 text-base leading-relaxed text-slate-800 dark:text-slate-200 space-y-2">
+              {data.values.map((v) => (
+                <li key={v} className="font-semibold">{v}</li>
+              ))}
+            </ul>
+            <p className="text-base leading-relaxed text-slate-800 dark:text-slate-200">
+              We fabricate critical spares and BOS components in-house, so you're never waiting weeks for a replacement tube or bracket. From the first survey to years of AMC visits, our local teams stick with you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(238,243,255,0.95)_0%,rgba(227,235,255,0.72)_42%,rgba(218,229,255,0.48)_100%)] dark:bg-[linear-gradient(180deg,rgba(3,11,26,0.92)_0%,rgba(5,24,46,0.88)_42%,rgba(6,32,58,0.82)_100%)]" />
         <div className="container relative space-y-12 text-slate-800 dark:text-slate-100">
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,0.8fr)]">
             <div className="glass-panel space-y-6 p-6 md:p-8 dark:bg-white/5 dark:border-white/15">
@@ -213,7 +237,7 @@ export default function AboutPage() {
             </div>
 
             <aside className="space-y-6">
-            <div className="glass-panel space-y-4 p-6 md:p-7 dark:bg-white/5 dark:border-white/15">
+              <div className="glass-panel space-y-4 p-6 md:p-7 dark:bg-white/5 dark:border-white/15">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Mission</h3>
                 <p className="text-sm leading-relaxed text-slate-800 dark:text-slate-100">
                   {data.mission ||
@@ -277,7 +301,7 @@ export default function AboutPage() {
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <h2 className="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl">How we work with you</h2>
-                 <p className="mt-2 text-sm leading-relaxed text-slate-800 dark:text-slate-100">
+                <p className="mt-2 text-sm leading-relaxed text-slate-800 dark:text-slate-100">
                   A four-stage rhythm keeps procurement, installation and ongoing care connected for every stakeholder.
                 </p>
               </div>
@@ -290,7 +314,7 @@ export default function AboutPage() {
                     {stage.step}
                   </div>
                   <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-white">{stage.title}</h3>
-                   <p className="mt-3 text-sm leading-relaxed text-slate-800 dark:text-slate-100">{stage.copy}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-800 dark:text-slate-100">{stage.copy}</p>
                 </div>
               ))}
             </div>

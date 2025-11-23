@@ -36,17 +36,24 @@ export default function WhyUsPage() {
           <p className="mt-4 max-w-2xl text-white/90">
             We combine practical field engineering with transparent commercial models, so solar projects deliver the savings and uptime you expect. Here’s what sets us apart when you compare EPC and AMC partners.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 text-sm text-white/80">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1">
-              11+ years of solar & LED projects
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1">
-              2+ MW rooftop solar delivered
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1">
-              80+ sites under active AMC
-            </span>
-          </div>
+          <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 sm:gap-y-6 lg:gap-x-8">
+            <div className="border-l-2 border-primary pl-4">
+              <dt className="font-semibold text-foreground">100+ sites completed</dt>
+              <dd className="text-sm text-muted-foreground">Across Maharashtra & Goa</dd>
+            </div>
+            <div className="border-l-2 border-primary pl-4">
+              <dt className="font-semibold text-foreground">80+ sites under active AMC</dt>
+              <dd className="text-sm text-muted-foreground">Preventive maintenance contracts</dd>
+            </div>
+            <div className="border-l-2 border-primary pl-4">
+              <dt className="font-semibold text-foreground">2MW+ total power generated</dt>
+              <dd className="text-sm text-muted-foreground">Rooftop & ground-mount</dd>
+            </div>
+            <div className="border-l-2 border-primary pl-4">
+              <dt className="font-semibold text-foreground">100+ satisfied customers</dt>
+              <dd className="text-sm text-muted-foreground">Homes, societies & industries</dd>
+            </div>
+          </dl>
         </div>
       </section>
 

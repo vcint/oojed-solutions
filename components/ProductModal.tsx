@@ -224,6 +224,61 @@ export default function ProductModal({
 
   // end of helpers
 
+  // Exit Intent Logic
+  const [showExitIntent, setShowExitIntent] = useState(false);
+  const openTimeRef = useRef<number>(0);
+  const hasInteractedRef = useRef(false);
+
+  useEffect(() => {
+    if (open) {
+      openTimeRef.current = Date.now();
+      hasInteractedRef.current = false;
+      setShowExitIntent(false);
+    }
+  }, [open]);
+
+  const handleCloseAttempt = () => {
+    const timeSpent = Date.now() - openTimeRef.current;
+    // If user spent > 5 seconds and hasn't interacted, and we haven't shown exit intent yet
+    if (timeSpent > 5000 && !hasInteractedRef.current && !showExitIntent) {
+      setShowExitIntent(true);
+    } else {
+      onClose();
+      // Trigger global exit intent if we are closing without conversion
+      if (!hasInteractedRef.current) {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('triggerExitIntent'));
+        }
+      }
+    }
+  };
+
+  const handleConversion = () => {
+    hasInteractedRef.current = true;
+    try {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname || '/';
+        if (path === '/' || path === '') {
+          onClose();
+          window.dispatchEvent(new Event('openContactForm'));
+        } else {
+          try {
+            sessionStorage.setItem('openContactForm', '1');
+          } catch (e) {
+            // ignore
+          }
+          window.location.href = '/contact';
+        }
+      }
+    } catch (err) {
+      try {
+        window.location.href = '/contact';
+      } catch (e) {
+        // ignore
+      }
+    }
+  };
+
   // Don't attempt to render the modal content when it's closed or when no product
   // is supplied. Hooks above must always run to keep React's hooks order stable,
   // so the early return is placed after all hooks.
@@ -235,7 +290,7 @@ export default function ProductModal({
     >
       <div
         className={`absolute inset-0 bg-black/50 transition-opacity duration-200 ${visible ? "opacity-100" : "opacity-0"}`}
-        onClick={onClose}
+        onClick={handleCloseAttempt}
         aria-hidden="true"
       />
       <div
@@ -248,6 +303,38 @@ export default function ProductModal({
           } max-h-[85vh] flex flex-col p-0 shadow-2xl border border-white/20 dark:border-white/10 backdrop-blur-2xl bg-white/90 dark:bg-slate-900/90`}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Exit Intent Overlay */}
+        {showExitIntent && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm rounded-2xl animate-in fade-in duration-200">
+            <div className="bg-background p-8 rounded-2xl shadow-2xl max-w-md text-center m-4 border border-primary/20 animate-in zoom-in-95 duration-200">
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-2">Wait! Before you go...</h3>
+              <p className="text-muted-foreground mb-6">
+                Have questions about <strong>{product.name}</strong>? Get a custom quote or free advice from our solar experts in just 2 minutes.
+              </p>
+              <div className="space-y-3">
+                <Button
+                  onClick={handleConversion}
+                  variant="gradient"
+                  className="w-full justify-center py-3 text-base"
+                >
+                  Get Free Quote
+                </Button>
+                <button
+                  onClick={onClose}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  No thanks, I'm just browsing
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-start justify-between gap-4 border-b border-white/20 dark:border-white/10 px-6 py-4">
           <div className="min-w-0">
             <h3 id={titleId} className="truncate text-2xl font-semibold text-foreground">
@@ -262,7 +349,7 @@ export default function ProductModal({
           <button
             ref={closeBtnRef}
             type="button"
-            onClick={onClose}
+            onClick={handleCloseAttempt}
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-slate-600 dark:text-white hover:bg-white/10 dark:hover:bg-[#5ea8ff]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0f3fa6] focus-visible:ring-offset-2 focus-visible:ring-offset-white/30"
             aria-label="Close dialog"
           >
@@ -272,7 +359,7 @@ export default function ProductModal({
           </button>
         </div>
 
-        <div className="px-6 py-5 overflow-y-auto">
+        <div className="px-4 py-4 md:px-6 md:py-5 overflow-y-auto">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="md:pr-2">
               <div className="glass-panel overflow-hidden relative p-2">
@@ -424,30 +511,7 @@ export default function ProductModal({
 
               <div className="mt-6">
                 <Button
-                  onClick={() => {
-                    try {
-                      if (typeof window !== 'undefined') {
-                        const path = window.location.pathname || '/';
-                        if (path === '/' || path === '') {
-                          onClose();
-                          window.dispatchEvent(new Event('openContactForm'));
-                        } else {
-                          try {
-                            sessionStorage.setItem('openContactForm', '1');
-                          } catch (e) {
-                            // ignore
-                          }
-                          window.location.href = '/contact';
-                        }
-                      }
-                    } catch (err) {
-                      try {
-                        window.location.href = '/contact';
-                      } catch (e) {
-                        // ignore
-                      }
-                    }
-                  }}
+                  onClick={handleConversion}
                   variant="gradient"
                   className="w-full md:w-auto px-6 py-3 text-sm"
                 >
