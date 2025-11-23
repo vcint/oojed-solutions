@@ -178,7 +178,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* hero preloads removed — hero-1.jpg / hero-2.jpg were missing and caused 404s; consider preloading actual existing hero images if available */}
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#102a6d" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
 
         {/* Runtime helper: convert Next-generated stylesheet links to preload early to reduce blocking (best-effort) */}
         <script dangerouslySetInnerHTML={{ __html: `(function(){try{var links=document.querySelectorAll('link[rel="stylesheet"]');for(var i=0;i<links.length;i++){var l=links[i];if(l.href && l.href.indexOf('/_next/static/css/')!==-1){l.rel='preload';l.as='style';l.onload=function(){this.rel='stylesheet';};}}}catch(e){}})();` }} />

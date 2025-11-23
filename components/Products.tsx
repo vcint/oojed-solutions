@@ -288,6 +288,7 @@ export default function Products() {
                         type="button"
                         className="inline-flex items-center rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-slate-900 shadow-sm transition hover:bg-slate-100"
                         onClick={() => openProduct(cat, i)}
+                        aria-label={`Preview ${cat.name} gallery`}
                       >
                         Preview
                       </button>
@@ -322,6 +323,7 @@ export default function Products() {
                         variant="gradient"
                         className="rounded-full px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] shadow-md hover:shadow-lg"
                         title={`Get a quote for ${cat.name}`}
+                        aria-label={`Get a quote for ${cat.name}`}
                       >
                         Get Quote
                       </Button>
@@ -330,6 +332,7 @@ export default function Products() {
                         variant="surface"
                         className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]"
                         title={`View details for ${cat.name}`}
+                        aria-label={`Learn more about ${cat.name}`}
                       >
                         Learn more
                       </Button>

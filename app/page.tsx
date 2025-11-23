@@ -50,8 +50,8 @@ if (Array.isArray((data as any).services)) {
 
 const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
 
-const homeTitle = 'Solar Solutions That Actually Work | 11+ Years Serving Maharashtra | OOJED';
-const homeDescription = 'Simple, smart, and reliable solar solutions for Maharashtra. Since 2014, OOJED has delivered 100+ solar water heater, rooftop power, and LED projects. Fair pricing, honest service.';
+const homeTitle = 'OOJED: Trusted Solar Solutions in Maharashtra (11+ Years)';
+const homeDescription = 'OOJED delivers reliable solar water heaters, rooftop solar & LED lighting across Maharashtra. 11+ years of honest service & fair pricing. Get a free quote.';
 
 export const generateMetadata = (): Metadata => ({
   title: homeTitle,
