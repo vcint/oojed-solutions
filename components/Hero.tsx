@@ -99,7 +99,7 @@ export default function Hero() {
             <TrustBadges />
           </div>
 
-          <div className="space-y-6 animate-in slide-in-from-right duration-700 fade-in delay-200">
+          <div className="space-y-6 animate-in slide-in-from-right duration-700 fade-in">
             <div className="glass glass-hover elevated ambient-light relative overflow-hidden rounded-2xl">
               <HeroCarousel
                 variant="panel"

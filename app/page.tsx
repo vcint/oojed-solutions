@@ -3,16 +3,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import Products from "@/components/Products";
-import Benefits from "@/components/Benefits";
-import Contact from "@/components/Contact";
-import Testimonials from "@/components/Testimonials";
-import QuickLeadForm from "@/components/QuickLeadForm";
-import HomeFAQ from "@/components/HomeFAQ";
-import BrandMarquee from "@/components/BrandMarquee";
 // Footer is provided by the RootLayout
 import data from "@/data/site.json";
 import Button from "@/components/Button";
+import dynamic from 'next/dynamic';
+
+const BrandMarquee = dynamic(() => import("@/components/BrandMarquee"));
+const Products = dynamic(() => import("@/components/Products"), { loading: () => <div className="h-96" /> });
+const Benefits = dynamic(() => import("@/components/Benefits"));
+const Contact = dynamic(() => import("@/components/Contact"));
+const Testimonials = dynamic(() => import("@/components/Testimonials"));
+const QuickLeadForm = dynamic(() => import("@/components/QuickLeadForm"));
+const HomeFAQ = dynamic(() => import("@/components/HomeFAQ"));
 
 const rawSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
 const fallbackSiteUrl = 'https://oojed.com';

@@ -39,7 +39,7 @@ export default function BrandMarquee() {
                                 width={160}
                                 height={80}
                                 className="object-contain max-w-full max-h-full"
-                                priority={index < 3}
+                                sizes="(max-width: 768px) 112px, 192px"
                             />
                         </div>
                     ))}
