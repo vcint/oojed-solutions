@@ -102,7 +102,7 @@ export default function Hero() {
           </div>
 
           <div className="space-y-6">
-            <div className="glass glass-hover elevated ambient-light relative overflow-hidden rounded-2xl">
+            <div className="relative overflow-hidden">
               <HeroCarousel
                 variant="panel"
                 className="h-[260px] sm:h-[320px] md:h-[360px] lg:h-[420px]"

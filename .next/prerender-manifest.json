@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/services/installation":{},"/services/feasibility":{},"/services/repair":{},"/services/amc":{},"/products/solar-water-heaters":{},"/products/solar-power-plants":{},"/products/solar-pumps":{},"/products/led-lighting":{},"/products/poles-masts":{},"/products/solar-power-plant-bos-material":{},"/products/solar-water-heater-spare-parts":{}},"dynamicRoutes":{"/services/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/services/[slug]","routeRegex":"^\\/services\\/([^/]+?)(?:\\/)?$","allowHeader":[]},"/products/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/products/[slug]","routeRegex":"^\\/products\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"7feaf6614beed10f12f0873dead08381","previewModeSigningKey":"140e9f3d885435adf8c0560a2fa2583fe94fedea1bd7063938b6a8ae53b81f10","previewModeEncryptionKey":"95073285d82149753784a3f5ae5059f0767c6f638631e526b7439510b63268e6"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "80a9aa23b9634f665ed9a26b5f4250d2",
+    "previewModeSigningKey": "1938a05ba332b246c5f17c4426b3e7c7c6b972c561a1c580272a065606711112",
+    "previewModeEncryptionKey": "7d861e553f0b3143776c7b0bf39028eec12f2e920c2bc3aff77cbedbc952738f"
+  }
+}

@@ -7,7 +7,10 @@ const brands = [
     { name: 'Greensense', file: 'greensense.png' },
     { name: 'Exide', file: 'exide-logo.png' },
     { name: 'Luminous', file: 'LuminousLogoBlue.webp' },
-    { name: 'OOJED', file: 'oojed-logo.png' },
+    { name: 'Satvik', file: 'Satvik-logo.png' },
+    { name: 'Fronius', file: 'fronius-logo.webp' },
+    { name: 'Pahal', file: 'pahal-logo.png' },
+    { name: 'Solis', file: 'solis-logo.webp' },
 ];
 
 export default function BrandMarquee() {

@@ -37,21 +37,21 @@ export default function WhyUsPage() {
             We combine practical field engineering with transparent commercial models, so solar projects deliver the savings and uptime you expect. Here’s what sets us apart when you compare EPC and AMC partners.
           </p>
           <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 sm:gap-y-6 lg:gap-x-8">
-            <div className="border-l-2 border-primary pl-4">
-              <dt className="font-semibold text-foreground">100+ sites completed</dt>
-              <dd className="text-sm text-muted-foreground">Across Maharashtra & Goa</dd>
+            <div className="glass border-l-4 border-primary pl-4 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm">
+              <dt className="font-semibold text-white text-lg">100+ sites completed</dt>
+              <dd className="text-sm text-white/80 mt-1">Across Maharashtra & Goa</dd>
             </div>
-            <div className="border-l-2 border-primary pl-4">
-              <dt className="font-semibold text-foreground">80+ sites under active AMC</dt>
-              <dd className="text-sm text-muted-foreground">Preventive maintenance contracts</dd>
+            <div className="glass border-l-4 border-primary pl-4 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm">
+              <dt className="font-semibold text-white text-lg">80+ sites under active AMC</dt>
+              <dd className="text-sm text-white/80 mt-1">Preventive maintenance contracts</dd>
             </div>
-            <div className="border-l-2 border-primary pl-4">
-              <dt className="font-semibold text-foreground">2MW+ total power generated</dt>
-              <dd className="text-sm text-muted-foreground">Rooftop & ground-mount</dd>
+            <div className="glass border-l-4 border-primary pl-4 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm">
+              <dt className="font-semibold text-white text-lg">2MW+ total power generated</dt>
+              <dd className="text-sm text-white/80 mt-1">Rooftop & ground-mount</dd>
             </div>
-            <div className="border-l-2 border-primary pl-4">
-              <dt className="font-semibold text-foreground">100+ satisfied customers</dt>
-              <dd className="text-sm text-muted-foreground">Homes, societies & industries</dd>
+            <div className="glass border-l-4 border-primary pl-4 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm">
+              <dt className="font-semibold text-white text-lg">100+ satisfied customers</dt>
+              <dd className="text-sm text-white/80 mt-1">Homes, societies & industries</dd>
             </div>
           </dl>
         </div>
