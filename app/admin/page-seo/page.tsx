@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { AlertCircle, Save, Eye, Edit3, Trash2 } from 'lucide-react';
+import { FiAlertCircle, FiSave, FiEye, FiEdit2, FiTrash2 } from 'react-icons/fi';
 
 interface UserData {
   id: string;
@@ -234,13 +234,13 @@ export default function PageSeoManagement() {
         {message && (
           <div className={`mb-6 p-4 rounded-md ${message.type === 'error' ? 'border border-red-200 bg-red-50 text-red-800' : 'border border-green-200 bg-green-50 text-green-800'}`}>
             <div className="flex items-center">
-              <AlertCircle className="w-4 h-4 mr-2" />
+              <FiAlertCircle className="w-4 h-4 mr-2" />
               <span>{message.text}</span>
             </div>
           </div>
         )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Page Selection Sidebar */}
         <div className="lg:col-span-1">
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
@@ -265,10 +265,10 @@ export default function PageSeoManagement() {
                       <div className="text-sm opacity-75">{page.route}</div>
                     </div>
                     {pageSeoData[page.route] && (
-                      <Badge variant="secondary" className="text-xs">
-                        <Edit3 className="w-3 h-3 mr-1" />
+                      <span className="text-xs bg-blue-600 text-white px-2 py-1 rounded-full flex items-center gap-1">
+                        <FiEdit2 className="w-3 h-3" />
                         Custom
-                      </Badge>
+                      </span>
                     )}
                   </div>
                 </button>
@@ -282,7 +282,7 @@ export default function PageSeoManagement() {
           <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
             <div className="mb-6">
               <h2 className="flex items-center gap-2 text-white text-xl font-semibold">
-                <Eye className="w-5 h-5" />
+                <FiEye className="w-5 h-5" />
                 SEO Settings for {selectedPage?.name}
               </h2>
               <p className="text-slate-400 mt-1">
@@ -509,7 +509,7 @@ export default function PageSeoManagement() {
                         onClick={deletePageSeo}
                         className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md font-medium transition"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <FiTrash2 className="w-4 h-4" />
                         Delete Custom SEO
                       </button>
                     </div>
@@ -530,12 +530,13 @@ export default function PageSeoManagement() {
                   disabled={saving}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Save className="w-4 h-4" />
+                  <FiSave className="w-4 h-4" />
                   {saving ? 'Saving...' : 'Save SEO Settings'}
                 </button>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
