@@ -24,7 +24,7 @@ export async function GET(
     const { data, error } = await supabase
       .from('blogs')
       .select(
-        '*, author:authors!blogs_author_id_fkey(id, name, avatar_url, bio), category:blog_categories(name, slug), reviewer:authors!blogs_reviewed_by_fkey(id, name)'
+        '*, category:blog_categories(name, slug)'
       )
       .eq('id', id)
       .single();
