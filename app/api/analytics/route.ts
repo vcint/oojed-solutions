@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
     // Get blog stats
     const { data: blogs, error: blogsError } = await supabase
       .from('blogs')
-      .select('status, published_at, author:authors(name), category:blog_categories(name)')
+      .select('title, status, published_at, author:authors(name), category:blog_categories(name)')
       .order('created_at', { ascending: false });
 
     if (blogsError) throw blogsError;
@@ -38,11 +38,11 @@ export async function GET(req: NextRequest) {
     const pendingBlogs = blogs.filter(b => b.status === 'pending_approval').length;
 
     // Get recent blogs
-    const recentBlogs = blogs.slice(0, 5).map(blog => ({
+    const recentBlogs = blogs.slice(0, 5).map((blog: any) => ({
       title: blog.title || 'Untitled',
       status: blog.status,
-      author: blog.author?.name || 'Unknown',
-      category: blog.category?.name || 'Uncategorized',
+      author: (blog.author as any[])?.[0]?.name || 'Unknown',
+      category: (blog.category as any[])?.[0]?.name || 'Uncategorized',
       published_at: blog.published_at,
     }));
 
