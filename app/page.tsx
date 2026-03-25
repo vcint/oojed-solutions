@@ -1,4 +1,3 @@
-// Nav is provided by the RootLayout
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,6 +6,7 @@ import Hero from "@/components/Hero";
 import data from "@/data/site.json";
 import Button from "@/components/Button";
 import dynamic from 'next/dynamic';
+import { generatePageMetadata } from "@/lib/seo";
 
 const BrandMarquee = dynamic(() => import("@/components/BrandMarquee"), { loading: () => <div className="h-24 w-full bg-secondary/10" /> });
 const Products = dynamic(() => import("@/components/Products"), { loading: () => <div className="h-96" /> });
@@ -28,7 +28,6 @@ const baseKeywordSet = new Set<string>([
   'solar power plant EPC Maharashtra',
   'LED street light supplier Pune',
   'solar AMC service provider',
-  'solar energy solutions Pune',
 ]);
 
 const addKeyword = (value?: string | null) => {
@@ -55,34 +54,9 @@ const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
 const homeTitle = 'OOJED: Trusted Solar Solutions in Maharashtra (11+ Years)';
 const homeDescription = 'OOJED delivers reliable solar water heaters, rooftop solar & LED lighting across Maharashtra. 11+ years of honest service & fair pricing. Get a free quote.';
 
-export const generateMetadata = (): Metadata => ({
-  title: homeTitle,
-  description: homeDescription,
-  keywords: homeKeywords,
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: homeTitle,
-    description: homeDescription,
-    url: siteUrl,
-    type: 'website',
-    images: [
-      {
-        url: heroImageAbsolute,
-        width: 1600,
-        height: 900,
-        alt: 'OOJED solar installation across Maharashtra',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: homeTitle,
-    description: homeDescription,
-    images: [heroImageAbsolute],
-  },
-});
+export const generateMetadata = (): Metadata => {
+  return generatePageMetadata('/', homeTitle, homeDescription);
+};
 
 const primaryPhone = Array.isArray((data as any).contacts?.phones)
   ? (data as any).contacts?.phones?.[0]

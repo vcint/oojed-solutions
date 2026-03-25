@@ -94,6 +94,7 @@ export default function Nav() {
     { id: '/about', label: 'About' },
     { id: '/products', label: 'Products' },
     { id: '/services', label: 'Services' },
+    { id: '/blog', label: 'Blog' },
     { id: '/why-us', label: 'Why Us' },
     { id: '/contact', label: 'Contact' },
   ];
@@ -139,7 +140,9 @@ export default function Nav() {
           </div>
 
           <div className="hidden md:flex items-center gap-1 lg:gap-2">
-            {sections.map(({ id, label }) => link(id, label))}
+            {sections.map(({ id, label }) => (
+              <span key={id}>{link(id, label)}</span>
+            ))}
           </div>
 
           <div className="hidden md:flex items-center gap-3 pl-4 border-l border-border">

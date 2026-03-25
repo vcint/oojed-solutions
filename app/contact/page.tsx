@@ -1,11 +1,9 @@
 import data from '@/data/site.json';
 import Contact from '@/components/Contact';
+import type { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Contact - OOJED',
-  description: data.contacts ? `Contact OOJED - ${data.contacts.email}` : 'Contact OOJED',
-  alternates: { canonical: 'https://oojed.com/contact' },
-};
+export const metadata: Metadata = generatePageMetadata('/contact', 'Contact OOJED - Get Solar Solutions Quote', data.contacts ? `Contact OOJED - ${data.contacts.email}` : 'Contact OOJED for solar water heaters, pumps, and power solutions');
 
 export default function ContactPage() {
   return (

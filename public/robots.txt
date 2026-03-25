@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/auth/
+Disallow: /api/blogs/
+
+# Allow public blog pages
+Allow: /blog/
+Allow: /blog
+
+# Sitemap
+Sitemap: https://oojed.com/sitemap.xml

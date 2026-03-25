@@ -1,12 +1,10 @@
 import data from '@/data/site.json';
 import TrustBar from '@/components/TrustBar';
 import Button from '@/components/Button';
+import type { Metadata } from 'next';
+import { generatePageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'About OOJED',
-  description: data.about ? String(data.about).slice(0, 160) : 'About OOJED',
-  alternates: { canonical: 'https://oojed.com/about' },
-};
+export const metadata: Metadata = generatePageMetadata('/about', 'About OOJED - Solar Solutions Expert', data.about ? String(data.about).slice(0, 160) : 'About OOJED - Leading solar solutions provider in Maharashtra');
 
 const heroMetrics = [
   { value: '11+', label: 'Years in clean energy' },

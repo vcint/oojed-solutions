@@ -26,3 +26,32 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+*.vim
+.DS_Store
+Thumbs.db
+
+# build and dist
+dist/
+build/
+
+# cache
+.eslintcache
+.turbo/
+
+# certificates and keys
+*.pem
+*.key
+*.crt
+
+# test coverage
+coverage/
+.nyc_output/
+
+# OS files
+*.log
