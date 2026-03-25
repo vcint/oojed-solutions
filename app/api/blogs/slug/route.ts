@@ -15,9 +15,7 @@ export async function GET(req: NextRequest) {
 
     const { data, error } = await supabase
       .from('blogs')
-      .select(
-        '*, category:blog_categories(name, slug)'
-      )
+      .select('*')
       .eq('slug', slug)
       .eq('status', 'published')
       .single();

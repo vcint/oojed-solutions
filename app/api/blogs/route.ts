@@ -126,9 +126,7 @@ export async function GET(req: NextRequest) {
 
     let query = supabase
       .from('blogs')
-      .select(
-        '*, category:blog_categories(name, slug)'
-      );
+      .select('*');
 
     if (status === 'published') {
       // Only published blogs are visible to public

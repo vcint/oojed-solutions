@@ -23,9 +23,7 @@ export async function GET(
 
     const { data, error } = await supabase
       .from('blogs')
-      .select(
-        '*, category:blog_categories(name, slug)'
-      )
+      .select('*')
       .eq('id', id)
       .single();
 

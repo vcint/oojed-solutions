@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     // Get blog stats
     const { data: blogs, error: blogsError } = await supabase
       .from('blogs')
-      .select('title, status, published_at, author:authors(name), category:blog_categories(name)')
+      .select('title, status, published_at, author_id, category_id')
       .order('created_at', { ascending: false });
 
     if (blogsError) throw blogsError;
@@ -43,8 +43,8 @@ export async function GET(req: NextRequest) {
     const recentBlogs = blogs.slice(0, 5).map((blog: any) => ({
       title: blog.title || 'Untitled',
       status: blog.status,
-      author: (blog.author as any[])?.[0]?.name || 'Unknown',
-      category: (blog.category as any[])?.[0]?.name || 'Uncategorized',
+      author: 'Unknown',
+      category: 'Uncategorized',
       published_at: blog.published_at,
     }));
 
