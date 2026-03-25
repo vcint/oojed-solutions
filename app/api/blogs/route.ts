@@ -170,7 +170,35 @@ export async function GET(req: NextRequest) {
 
     if (error) throw error;
 
-    return NextResponse.json(data);
+    // Enrich blogs with author and category data
+    const blogsWithMetadata = await Promise.all(
+      (data || []).map(async (blog: any) => {
+        let author = null;
+        let category = null;
+
+        if (blog.author_id) {
+          const { data: authorData } = await supabase
+            .from('authors')
+            .select('id, name, bio, avatar_url')
+            .eq('id', blog.author_id)
+            .single();
+          author = authorData;
+        }
+
+        if (blog.category_id) {
+          const { data: categoryData } = await supabase
+            .from('blog_categories')
+            .select('id, name, slug')
+            .eq('id', blog.category_id)
+            .single();
+          category = categoryData;
+        }
+
+        return { ...blog, author, category };
+      })
+    );
+
+    return NextResponse.json(blogsWithMetadata);
   } catch (error) {
     console.error('Blog fetch error:', error);
     return NextResponse.json(

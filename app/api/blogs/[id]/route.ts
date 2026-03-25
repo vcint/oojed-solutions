@@ -34,6 +34,28 @@ export async function GET(
       );
     }
 
+    // Fetch author data
+    let blogAuthor = null;
+    if (data.author_id) {
+      const { data: authorData } = await supabase
+        .from('authors')
+        .select('id, name, bio, avatar_url')
+        .eq('id', data.author_id)
+        .single();
+      blogAuthor = authorData;
+    }
+
+    // Fetch category data
+    let category = null;
+    if (data.category_id) {
+      const { data: categoryData } = await supabase
+        .from('blog_categories')
+        .select('id, name, slug')
+        .eq('id', data.category_id)
+        .single();
+      category = categoryData;
+    }
+
     // Check visibility
     if (data.status === 'published') {
       // Published blogs are public
@@ -63,7 +85,7 @@ export async function GET(
         .eq('id', id);
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, author: blogAuthor, category });
   } catch (error) {
     console.error('Blog fetch error:', error);
     return NextResponse.json(

@@ -62,21 +62,21 @@ export default function BlogPostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
-        <div className="text-white text-2xl">Loading...</div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-foreground text-2xl">Loading...</div>
       </div>
     );
   }
 
   if (error || !blog) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col items-center justify-center">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">Blog Not Found</h1>
-          <p className="text-xl text-slate-400 mb-8">{error}</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">Blog Not Found</h1>
+          <p className="text-xl text-muted-foreground mb-8">{error}</p>
           <Link
             href="/blog"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition"
           >
             Back to Blogs
           </Link>
@@ -86,7 +86,7 @@ export default function BlogPostPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-background">
       {/* SEO Meta Tags */}
       <head>
         <title>{blog.seo_title || blog.title}</title>
@@ -108,7 +108,7 @@ export default function BlogPostPage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
         </div>
       )}
 
@@ -117,33 +117,33 @@ export default function BlogPostPage() {
         {/* Header */}
         <header className="mb-12">
           {blog.category && (
-            <div className="inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded-full mb-4">
+            <div className="inline-block bg-primary text-primary-foreground text-sm px-4 py-2 rounded-full mb-4">
               {blog.category.name}
             </div>
           )}
-          <h1 className="text-5xl font-bold text-white mb-6">{blog.title}</h1>
+          <h1 className="text-5xl font-bold text-foreground mb-6">{blog.title}</h1>
           
           {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-6 text-slate-400 border-t border-b border-slate-700 py-6">
+          <div className="flex flex-wrap items-center gap-6 text-muted-foreground border-t border-b border-border py-6">
             <div className="flex items-center gap-4">
-              {blog.author.avatar_url && (
+              {blog.author?.avatar_url && (
                 <Image
                   src={blog.author.avatar_url}
-                  alt={blog.author.name}
+                  alt={blog.author?.name || 'Author'}
                   width={40}
                   height={40}
                   className="rounded-full"
                 />
               )}
               <div>
-                <p className="font-semibold text-white">{blog.author.name}</p>
-                {blog.author.bio && (
-                  <p className="text-sm text-slate-400">{blog.author.bio}</p>
+                <p className="font-semibold text-foreground">{blog.author?.name || 'Unknown Author'}</p>
+                {blog.author?.bio && (
+                  <p className="text-sm text-muted-foreground">{blog.author.bio}</p>
                 )}
               </div>
             </div>
             <div className="text-sm">
-              <p className="text-slate-400">
+              <p className="text-muted-foreground">
                 {new Date(blog.published_at).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -152,12 +152,12 @@ export default function BlogPostPage() {
               </p>
             </div>
             <div className="text-sm">
-              <p className="text-slate-400">
+              <p className="text-muted-foreground">
                 {blog.reading_time_minutes} min read
               </p>
             </div>
             <div className="text-sm">
-              <p className="text-slate-400">
+              <p className="text-muted-foreground">
                 {blog.view_count} views
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function BlogPostPage() {
               <Link
                 key={tag}
                 href={`/blog?tags=${tag}`}
-                className="inline-block bg-slate-700 text-slate-200 px-3 py-1 rounded-full text-sm hover:bg-blue-600 hover:text-white transition"
+                className="inline-block bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm hover:bg-primary hover:text-primary-foreground transition"
               >
                 #{tag}
               </Link>
@@ -180,24 +180,24 @@ export default function BlogPostPage() {
         )}
 
         {/* Article Content */}
-        <div className="prose prose-invert max-w-none mb-12">
+        <div className="prose prose-invert dark:prose-invert max-w-none mb-12 prose-headings:text-foreground prose-a:text-primary">
           <div
-            className="text-slate-300 text-lg leading-relaxed"
+            className="text-foreground/90 text-lg leading-relaxed"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
         </div>
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg p-8 text-center mb-12">
-          <h3 className="text-2xl font-bold text-white mb-4">
+        <div className="bg-gradient-to-r from-primary to-primary/80 rounded-lg p-8 text-center mb-12">
+          <h3 className="text-2xl font-bold text-primary-foreground mb-4">
             Ready to go solar?
           </h3>
-          <p className="text-blue-100 mb-6">
+          <p className="text-primary-foreground/90 mb-6">
             Contact us today to learn how solar energy can save you money
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
+            className="inline-block bg-background text-primary px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition"
           >
             Get in Touch
           </Link>
@@ -206,7 +206,7 @@ export default function BlogPostPage() {
         {/* Back Button */}
         <Link
           href="/blog"
-          className="inline-block text-blue-400 hover:text-blue-300 transition"
+          className="inline-block text-primary hover:text-primary/80 transition"
         >
           ← Back to All Blogs
         </Link>
