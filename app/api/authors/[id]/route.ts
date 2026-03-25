@@ -13,7 +13,7 @@ function getAuthorFromCookie(req: NextRequest): { authorId: string; role: string
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const author = getAuthorFromCookie(req);
 
@@ -26,6 +26,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     const body = await req.json();
     const { is_approved, role } = body;
+    const { id } = await params;
 
     const updates: any = {};
     if (typeof is_approved === 'boolean') updates.is_approved = is_approved;
@@ -34,7 +35,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const { data, error } = await supabase
       .from('authors')
       .update(updates)
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 

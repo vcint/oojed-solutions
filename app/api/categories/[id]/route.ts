@@ -13,7 +13,7 @@ function getAuthorFromCookie(req: NextRequest): { authorId: string; role: string
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const author = getAuthorFromCookie(req);
 
@@ -26,6 +26,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     const body = await req.json();
     const { name, slug, description } = body;
+    const { id } = await params;
 
     if (!name || !slug) {
       return NextResponse.json(
@@ -37,7 +38,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     const { data, error } = await supabase
       .from('blog_categories')
       .update({ name, slug, description })
-      .eq('id', params.id)
+      .eq('id', id)
       .select()
       .single();
 

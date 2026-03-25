@@ -39,10 +39,11 @@ function writePageSeoSettings(settings: any) {
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { route: string } }
+  { params }: { params: Promise<{ route: string }> }
 ) {
   try {
     const author = getAuthorFromCookie(req);
+    const { route } = await params;
 
     if (!author || author.role !== 'admin') {
       return NextResponse.json(
@@ -51,13 +52,13 @@ export async function GET(
       );
     }
 
-    const route = decodeURIComponent(params.route);
+    const decodedRoute = decodeURIComponent(route);
     const settings = readPageSeoSettings();
 
-    const routeSeo = settings[route] || null;
+    const routeSeo = settings[decodedRoute] || null;
 
     return NextResponse.json({
-      route,
+      route: decodedRoute,
       seoData: routeSeo
     });
   } catch (error) {
