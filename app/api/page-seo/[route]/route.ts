@@ -72,10 +72,11 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { route: string } }
+  { params }: { params: Promise<{ route: string }> }
 ) {
   try {
     const author = getAuthorFromCookie(req);
+    const { route } = await params;
 
     if (!author || author.role !== 'admin') {
       return NextResponse.json(
@@ -84,7 +85,7 @@ export async function PUT(
       );
     }
 
-    const route = decodeURIComponent(params.route);
+    const decodedRoute = decodeURIComponent(route);
     const body = await req.json();
     const { seoData } = body;
 
@@ -96,7 +97,7 @@ export async function PUT(
     }
 
     const settings = readPageSeoSettings();
-    settings[route] = {
+    settings[decodedRoute] = {
       ...seoData,
       updatedAt: new Date().toISOString(),
       updatedBy: author.authorId
@@ -106,7 +107,7 @@ export async function PUT(
 
     return NextResponse.json({
       success: true,
-      message: `SEO settings updated for route: ${route}`
+      message: `SEO settings updated for route: ${decodedRoute}`
     });
   } catch (error) {
     console.error('Error updating page SEO settings:', error);
@@ -119,10 +120,11 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { route: string } }
+  { params }: { params: Promise<{ route: string }> }
 ) {
   try {
     const author = getAuthorFromCookie(req);
+    const { route } = await params;
 
     if (!author || author.role !== 'admin') {
       return NextResponse.json(
@@ -131,16 +133,16 @@ export async function DELETE(
       );
     }
 
-    const route = decodeURIComponent(params.route);
+    const decodedRoute = decodeURIComponent(route);
     const settings = readPageSeoSettings();
 
-    if (settings[route]) {
-      delete settings[route];
+    if (settings[decodedRoute]) {
+      delete settings[decodedRoute];
       writePageSeoSettings(settings);
 
       return NextResponse.json({
         success: true,
-        message: `SEO settings deleted for route: ${route}`
+        message: `SEO settings deleted for route: ${decodedRoute}`
       });
     } else {
       return NextResponse.json(

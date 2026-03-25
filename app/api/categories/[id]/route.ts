@@ -54,9 +54,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const author = getAuthorFromCookie(req);
+    const { id } = await params;
 
     if (!author || author.role !== 'admin') {
       return NextResponse.json(
@@ -69,12 +70,12 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     await supabase
       .from('blogs')
       .update({ category_id: null })
-      .eq('category_id', params.id);
+      .eq('category_id', id);
 
     const { error } = await supabase
       .from('blog_categories')
       .delete()
-      .eq('id', params.id);
+      .eq('id', id);
 
     if (error) throw error;
 
