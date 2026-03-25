@@ -1,6 +1,8 @@
 import { supabase } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 function getAuthorFromCookie(req: NextRequest): { authorId: string; role: string } | null {
   const sessionToken = req.cookies.get('author_session')?.value;
   if (!sessionToken) return null;
