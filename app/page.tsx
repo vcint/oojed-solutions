@@ -349,15 +349,15 @@ export default function HomePage() {
                 },
                 {
                   city: 'Pimpri-Chinchwad',
-                  focus: 'Industrial solar EPC, solar pumps & institutional AMC contracts',
+                  focus: 'Solar water heaters, rooftop solar & solar pumps across residential and commercial',
                   areas: 'Wakad, Aundh, Pimpri, Nigdi, Ravet, Bhosari & surrounding',
-                  keywords: 'Solar Pimpri Chinchwad • Solar pump PCMC • Industrial solar EPC'
+                  keywords: 'Solar Pimpri Chinchwad • Solar pump PCMC • Rooftop solar EPC'
                 },
                 {
                   city: 'Lonavala',
-                  focus: 'Resort & holiday home solar solutions with hill-specific design',
-                  areas: 'Lonavala, Khandala & nearby hill stations',
-                  keywords: 'Solar Lonavala • Monsoon-rated solar systems • Hill station solar'
+                  focus: 'Solar water heaters, rooftop solar and solar pumps with hill-area expertise',
+                  areas: 'Lonavala, Khandala & nearby areas',
+                  keywords: 'Solar Lonavala • Monsoon-rated solar systems • Solar Khandala'
                 },
               ].map((item) => (
                 <Link key={item.city} href={`/locations/${item.city.toLowerCase()}`} className="group rounded-xl border border-border bg-white dark:bg-[#0f1f36] p-6 shadow-md hover:shadow-lg hover:border-primary/50 transition-all">

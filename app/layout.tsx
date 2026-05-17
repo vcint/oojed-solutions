@@ -24,7 +24,7 @@ const metadataBaseUrl = (() => {
 })();
 const siteOrigin = metadataBaseUrl.origin;
 const defaultTitle = 'OOJED | Solar & LED Specialists';
-const defaultDescription = 'OOJED sources, supplies and installs solar water heaters, rooftop solar plants, solar pumps and LED lighting projects across Maharashtra, with in-house fabrication limited to spare parts and BOS assemblies.';
+const defaultDescription = 'OOJED sources, supplies and installs solar water heaters, rooftop solar plants, solar pumps and LED lighting projects across Pune, Pimpri Chinchwad, Lonavala and nearby areas, with in-house fabrication limited to spare parts and BOS assemblies.';
 const ogImageUrl = new URL('/10.webp', metadataBaseUrl).toString();
 
 const keywordSet = new Set<string>();
@@ -81,7 +81,7 @@ const organizationJsonLd = {
   address: {
     "@type": "PostalAddress",
     streetAddress: (site as any).contacts?.puneOffice || undefined,
-    addressLocality: "Pune",
+    addressLocality: "Pimpri-Chinchwad",
     addressRegion: "Maharashtra",
     postalCode: "411033",
     addressCountry: "IN",

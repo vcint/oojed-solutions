@@ -30,7 +30,7 @@ const slides = [
     img: "/13.webp",
     colorA: "#F7F9FC",
     colorB: "#F0F6FB",
-    alt: "LED street lighting project installed by OOJED for municipal roads in Maharashtra",
+    alt: "LED outdoor lighting system installed by OOJED for industrial and commercial applications",
   },
 ];
 

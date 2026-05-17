@@ -3,28 +3,25 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Service Areas — OOJED',
-  description: 'Cities we serve in Maharashtra for solar water heaters, pumps, LED lighting, and installation/AMC services.',
+  description: 'Service areas focused on Pune, Pimpri Chinchwad, Lonavala and nearby localities for solar water heaters, pumps, LED lighting, and installation/AMC services.',
   alternates: { canonical: 'https://oojed.com/locations' },
 };
 
 export default function LocationsIndex() {
   const cities: string[] = Array.isArray((site as any).cities) ? (site as any).cities : [];
   const toSlug = (s: string) => s.toLowerCase().replace(/\s+/g, '-');
-  return (
-    <main className="container py-12">
-      <h1 className="text-3xl font-bold">Service Areas in Maharashtra</h1>
-      <p className="mt-3 text-slate-700">We serve customers across Maharashtra. Explore city-specific pages below.</p>
-      <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {cities.map((c) => (
-          <li key={c}>
-            <Link href={`/locations/${toSlug(c)}`} className="block rounded-md border p-4 hover:bg-slate-50">
-              <span className="font-semibold">{c}</span>
-              <span className="block text-sm text-slate-600">Solar heaters, pumps, LED lighting, installation & AMC</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
-  );
+  
+  // Define primary cities that get featured
+  const primaryCities = ['Pune', 'Pimpri Chinchwad', 'Lonavala'];
+  const nearbyAreas = cities.filter(c => !primaryCities.includes(c));
+  
+  // Description for primary cities
+  const primaryDescriptions: Record<string, string> = {
+    'Pune': 'Solar water heaters (ETC/FPC), rooftop solar plants, solar pumps & LED lighting. Fast survey, transparent pricing.',
+    'Pimpri Chinchwad': 'Industrial solar EPC, solar pumps for agriculture, street LED projects & AMC across PCMC.',
+    'Lonavala': 'Resort & holiday home solar solutions, monsoon-resistant installations, hill-station expertise.',
+  };
+
+  return (\n    <main className=\"container py-12\">\n      <h1 className=\"text-3xl md:text-4xl font-bold text-slate-900 dark:text-white\">Solar Solutions in Pune, Pimpri-Chinchwad & Lonavala</h1>\n      <p className=\"mt-4 max-w-3xl text-slate-700 dark:text-slate-300 leading-relaxed\">\n        OOJED specializes in solar water heaters, rooftop solar power plants, solar water pumps and LED street lighting across Pune metropolitan area and Lonavala. \n        With 11+ years of local expertise, we deliver professional site surveys, design, installation, commissioning and annual maintenance contracts (AMC) for residential, \n        commercial and industrial projects.\n      </p>\n\n      {/* Featured Cities Section */}\n      <section className=\"mt-10\">\n        <h2 className=\"text-2xl font-bold text-slate-900 dark:text-white mb-6\">Primary Service Areas</h2>\n        <div className=\"grid grid-cols-1 md:grid-cols-3 gap-4 mb-8\">\n          {primaryCities.map((city) => (\n            <Link \n              key={city}\n              href={`/locations/${toSlug(city)}`} \n              className=\"group block rounded-lg border-2 border-blue-200 dark:border-blue-900 bg-gradient-to-br from-blue-50 to-white dark:from-[#102a6d]/30 dark:to-[#0b1729] p-6 hover:shadow-lg hover:border-blue-500 transition-all\"\n            >\n              <h3 className=\"text-xl font-bold text-blue-900 dark:text-blue-200 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition\">\n                {city}\n              </h3>\n              <p className=\"mt-3 text-sm text-slate-700 dark:text-slate-300 leading-relaxed\">\n                {primaryDescriptions[city]}\n              </p>\n              <div className=\"mt-4 flex items-center text-blue-600 dark:text-blue-400 font-semibold text-sm group-hover:translate-x-1 transition\">\n                View details →\n              </div>\n            </Link>\n          ))}\n        </div>\n      </section>\n\n      {/* Nearby Areas Section */}\n      <section className=\"mt-12\">\n        <h2 className=\"text-2xl font-bold text-slate-900 dark:text-white mb-4\">Nearby Areas & Neighborhoods</h2>\n        <p className=\"text-slate-700 dark:text-slate-300 mb-6\">\n          We also serve these neighborhoods and surrounding towns with the same professional service:\n        </p>\n        <ul className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3\">\n          {nearbyAreas.map((c) => (\n            <li key={c}>\n              <Link \n                href={`/locations/${toSlug(c)}`} \n                className=\"block rounded-md border border-slate-200 dark:border-white/10 bg-white/50 dark:bg-white/5 p-4 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-slate-400 dark:hover:border-white/20 transition\"\n              >\n                <span className=\"font-semibold text-slate-900 dark:text-white\">{c}</span>\n                <span className=\"block text-xs text-slate-600 dark:text-slate-400 mt-1\">Solar water heaters • Pumps • LED lighting • AMC</span>\n              </Link>\n            </li>\n          ))}\n        </ul>\n      </section>\n\n      {/* Trust & Coverage Info */}\n      <section className=\"mt-12 rounded-lg border border-blue-200 dark:border-blue-900 bg-gradient-to-r from-blue-50 to-blue-100/50 dark:from-[#102a6d]/20 dark:to-[#0b1729]/20 p-6\">\n        <h2 className=\"text-lg font-bold text-slate-900 dark:text-white\">Why Expand to These Cities?</h2>\n        <ul className=\"mt-4 space-y-2 text-sm text-slate-700 dark:text-slate-300\">\n          <li>✓ <strong>Local teams</strong> handle surveys, installation and emergency support across all neighborhoods</li>\n          <li>✓ <strong>Same-day surveys</strong> available in core Pune areas; 24-48 hour response for outlying towns</li>\n          <li>✓ <strong>Climate expertise:</strong> We size systems for Pune's hard water, Pimpri's industrial density, and Lonavala's monsoon patterns</li>\n          <li>✓ <strong>Active AMC:</strong> Quarterly maintenance, emergency repair callouts, and spare parts stocked locally</li>\n          <li>✓ <strong>Subsidy support:</strong> We assist with Maharashtra state solar incentives and net-metering approvals</li>\n        </ul>\n      </section>\n    </main>\n  );
 }
 

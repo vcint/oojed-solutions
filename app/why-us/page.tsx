@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Why Choose OOJED — Experience, Quality & Support',
-  description: 'Discover why businesses and housing societies across Maharashtra trust OOJED for solar water heating, rooftop solar, pumps and LED lighting projects.',
+  description: 'Discover why businesses across Maharashtra trust OOJED for solar water heating, rooftop solar, pumps and LED lighting projects.',
   alternates: { canonical: 'https://oojed.com/why-us' },
 };
 
@@ -15,7 +15,7 @@ const differentiators = [
   },
   {
     title: 'Predictable project delivery',
-    body: 'Dedicated project managers, photo-logged progress, safety protocols and municipal/DISCOM coordination keep schedules on track.',
+    body: 'Dedicated project managers, photo-logged progress, safety protocols and regulatory compliance coordination keep schedules on track.',
   },
   {
     title: 'Lifecycle care & AMC',
@@ -70,7 +70,7 @@ export default function WhyUsPage() {
 
       <section className="container py-16 grid gap-10 lg:grid-cols-2 text-slate-700 dark:text-slate-300">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Trusted by housing societies, MSMEs and civic bodies</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Trusted by businesses across Maharashtra</h2>
           <p className="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
             {data?.about}
           </p>

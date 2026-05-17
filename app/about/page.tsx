@@ -14,7 +14,7 @@ const heroMetrics = [
 
 const positioningStatements = [
   'Retailer and distributor of BIS-compliant solar water heating, rooftop PV, pumping and LED lighting portfolios.',
-  'Regional fulfilment hubs in Pune, Aurangabad, Nashik and Kolhapur ensure responsive supply and service.',
+  'Regional fulfilment from Pune and Pimpri Chinchwad keeps supply and service responsive for nearby areas.',
   'In-house fabrication of critical spare parts and BOS assemblies keeps downtime under tight control.',
 ];
 
@@ -44,7 +44,7 @@ const lifecyclePillars = [
   {
     title: 'Lifecycle care',
     detail:
-      'AMC command centre manages preventive visits, remote diagnostics, stocked spares and emergency callouts across Maharashtra.',
+      'AMC command centre manages preventive visits, remote diagnostics, stocked spares and emergency callouts across Pune, Pimpri Chinchwad and Lonavala.',
   },
 ];
 
@@ -82,7 +82,7 @@ const milestones = [
   },
   {
     year: '2019',
-    detail: 'Launch of LED street and high-mast lighting vertical supporting multi-city municipal programmes.',
+    detail: 'Expanded into LED street and high-mast lighting systems for industrial and outdoor applications.',
   },
   {
     year: '2021',
@@ -90,15 +90,14 @@ const milestones = [
   },
   {
     year: '2024',
-    detail: 'Crossed 2+ MW delivered with 80+ active AMC sites across Maharashtra and neighbouring states.',
+    detail: 'Crossed 2+ MW delivered with 80+ active AMC sites across Pune, Pimpri Chinchwad, Lonavala and nearby areas.',
   },
 ];
 
 const coverageHighlights = [
-  { label: 'Pune HQ', detail: 'Central operations, warehousing and engineering desk.' },
-  { label: 'Aurangabad hub', detail: 'Quick-turnaround spare-part fabrication and AMC dispatch.' },
-  { label: 'Nashik outpost', detail: 'Industrial and hospitality servicing for the Nashik belt.' },
-  { label: 'Kolhapur crew', detail: 'Dedicated support for cooperatives and agro installations.' },
+  { label: 'Pune headquarters', detail: 'Central operations, warehousing and engineering desk.' },
+  { label: 'Pimpri-Chinchwad branch', detail: 'Service and support for PCMC and surrounding areas.' },
+  { label: 'Lonavala service', detail: 'Support for hill-area installations and maintenance.' },
 ];
 
 const verticals = [
