@@ -89,7 +89,7 @@ export async function generateMetadata({ params, searchParams }: MetadataParams)
   // Ensure the brand name is present in page titles for consistent SEO
   let title = fillCity(svc.metaTitle || svc.name, cityForMeta);
   if (!/oojed/i.test(title)) {
-    title = `${title} — OOJED`;
+    title = `${title} - OOJED`;
   }
   const description = fillCity(svc.metaDescription || svc.short || svc.long, cityForMeta);
   const url = `https://oojed.com/services/${encodeURIComponent(rawSlug)}`;
@@ -137,7 +137,7 @@ async function getImagesFor(base: 'products' | 'services', slug: string) {
   return [];
 }
 
-// Do not declare an explicit PageProps type here — Next.js inserts a build-time
+// Do not declare an explicit PageProps type here - Next.js inserts a build-time
 // compatibility check that can be brittle across versions. Accept a generic
 // props object and resolve `params`/`searchParams` whether they're Promises
 // (as some Next.js runtimes provide) or plain objects.
@@ -281,9 +281,9 @@ export default async function ServicePage(props: any) {
           <section className="glass-panel mt-8 p-6 space-y-3">
             <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Related product categories</h2>
             <ul className="mt-2 space-y-2 text-sm text-slate-700 dark:text-slate-200">
-              <li><Link href={`/products/solar-water-heaters?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Heaters — ETC/FPC systems with installation &amp; AMC</Link></li>
-              <li><Link href={`/products/led-lighting?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">LED Street &amp; Flood Lighting — IP65, surge protected</Link></li>
-              <li><Link href={`/products/solar-pumps?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Pumps — correctly sized head/flow with MPPT/VFD</Link></li>
+              <li><Link href={`/products/solar-water-heaters?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Heaters - ETC/FPC systems with installation &amp; AMC</Link></li>
+              <li><Link href={`/products/led-lighting?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">LED Street &amp; Flood Lighting - IP65, surge protected</Link></li>
+              <li><Link href={`/products/solar-pumps?city=${encodeURIComponent(citySlug)}`} className="text-[#0f3fa6] hover:underline dark:text-white dark:hover:text-[#84c2ff]">Solar Water Pumps - correctly sized head/flow with MPPT/VFD</Link></li>
             </ul>
           </section>
 

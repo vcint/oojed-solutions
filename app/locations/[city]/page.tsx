@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: any }) {
   const cityName = fromSlug(params.city);
   if (!cityName) return { title: 'City Not Found | OOJED' };
 
-  const title = `Solar Solutions in ${cityName} — Heaters, Pumps, LED Lighting | OOJED`;
+  const title = `Solar Solutions in ${cityName} - Heaters, Pumps, LED Lighting | OOJED`;
   const description = `OOJED serves ${cityName} with solar water heaters (ETC/FPC), rooftop solar, solar pumps, LED street/flood lighting, installation, repair and AMC.`;
   const url = `https://oojed.com/locations/${encodeURIComponent(params.city)}`;
   return {
@@ -120,10 +120,10 @@ export default function CityPage({ params }: { params: any }) {
       <section className="mt-8">
         <h2 className="text-xl font-semibold">Popular categories</h2>
         <ul className="list-disc list-inside mt-2 space-y-1">
-          <li><Link href="/products/solar-water-heaters" className="text-blue-700 hover:underline">Solar Water Heaters — ETC/FPC systems with installation & AMC</Link></li>
-          <li><Link href="/products/solar-power-plants" className="text-blue-700 hover:underline">Rooftop Solar Power Plants — on‑grid/hybrid with net‑metering</Link></li>
-          <li><Link href="/products/solar-pumps" className="text-blue-700 hover:underline">Solar Water Pumps — sized to head/flow with MPPT/VFD</Link></li>
-          <li><Link href="/products/led-lighting" className="text-blue-700 hover:underline">LED Street & Flood Lighting — IP65, surge protected</Link></li>
+          <li><Link href="/products/solar-water-heaters" className="text-blue-700 hover:underline">Solar Water Heaters - ETC/FPC systems with installation & AMC</Link></li>
+          <li><Link href="/products/solar-power-plants" className="text-blue-700 hover:underline">Rooftop Solar Power Plants - on-grid/hybrid with net-metering</Link></li>
+          <li><Link href="/products/solar-pumps" className="text-blue-700 hover:underline">Solar Water Pumps - sized to head/flow with MPPT/VFD</Link></li>
+          <li><Link href="/products/led-lighting" className="text-blue-700 hover:underline">LED Street & Flood Lighting - IP65, surge protected</Link></li>
         </ul>
       </section>
 
@@ -230,7 +230,7 @@ export default function CityPage({ params }: { params: any }) {
           return (
             <>
               <section className="mt-8" aria-labelledby="local-faqs">
-                <h2 id="local-faqs" className="text-xl font-semibold">Frequently asked questions — {cityName}</h2>
+                <h2 id="local-faqs" className="text-xl font-semibold">Frequently asked questions - {cityName}</h2>
                 <div className="mt-4">
                   <FaqAccordion items={faqs.map((f) => ({ q: f.q, a: f.a }))} idPrefix={`local-faq-${cityName.replace(/\s+/g, '-').toLowerCase()}`} />
                 </div>

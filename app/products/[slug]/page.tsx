@@ -114,10 +114,10 @@ export async function generateMetadata({ params, searchParams }: MetadataParams)
     : DEFAULT_CITY;
 
   const cat = (data as any).categories?.find((c: any) => buildSlug(String(c.slug || c.name)) === slug);
-  if (!cat) return { title: 'Product — OOJED' } as any;
+  if (!cat) return { title: 'Product - OOJED' } as any;
 
   // Use the actual city from URL in meta tags
-  const title = fillCity(cat.metaTitle || `${cat.name} — OOJED`, cityForMeta);
+  const title = fillCity(cat.metaTitle || `${cat.name} - OOJED`, cityForMeta);
   const description = fillCity(cat.metaDescription || cat.desc || cat.long || `Explore ${cat.name} from OOJED.`, cityForMeta);
   const url = `https://oojed.com/products/${encodeURIComponent(slug)}`;
   const keywords = Array.isArray(cat.keywords) ? cat.keywords.map((k: string) => fillCity(k, cityForMeta)) : undefined;

@@ -213,7 +213,7 @@ export async function GET(req: Request) {
       }
     }
 
-    // not found — return helpful debug info in non-prod
+    // not found - return helpful debug info in non-prod
     if (process.env.NODE_ENV !== "production") {
       const payload = { images: [], debug: { tried: decoded, indexed: Array.from(productsIndex ? productsIndex.keys() : []) } };
       try { responseCache.set(cacheKey, { expires: Date.now() + RESPONSE_TTL_MS, payload }); } catch (e) {}

@@ -181,7 +181,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Performance & SEO: preload hero image(s) */}
         {/* preload primary hero image for LCP improvement */}
         <link rel="preload" as="image" href="/2.webp" />
-        {/* hero preloads removed — hero-1.jpg / hero-2.jpg were missing and caused 404s; consider preloading actual existing hero images if available */}
+        {/* hero preloads removed - hero-1.jpg / hero-2.jpg were missing and caused 404s; consider preloading actual existing hero images if available */}
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#102a6d" />
 

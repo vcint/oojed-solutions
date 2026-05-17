@@ -253,7 +253,7 @@ export default function HomePage() {
               <h3 className="text-xl md:text-2xl font-semibold text-foreground">How We Work</h3>
               <ul className="mt-6 space-y-4 text-muted-foreground text-sm list-disc list-inside">
                 <li><strong>Site Survey First:</strong> We assess your roof, electrical capacity, water usage and local regulations before any proposal.</li>
-                <li><strong>Transparent Pricing:</strong> Our quotes itemize every cost—no hidden charges, no upselling. We disclose expected subsidies upfront.</li>
+                <li><strong>Transparent Pricing:</strong> Our quotes itemize every cost - no hidden charges, no upselling. We disclose expected subsidies upfront.</li>
                 <li><strong>Professional Installation:</strong> Licensed engineers and certified installers handle all work with quality inspections and performance testing.</li>
                 <li><strong>Long-term Support:</strong> Optional AMC programs include preventive maintenance, emergency response, and remote performance monitoring.</li>
                 <li><strong>Local Expertise:</strong> We understand Pune and Pimpri-Chinchwad's climate, water hardness, electricity tariffs, and local regulations.</li>

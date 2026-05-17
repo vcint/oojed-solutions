@@ -81,7 +81,7 @@ export async function generateMetadata({ params }: { params: any }) {
 
   const cat = findCategory(params.category);
   const catName = cat?.name || 'Category';
-  const title = `${catName} in ${cityName} — Installation, Repair, AMC | OOJED`;
+  const title = `${catName} in ${cityName} - Installation, Repair, AMC | OOJED`;
   const baseDesc = localizeText(cat?.metaDescription || cat?.desc || cat?.long || `Explore ${catName}.`, cityName);
   const description = `${baseDesc} Available in ${cityName} with site survey, installation, and AMC.`;
   const url = `https://oojed.com/locations/${encodeURIComponent(params.city)}/${encodeURIComponent(params.category)}`;
@@ -266,7 +266,7 @@ export default async function CityCategoryPage({ params }: { params: any }) {
 
       {combinedFaqs.length > 0 && (
         <section className="mt-8" aria-labelledby="city-category-faqs">
-          <h2 id="city-category-faqs" className="text-xl font-semibold">Frequently asked questions — {cityName}</h2>
+          <h2 id="city-category-faqs" className="text-xl font-semibold">Frequently asked questions - {cityName}</h2>
           <div className="mt-4">
             <FaqAccordion
               items={combinedFaqs}
@@ -302,9 +302,9 @@ export default async function CityCategoryPage({ params }: { params: any }) {
       <section className="mt-8 border-t pt-6">
         <h2 className="text-xl font-semibold">Related product categories</h2>
         <ul className="list-disc list-inside mt-2 space-y-1">
-          <li><Link href="/products/solar-water-heaters" className="text-blue-700 hover:underline">Solar Water Heaters — ETC/FPC systems with installation & AMC</Link></li>
-          <li><Link href="/products/led-lighting" className="text-blue-700 hover:underline">LED Street & Flood Lighting — IP65, surge protected</Link></li>
-          <li><Link href="/products/solar-pumps" className="text-blue-700 hover:underline">Solar Water Pumps — correctly sized head/flow with MPPT/VFD</Link></li>
+          <li><Link href="/products/solar-water-heaters" className="text-blue-700 hover:underline">Solar Water Heaters - ETC/FPC systems with installation & AMC</Link></li>
+          <li><Link href="/products/led-lighting" className="text-blue-700 hover:underline">LED Street & Flood Lighting - IP65, surge protected</Link></li>
+          <li><Link href="/products/solar-pumps" className="text-blue-700 hover:underline">Solar Water Pumps - correctly sized head/flow with MPPT/VFD</Link></li>
         </ul>
       </section>
 

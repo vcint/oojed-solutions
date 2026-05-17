@@ -2,7 +2,7 @@ import site from '@/data/site.json';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Service Areas — OOJED',
+  title: 'Service Areas - OOJED',
   description: 'Service areas focused on Pune, Pimpri Chinchwad, Lonavala and nearby localities for solar water heaters, pumps, LED lighting, and installation/AMC services.',
   alternates: { canonical: 'https://oojed.com/locations' },
 };
