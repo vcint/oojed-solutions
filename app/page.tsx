@@ -51,8 +51,8 @@ if (Array.isArray((data as any).services)) {
 
 const homeKeywords = Array.from(baseKeywordSet).slice(0, 30);
 
-const homeTitle = 'OOJED: Trusted Solar Solutions in Maharashtra (11+ Years)';
-const homeDescription = 'OOJED delivers reliable solar water heaters, rooftop solar & LED lighting across Maharashtra. 11+ years of honest service & fair pricing. Get a free quote.';
+const homeTitle = 'OOJED: Trusted Solar Solutions in Pune, Pimpri Chinchwad & Lonavala';
+const homeDescription = 'OOJED delivers reliable solar water heaters, rooftop solar & LED lighting in Pune, Pimpri Chinchwad, Lonavala and nearby areas. 11+ years of honest service & fair pricing. Get a free quote.';
 
 export const generateMetadata = (): Metadata => {
   return generatePageMetadata('/', homeTitle, homeDescription);
@@ -81,7 +81,7 @@ const localBusinessJsonLd = {
   address: {
     "@type": "PostalAddress",
     streetAddress: (data as any).contacts?.puneOffice || undefined,
-    addressLocality: "Pune",
+    addressLocality: "Pimpri-Chinchwad",
     addressRegion: "Maharashtra",
     postalCode: "411033",
     addressCountry: "IN",
@@ -129,7 +129,7 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "How long does solar installation take in Pune?",
+      name: "How long does solar installation take in Pune and Pimpri Chinchwad?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Most residential solar water heater installations are completed within 4-6 hours after the survey. Small rooftop solar power systems typically take 1-2 days, depending on site readiness and permissions."
@@ -145,10 +145,10 @@ const faqJsonLd = {
     },
     {
       "@type": "Question",
-      name: "Does OOJED provide AMC services across Maharashtra?",
+      name: "Does OOJED provide AMC services in Pune, Pimpri Chinchwad and Lonavala?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. We offer Annual Maintenance Contracts with scheduled preventive visits, performance checks, and priority breakdown support across Maharashtra and Goa. Our local teams understand regional challenges like hard water and grid instability."
+        text: "Yes. We offer Annual Maintenance Contracts with scheduled preventive visits, performance checks, and priority breakdown support across Pune, Pimpri Chinchwad, Lonavala and nearby areas. Our local teams understand regional challenges like hard water and grid instability."
       }
     }
   ]
@@ -177,35 +177,55 @@ export default function HomePage() {
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-background via-transparent to-transparent pointer-events-none" />
           <div className="container relative">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Solar that works. No jargon, no hassles.</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Professional Solar Energy Solutions Built on 11+ Years of Trust</h2>
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                We follow a straightforward process that keeps you informed, your roof safe, and your solar system performing exactly as promised.
+                OOJED delivers turnkey solar systems for residences, businesses, and institutions across Pune, Pimpri-Chinchwad, and Lonavala. We combine transparent pricing, engineering excellence, local expertise, and unwavering after-sales support to make solar simple, predictable, and profitable.
               </p>
             </div>
             <div className="mt-10 grid grid-cols-1 md:grid-cols-4 gap-6 text-sm text-muted-foreground">
               {[
                 {
-                  title: '01 · Discover',
-                  body: 'Site survey, load assessment, shading analysis and photo logs.',
+                  title: '01 · Assessment',
+                  body: 'Professional site survey with structural analysis, shading study, electrical audit and detailed photo documentation.',
                 },
                 {
-                  title: '02 · Design',
-                  body: 'Right-sized systems, drawings, BOMs and ROI aligned to BIS/MNRE.',
+                  title: '02 · Engineering',
+                  body: 'Custom system design with BIS/MNRE compliance, itemized quotations, ROI analysis and subsidy guidance.',
                 },
                 {
-                  title: '03 · Deploy',
-                  body: 'Project managers handle logistics, permissions, safety protocols and commissioning.',
+                  title: '03 · Execution',
+                  body: 'Project-managed installation with quality inspections, safety protocols, performance testing and customer handover training.',
                 },
                 {
-                  title: '04 · Support',
-                  body: 'AMC visits, monitoring, warranty coordination and emergency callouts across Maharashtra.',
+                  title: '04 · Assurance',
+                  body: 'Warranty support, optional AMC with 24/7 emergency response, remote monitoring, and proactive maintenance across all areas.',
                 },
               ].map((step) => (
-                <div key={step.title} className="glass px-5 py-6 rounded-xl">
+                <div key={step.title} className="glass px-5 py-6 rounded-xl border border-slate-200 dark:border-white/10">
                   <h3 className="text-xl md:text-2xl font-semibold text-foreground">{step.title}</h3>
-                  <p className="mt-3 leading-relaxed text-muted-foreground">{step.body}</p>
+                  <p className="mt-3 leading-relaxed text-muted-foreground text-xs md:text-sm">{step.body}</p>
                 </div>
               ))}
+            </div>
+
+            {/* Trust Metrics */}
+            <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 rounded-xl border border-slate-200 dark:border-white/10 bg-gradient-to-r from-blue-50/50 to-slate-50/50 dark:from-[#102a6d]/10 dark:to-transparent p-6">
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#102a6d] dark:text-[#8bb8ff]">11+</div>
+                <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-semibold mt-1">Years of Excellence</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#102a6d] dark:text-[#8bb8ff]">350+</div>
+                <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-semibold mt-1">Projects Completed</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#102a6d] dark:text-[#8bb8ff]">25+ MWp</div>
+                <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-semibold mt-1">Installed Capacity</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-[#102a6d] dark:text-[#8bb8ff]">60+</div>
+                <div className="text-xs md:text-sm text-slate-700 dark:text-slate-300 font-semibold mt-1">Active AMC Contracts</div>
+              </div>
             </div>
           </div>
         </section>
@@ -213,33 +233,31 @@ export default function HomePage() {
         <section className="container py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Industries we serve</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">What We Deliver</h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                We adapt systems for housing societies, manufacturers, hospitality, campuses and municipal sites with proposals tuned to usage patterns, compliance needs and budgets for teams new to solar.
+                OOJED specializes in solar water heating systems, rooftop solar power plants with net-metering, solar water pumps, and LED lighting projects. We handle everything from site analysis and engineering to installation, testing, and multi-year maintenance contracts.
               </p>
               <ul className="mt-6 space-y-3 text-muted-foreground text-sm">
-                <li>Residential societies, hostels and hospitals needing reliable hot water.</li>
-                <li>MSME and industrial units cutting energy use while meeting safety norms.</li>
-                <li>Schools, colleges and offices adopting rooftop solar with monitoring.</li>
-                <li>Municipal corporations adopting LED street and high-mast lighting with AMC.</li>
+                <li><strong>Solar Water Heaters:</strong> ETC and FPC systems sized for your hot water needs with polymer-coated tanks designed for hard water.</li>
+                <li><strong>Rooftop Solar Power Plants:</strong> Grid-tied systems with net-metering approvals, customized for your electricity consumption and roof space.</li>
+                <li><strong>Solar Water Pumps:</strong> DC and AC pump systems for bore wells and agricultural applications, sized to your head and flow requirements.</li>
+                <li><strong>LED Lighting Solutions:</strong> Professional-grade LED systems for various applications with proper electrical design and safety compliance.</li>
               </ul>
+              <div className="mt-8 p-4 rounded-lg bg-blue-50 dark:bg-[#102a6d]/10 border border-blue-200 dark:border-blue-900">
+                <p className="text-xs text-slate-700 dark:text-slate-300 font-semibold">
+                  <strong>Our approach:</strong> We listen to your needs, design appropriate solutions, provide transparent pricing, and maintain systems responsibly over the long term.
+                </p>
+              </div>
             </div>
-            <div className="glass p-6 rounded-xl">
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground">Some of our proudest moments</h3>
-              <dl className="mt-4 space-y-4 text-muted-foreground text-sm">
-                <div>
-                  <dt className="font-semibold text-foreground">45,000 LPD solar water heater retrofit</dt>
-                  <dd className="text-muted-foreground">Polymer-coated tanks, controllers and smart manifolds for a 320-apartment society in Pune.</dd>
-                </div>
-                <div>
-                  <dt className="font-semibold text-foreground">80+ rooftop solar with net-metering</dt>
-                  <dd className="text-muted-foreground">Campus EPC with remote monitoring, student dashboards and subsidy documentation.</dd>
-                </div>
-                <div>
-                  <dt className="font-semibold text-foreground">Hybrid LED street & high-mast lighting</dt>
-                  <dd className="text-muted-foreground">Photometric design, poles, trenching and AMC for 9 km of municipal roads.</dd>
-                </div>
-              </dl>
+            <div className="glass p-8 rounded-xl border border-slate-200 dark:border-white/10">
+              <h3 className="text-xl md:text-2xl font-semibold text-foreground">How We Work</h3>
+              <ul className="mt-6 space-y-4 text-muted-foreground text-sm list-disc list-inside">
+                <li><strong>Site Survey First:</strong> We assess your roof, electrical capacity, water usage and local regulations before any proposal.</li>
+                <li><strong>Transparent Pricing:</strong> Our quotes itemize every cost—no hidden charges, no upselling. We disclose expected subsidies upfront.</li>
+                <li><strong>Professional Installation:</strong> Licensed engineers and certified installers handle all work with quality inspections and performance testing.</li>
+                <li><strong>Long-term Support:</strong> Optional AMC programs include preventive maintenance, emergency response, and remote performance monitoring.</li>
+                <li><strong>Local Expertise:</strong> We understand Pune and Pimpri-Chinchwad's climate, water hardness, electricity tariffs, and local regulations.</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -271,7 +289,7 @@ export default function HomePage() {
                 },
                 {
                   stat: '100+ sites',
-                  body: 'Completed across Maharashtra and nearby states.',
+                  body: 'Completed across Pune, Pimpri Chinchwad, Lonavala and nearby areas.',
                 },
               ].map((item) => (
                 <div key={item.stat} className="rounded-xl border border-border bg-card p-6 shadow-lg">
@@ -292,10 +310,6 @@ export default function HomePage() {
                   "Simplified our solar transition with surveys, paperwork and execution. Regular updates, zero surprises."
                   <span className="mt-3 block font-semibold not-italic text-foreground">Head of Admin, Industrial Supplier - Pune</span>
                 </blockquote>
-                <blockquote className="border-l-4 border-primary pl-4 italic">
-                  "LED upgrade reduced downtime. AMC tickets resolved quickly by technicians who know our layout."
-                  <span className="mt-3 block font-semibold not-italic text-foreground">Electrical Engineer, Municipal Corporation</span>
-                </blockquote>
               </div>
             </div>
             <div className="rounded-xl border border-border glass p-5 shadow-none">
@@ -304,9 +318,9 @@ export default function HomePage() {
                 Share your energy spend, roof photos or lighting layouts. We will prepare an assessment within five working days with capacities, subsidy eligibility and timelines.
               </p>
               <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                <li>Residential: hot water, rooftop solar, LED upgrades.</li>
-                <li>Institutions: hybrid plants, dashboards, hostel hot water.</li>
-                <li>Industry: process heating, pump automation, energy dashboards.</li>
+                <li>Solar water heater systems for residential use.</li>
+                <li>Rooftop solar power plants with net-metering.</li>
+                <li>Solar pumps and LED lighting solutions.</li>
               </ul>
               <Button href="/contact" variant="gradient" className="mt-6 w-full sm:w-auto">
                 Let's Talk Solar
@@ -317,12 +331,62 @@ export default function HomePage() {
 
         <Products />
         <Benefits />
+
+        <section className="bg-gradient-to-b from-blue-50 to-white dark:from-[#102a6d]/20 dark:to-transparent">
+          <div className="container py-12 md:py-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center">Where We Serve: Pune, Pimpri-Chinchwad & Lonavala</h2>
+            <p className="mt-4 text-center text-muted-foreground max-w-2xl mx-auto">
+              Trusted solar, LED and renewable energy solutions across Pune metropolitan area and Lonavala. Over a decade of local expertise, same-day surveys, and round-the-clock support.
+            </p>
+            
+            <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  city: 'Pune',
+                  focus: 'Solar water heaters, rooftop solar & LED lighting across metro areas',
+                  areas: 'Kalyani Nagar, Kothrud, Baner, Hinjawadi, Hadapsar, Kharadi & more',
+                  keywords: 'Solar water heater Pune • Solar power plant Pune • LED lighting Pune'
+                },
+                {
+                  city: 'Pimpri-Chinchwad',
+                  focus: 'Industrial solar EPC, solar pumps & institutional AMC contracts',
+                  areas: 'Wakad, Aundh, Pimpri, Nigdi, Ravet, Bhosari & surrounding',
+                  keywords: 'Solar Pimpri Chinchwad • Solar pump PCMC • Industrial solar EPC'
+                },
+                {
+                  city: 'Lonavala',
+                  focus: 'Resort & holiday home solar solutions with hill-specific design',
+                  areas: 'Lonavala, Khandala & nearby hill stations',
+                  keywords: 'Solar Lonavala • Monsoon-rated solar systems • Hill station solar'
+                },
+              ].map((item) => (
+                <Link key={item.city} href={`/locations/${item.city.toLowerCase()}`} className="group rounded-xl border border-border bg-white dark:bg-[#0f1f36] p-6 shadow-md hover:shadow-lg hover:border-primary/50 transition-all">
+                  <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition">{item.city}</h3>
+                  <p className="mt-3 text-sm text-muted-foreground">{item.focus}</p>
+                  <p className="mt-2 text-xs text-muted-foreground/70 font-medium">Areas: {item.areas}</p>
+                  <p className="mt-4 text-xs text-blue-600 dark:text-blue-400 font-semibold">{item.keywords}</p>
+                  <div className="mt-4 flex items-center text-primary font-semibold text-sm">
+                    View details <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <p className="text-muted-foreground text-sm mb-4">
+                <span className="font-semibold">Service radius:</span> We also serve Talegaon Dabhade, Chakan, Dehu, PCMC and surrounding towns. <Link href="/locations" className="text-primary hover:underline">Explore all service areas</Link>.
+              </p>
+              <Button href="/contact" variant="gradient">Get Free Survey & Quotation</Button>
+            </div>
+          </div>
+        </section>
+
         <section className="container py-12 md:py-16">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">Ready to switch to solar?</h2>
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                Join hundreds of satisfied customers in Maharashtra who are saving money and energy every day.
+                Join hundreds of satisfied customers in Pune, Pimpri-Chinchwad and Lonavala who are saving money and energy every day.
                 Whether it's a simple water heater or a complete rooftop power plant, we make the process easy.
               </p>
               <ul className="mt-8 space-y-4">

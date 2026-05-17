@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import TrustBar from '@/components/TrustBar';
 import FaqAccordion from '@/components/FaqAccordion';
+import { generateCityFAQs } from '@/lib/city-faq-generator';
 
 const toSlug = (s: string) => String(s || '').toLowerCase().replace(/\s+/g, '-');
 const fromSlug = (slug: string) => {
@@ -76,7 +77,7 @@ export default function CityPage({ params }: { params: any }) {
         <div className="lg:col-span-2 rounded-xl border bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36] dark:shadow-[0_18px_45px_rgba(0,0,0,0.55)]">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why OOJED in {cityName}</h2>
           <p className="mt-3 text-slate-700 leading-relaxed dark:text-slate-200">
-            {localizeCity('Since 2014 we have executed residential, industrial and institutional solar projects across {{city}}, navigating roof-space constraints, water quality challenges, utility permissions and occupancy schedules unique to the region.', cityName)}
+            {localizeCity('OOJED specializes in solar water heaters, rooftop solar power plants, solar pumps, and LED lighting systems. We handle everything from site assessment to installation, testing, and long-term maintenance.', cityName)}
           </p>
           <ul className="mt-4 grid grid-cols-1 gap-3 text-sm text-slate-700 dark:text-slate-200 sm:grid-cols-2">
             <li className="rounded-lg border bg-slate-50 p-3 shadow-sm dark:border-white/10 dark:bg-white/5">
@@ -102,15 +103,15 @@ export default function CityPage({ params }: { params: any }) {
           <ul className="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-200">
             <li>
               <span className="block text-3xl font-bold text-slate-900">350+</span>
-              {localizeCity('Solar water heater installations completed in housing societies, hotels and hostels around {{city}}.', cityName)}
+              Solar water heater systems designed and installed across {cityName}.
             </li>
             <li>
               <span className="block text-3xl font-bold text-slate-900">25 MWp</span>
-              {localizeCity('Rooftop solar capacity engineered with net-metering approvals for industries, institutions and commercial complexes in {{city}}.', cityName)}
+              Rooftop solar capacity deployed with net-metering approvals in {cityName}.
             </li>
             <li>
               <span className="block text-3xl font-bold text-slate-900">60+</span>
-              {localizeCity('Active AMC contracts serviced with guaranteed response SLAs inside {{city}} limits.', cityName)}
+              Active maintenance contracts with guaranteed response in {cityName}.
             </li>
           </ul>
         </div>
@@ -171,35 +172,31 @@ export default function CityPage({ params }: { params: any }) {
       </section>
 
       <section className="mt-8 rounded-xl border bg-white/60 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36]">
-        <h2 className="text-xl font-semibold text-slate-900">Recent deployments</h2>
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">What We Can Deliver</h2>
         <div className="mt-4 grid grid-cols-1 gap-4 text-sm text-slate-700 dark:text-slate-200 md:grid-cols-3">
           <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
-            <h3 className="font-semibold text-slate-900">{localizeCity('Skyline Heights Cooperative', cityName)}</h3>
-            <p className="mt-2">{localizeCity('45,000 LPD solar water heating retrofit with polymer-coated tanks and automation for staggered supply in {{city}}.', cityName)}</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white">Solar Water Heaters</h3>
+            <p className="mt-2">ETC and FPC systems sized for your hot water needs. Professional installation with testing, training and AMC support in {cityName}.</p>
           </div>
           <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
-            <h3 className="font-semibold text-slate-900">{localizeCity('Sunbeam International School', cityName)}</h3>
-            <p className="mt-2">{localizeCity('80 kWp rooftop solar with remote monitoring dashboards and classroom awareness program.', cityName)}</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white">Rooftop Solar Power</h3>
+            <p className="mt-2">Grid-tied systems with net-metering approvals. Custom engineering for your roof space and electricity consumption.</p>
           </div>
           <div className="h-full rounded-lg border p-4 dark:border-white/10 dark:bg-white/5">
-            <h3 className="font-semibold text-slate-900">{localizeCity('Riverfront Industrial Estate', cityName)}</h3>
-            <p className="mt-2">{localizeCity('Hybrid solar + high-mast LED lighting upgrade for internal roads, loading bays and security perimeters.', cityName)}</p>
+            <h3 className="font-semibold text-slate-900 dark:text-white">Solar Pumps & LED</h3>
+            <p className="mt-2">Water pumps for bore wells and agricultural use. Professional LED systems with proper design and safety compliance.</p>
           </div>
         </div>
       </section>
 
       <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="rounded-xl border bg-white/70 p-6 shadow-sm dark:border-white/10 dark:bg-[#0f1f36]">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">What customers say</h2>
-          <div className="mt-4 space-y-4 text-sm text-slate-700 dark:text-slate-200">
-            <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-3 italic">
-              {localizeCity('“OOJED completed our hostel solar water heating upgrade ahead of schedule and continues to service the system promptly in {{city}}.”', cityName)}
-              <span className="block mt-2 font-semibold not-italic text-slate-900 dark:text-white">— Facilities Head, Hospitality Group</span>
-            </blockquote>
-            <blockquote className="border-l-4 border-[#102a6d] dark:border-[#5ea8ff] pl-3 italic">
-              {localizeCity('“Their rooftop solar plant reduced our demand charges immediately, and the AMC team in {{city}} keeps performance on track.”', cityName)}
-              <span className="block mt-2 font-semibold not-italic text-slate-900 dark:text-white">— Operations Lead, Manufacturing Unit</span>
-            </blockquote>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Why Choose Us</h2>
+          <div className="mt-4 space-y-3 text-sm text-slate-700 dark:text-slate-200">
+            <p><strong>Local Expertise:</strong> We understand {cityName}'s climate, water quality, and regulations.</p>
+            <p><strong>Transparent Pricing:</strong> All quotations itemize every cost upfront.</p>
+            <p><strong>Professional Installation:</strong> Licensed engineers and certified installers with quality testing.</p>
+            <p><strong>Long-term Support:</strong> Optional AMC programs with preventive maintenance and emergency response.</p>
           </div>
         </div>
         <div className="border rounded-xl bg-gradient-to-b from-blue-50 to-white p-6 shadow-sm dark:border-white/10 dark:from-[#102a6d]/40 dark:to-[#0b1729]">
@@ -228,25 +225,7 @@ export default function CityPage({ params }: { params: any }) {
       {
         (() => {
           const phone = (site as any).contacts?.phones?.[0] || (site as any).contacts?.phone || '';
-          const baseFaq = [
-            { q: `Do you serve all areas of ${cityName}?`, a: `Yes, we serve most neighbourhoods in ${cityName} and nearby areas. Share your location for scheduling.` },
-            { q: `How quickly can installation be scheduled in ${cityName}?`, a: `For standard residential installations we typically schedule within 2–7 business days after a site survey and material confirmation; larger or custom projects may take longer.` },
-            { q: `Do you provide post-installation service in ${cityName}?`, a: `Yes. We provide repair visits and Annual Maintenance Contracts (AMC) with defined SLAs. Call ${phone} to book a service visit.` },
-            { q: `Do you assist with subsidies and net-metering for ${cityName}?`, a: `Yes. We advise on state/city subsidy schemes and assist with net-metering paperwork where applicable.` },
-            { q: `What areas do your warranties and service cover in ${cityName}?`, a: `Warranties vary by product: tubes and tanks typically have multi-year warranties while service support and AMC are available across ${cityName}. We explain warranty terms during the quote.` },
-            { q: `Can you do installations on apartment blocks or multi-storey buildings in ${cityName}?`, a: `Yes. We provision manifold/pressurized systems and booster arrangements for multi-storey buildings; we also provide structural mounting and civil drawings as required.` },
-            { q: `What preparations are needed before a site survey in ${cityName}?`, a: `Please share roof access details, expected hot‑water usage (family size), and any existing plumbing constraints. Photos help speed up the survey.` },
-            { q: `Do you supply spare parts and emergency support in ${cityName}?`, a: `We stock common spare parts and offer emergency repair visits; contact ${phone} for urgent requests.` },
-          ];
-
-          // Category-focused FAQs to increase keyword coverage
-          const categoryFaqs = [
-            { q: `Which solar water heater model is recommended for ${cityName}?`, a: `We recommend ETC or FPC systems based on roof orientation, water usage and local climate. Our site survey in ${cityName} determines the best choice.` },
-            { q: `Can you install LED street lighting projects in ${cityName}?`, a: `Yes. We design photometric layouts, provide poles/masts and deliver complete installation for municipal and commercial projects in ${cityName}.` },
-            { q: `Do you size solar pumps for agricultural sites near ${cityName}?`, a: `Yes. We size pumps to required head and flow. Provide bore depth, desired discharge and irrigation schedule for an accurate quote.` },
-          ];
-
-          const faqs = [...baseFaq, ...categoryFaqs];
+          const faqs = generateCityFAQs(cityName, phone);
 
           return (
             <>
