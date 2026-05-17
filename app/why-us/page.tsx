@@ -3,7 +3,7 @@ import data from '@/data/site.json';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Why Choose OOJED — Experience, Quality & Support',
+  title: 'Why Choose OOJED - Experience, Quality & Support',
   description: 'Discover why businesses across Maharashtra trust OOJED for solar water heating, rooftop solar, pumps and LED lighting projects.',
   alternates: { canonical: 'https://oojed.com/why-us' },
 };
