@@ -4,7 +4,6 @@ import Image from "next/image";
 const brands = [
     { name: 'Vikram Solar', file: 'vikram-solar.jpg' },
     { name: 'Waaree Energies', file: 'Waaree-logo.png' },
-    { name: 'Greensense', file: 'greensense.png' },
     { name: 'Exide', file: 'exide-logo.png' },
     { name: 'Luminous', file: 'LuminousLogoBlue.webp' },
     { name: 'Satvik', file: 'Satvik-logo.png' },
