@@ -1,4 +1,5 @@
 ﻿import site from '@/data/site.json';
+import neighborhoods from '@/data/neighborhoods.json';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import TrustBar from '@/components/TrustBar';
@@ -244,6 +245,34 @@ export default function CityPage({ params }: { params: any }) {
                 })
               }} />
             </>
+          );
+        })()
+      }
+
+      {/* Neighborhoods section for hyperlocal SEO */}
+      {
+        (() => {
+          const nhData = neighborhoods as any;
+          const cityNhData = nhData.neighborhoods[params.city] || [];
+          
+          if (cityNhData.length === 0) return null;
+          
+          return (
+            <section className="mt-12">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Service neighborhoods in {cityName}</h2>
+              <p className="text-slate-700 dark:text-slate-200 mb-6">OOJED provides solar installation, repair and AMC services across all neighborhoods in {cityName}. Click below to see details for your area:</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                {cityNhData.map((neighborhood: any) => (
+                  <Link
+                    key={neighborhood.slug}
+                    href={`/locations/neighborhoods/${params.city}-${neighborhood.slug}`}
+                    className="px-4 py-3 rounded-lg border border-blue-300 dark:border-blue-900 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-900 dark:text-blue-200 font-medium transition text-center"
+                  >
+                    {neighborhood.name}
+                  </Link>
+                ))}
+              </div>
+            </section>
           );
         })()
       }

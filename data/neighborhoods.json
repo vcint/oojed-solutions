@@ -1,0 +1,196 @@
+{
+  "neighborhoods": {
+    "pune": [
+      {
+        "name": "Aundh",
+        "slug": "aundh",
+        "keywords": ["Solar Aundh", "Solar water heater Aundh", "Rooftop solar Aundh", "Solar installation Aundh"],
+        "description": "Upscale residential area with modern housing societies and villas requiring solar water heaters and rooftop solar systems."
+      },
+      {
+        "name": "Baner",
+        "slug": "baner",
+        "keywords": ["Solar Baner", "Solar Baner Pune", "Solar panel installation Baner"],
+        "description": "Premium residential locality with high adoption of green energy and well-maintained housing societies."
+      },
+      {
+        "name": "Balewadi",
+        "slug": "balewadi",
+        "keywords": ["Solar Balewadi", "Solar water heater Balewadi", "Solar systems Balewadi"],
+        "description": "Growing residential area with IT park proximity, ideal for rooftop solar installations on residential and commercial buildings."
+      },
+      {
+        "name": "Hadapsar",
+        "slug": "hadapsar",
+        "keywords": ["Solar Hadapsar", "Solar Hadapsar Pune", "LED lighting Hadapsar"],
+        "description": "Industrial and residential mix with high commercial solar demand for factories and businesses."
+      },
+      {
+        "name": "Hinjawadi",
+        "slug": "hinjawadi",
+        "keywords": ["Solar Hinjawadi", "Rooftop solar Hinjawadi", "Solar for tech parks Hinjawadi"],
+        "description": "Major IT hub with large commercial complexes, ideal for industrial-scale rooftop solar and LED street lighting projects."
+      },
+      {
+        "name": "Kalyani Nagar",
+        "slug": "kalyani-nagar",
+        "keywords": ["Solar Kalyani Nagar", "Solar water heater Kalyani Nagar", "Solar Kalyani"],
+        "description": "Affluent residential area with established infrastructure and strong demand for premium solar solutions."
+      },
+      {
+        "name": "Kothrud",
+        "slug": "kothrud",
+        "keywords": ["Solar Kothrud", "Solar installation Kothrud", "Solar panel Kothrud"],
+        "description": "Well-developed residential locality with mixed housing types from independent homes to housing societies."
+      },
+      {
+        "name": "Kondhwa",
+        "slug": "kondhwa",
+        "keywords": ["Solar Kondhwa", "Solar Kondhwa Pune", "Solar water heating Kondhwa"],
+        "description": "Suburban residential area with growing infrastructure and increasing solar adoption."
+      },
+      {
+        "name": "Mundhwa",
+        "slug": "mundhwa",
+        "keywords": ["Solar Mundhwa", "Solar systems Mundhwa", "Rooftop solar Mundhwa"],
+        "description": "Residential locality with mix of villas and apartments requiring customized solar solutions."
+      },
+      {
+        "name": "Pashan",
+        "slug": "pashan",
+        "keywords": ["Solar Pashan", "Solar Pashan Pune", "Solar installation Pashan"],
+        "description": "Premium residential area near Pashan Lake with eco-conscious residents preferring solar energy."
+      },
+      {
+        "name": "Paud Road",
+        "slug": "paud-road",
+        "keywords": ["Solar Paud Road", "Solar Paud", "Solar installation Paud Road Pune"],
+        "description": "Scenic area with residential complexes and emerging commercial zones."
+      },
+      {
+        "name": "Shivajinagar",
+        "slug": "shivajinagar",
+        "keywords": ["Solar Shivajinagar", "Solar Shivajinagar Pune", "Solar services Shivajinagar"],
+        "description": "Central Pune locality with dense residential and commercial presence."
+      },
+      {
+        "name": "Viman Nagar",
+        "slug": "viman-nagar",
+        "keywords": ["Solar Viman Nagar", "Solar Viman Nagar Pune", "Rooftop solar Viman"],
+        "description": "Well-planned residential area near airport with modern infrastructure."
+      },
+      {
+        "name": "Warje",
+        "slug": "warje",
+        "keywords": ["Solar Warje", "Solar Warje Pune", "Solar installation Warje"],
+        "description": "Residential locality with increasing demand for solar solutions in a green neighborhood."
+      },
+      {
+        "name": "Boat Club",
+        "slug": "boat-club",
+        "keywords": ["Solar Boat Club", "Solar Boat Club Pune", "Solar near Boat Club"],
+        "description": "Premium central location with upscale residential buildings."
+      },
+      {
+        "name": "Camp",
+        "slug": "camp",
+        "keywords": ["Solar Camp", "Solar Camp Pune", "Solar installations in Camp"],
+        "description": "Historic residential area in central Pune with established communities."
+      },
+      {
+        "name": "Deccan",
+        "slug": "deccan",
+        "keywords": ["Solar Deccan", "Solar Deccan Pune", "Solar at Deccan"],
+        "description": "Vibrant residential and commercial area with high residential density."
+      },
+      {
+        "name": "Pimple Saudagar",
+        "slug": "pimple-saudagar",
+        "keywords": ["Solar Pimple Saudagar", "Solar Pimple Saudagar Pune", "Solar Pimple"],
+        "description": "Suburban residential area with growing infrastructure and solar adoption."
+      },
+      {
+        "name": "Katraj",
+        "slug": "katraj",
+        "keywords": ["Solar Katraj", "Solar Katraj Pune", "Solar systems Katraj"],
+        "description": "Southern Pune locality with residential and agricultural areas benefiting from solar pumps."
+      },
+      {
+        "name": "Dhanori",
+        "slug": "dhanori",
+        "keywords": ["Solar Dhanori", "Solar Dhanori Pune", "Solar installation Dhanori"],
+        "description": "Developing area with mix of residential and agricultural land suitable for solar solutions."
+      }
+    ],
+    "pimpri-chinchwad": [
+      {
+        "name": "Pimpri",
+        "slug": "pimpri",
+        "keywords": ["Solar Pimpri", "Solar Pimpri PCMC", "Solar installation Pimpri"],
+        "description": "Industrial hub with factories and manufacturing units requiring commercial solar and LED solutions."
+      },
+      {
+        "name": "Chinchwad",
+        "slug": "chinchwad",
+        "keywords": ["Solar Chinchwad", "Solar Chinchwad PCMC", "Solar systems Chinchwad"],
+        "description": "Major residential and commercial area with high solar demand for homes and businesses."
+      },
+      {
+        "name": "Wakad",
+        "slug": "wakad",
+        "keywords": ["Solar Wakad", "Solar Wakad PCMC", "Rooftop solar Wakad"],
+        "description": "Developed residential area with high-rise apartments and villas adopting renewable energy."
+      },
+      {
+        "name": "Nigdi",
+        "slug": "nigdi",
+        "keywords": ["Solar Nigdi", "Solar Nigdi PCMC", "Solar installation Nigdi"],
+        "description": "Industrial zone with manufacturing plants and residential areas requiring solar solutions."
+      },
+      {
+        "name": "Ravet",
+        "slug": "ravet",
+        "keywords": ["Solar Ravet", "Solar Ravet PCMC", "Solar systems Ravet"],
+        "description": "Developing industrial area with commercial and residential solar opportunities."
+      },
+      {
+        "name": "Bhosari",
+        "slug": "bhosari",
+        "keywords": ["Solar Bhosari", "Solar Bhosari PCMC", "Solar Bhosari installation"],
+        "description": "Industrial and residential area with strong demand for rooftop solar on factories."
+      },
+      {
+        "name": "Aundh",
+        "slug": "aundh-pcmc",
+        "keywords": ["Solar Aundh PCMC", "Solar Aundh", "Solar installation Aundh Pune"],
+        "description": "Border area with upscale residential colonies."
+      },
+      {
+        "name": "Moshi",
+        "slug": "moshi",
+        "keywords": ["Solar Moshi", "Solar Moshi PCMC", "Solar systems Moshi"],
+        "description": "Agricultural and residential area with solar pump and water heater demand."
+      },
+      {
+        "name": "Chakan",
+        "slug": "chakan",
+        "keywords": ["Solar Chakan", "Solar Chakan PCMC", "Solar installation Chakan"],
+        "description": "Industrial area with manufacturing units and rural communities benefiting from solar pumps."
+      }
+    ],
+    "lonavala": [
+      {
+        "name": "Lonavala",
+        "slug": "lonavala",
+        "keywords": ["Solar Lonavala", "Solar installation Lonavala", "Solar systems Lonavala"],
+        "description": "Hill station with resorts, hotels, and residences requiring monsoon-resistant solar solutions."
+      },
+      {
+        "name": "Khandala",
+        "slug": "khandala",
+        "keywords": ["Solar Khandala", "Solar Khandala installation", "Solar systems Khandala"],
+        "description": "Scenic hill area with tourism infrastructure and residential properties."
+      }
+    ]
+  }
+}
